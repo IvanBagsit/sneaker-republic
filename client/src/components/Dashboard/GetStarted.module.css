@@ -1,0 +1,124 @@
+.background {
+    height: 100vh;
+    width: 100vw;
+    background: #f1ffbb;
+}
+
+.slideUp {
+    animation: slideUp 0.7s linear forwards;
+}
+
+.subtitle{
+    height: 10vh;
+    width: 25vw;
+    text-align: center;
+    animation: subtitle-stomped 0.5s 0.3s linear;
+}
+
+.line {
+    border: 1px solid #000000;
+    background-color: #000000;
+    height: 1vh;
+    width: 45vw;
+    animation: logo-stomped 0.5s 0.3s linear;
+}
+
+.title {
+    animation: title-drop 0.3s cubic-bezier(0.325, 0.005, 1.000, -0.110);
+}
+
+.logo {
+    height: 30vh;
+    animation: logo-stomped 0.5s 0.3s linear;
+}
+
+.button {
+    padding-top: 5%;
+    animation: button-stomped 0.5s 0.3s linear;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes title-drop {
+    0% {
+        transform: scale(2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes logo-stomped {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.3) rotate(-5deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes subtitle-stomped {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.3) rotate(5deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(-2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes button-stomped {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.3) rotate(25deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(-10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
