@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Dashboard.module.css";
 import GetStarted from "./GetStarted";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -10,10 +11,11 @@ const Dashboard = () => {
         console.log("ivan", data);
     };
     return (
-        <div>
+        <div className={styles.background}>
             {!isGetStartedClosed && (
                 <GetStarted isGetStartedClosed={handleGetStarted} />
             )}
+            <Sidebar />
         </div>
     );
 };

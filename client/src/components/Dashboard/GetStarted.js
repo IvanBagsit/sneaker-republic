@@ -1,79 +1,93 @@
 import styles from "./GetStarted.module.css";
-import { Button, Grid, Typography } from "@mui/material";
+import { Backdrop, Button, Grid, Typography } from "@mui/material";
 import shoesPic from "../../images/logo/logo.png";
 import { useState } from "react";
 
 const GetStarted = ({ isGetStartedClosed }) => {
+    const [isBackdropEnabled, setIsBackdropEnabled] = useState(true);
     const [isClicked, setIsClicked] = useState(false);
 
     const onClickGetStarted = () => {
         setIsClicked(true);
         setTimeout(() => {
             isGetStartedClosed(true);
-        }, 1000);
+            setIsBackdropEnabled(false);
+        }, 800);
     };
 
     return (
-        <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            className={`${styles.background} ${
-                isClicked ? styles.slideUp : ""
-            }`}
+        <Backdrop
+            sx={{
+                backgroundColor: "transparent",
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            open={isBackdropEnabled}
         >
-            <Grid item className={styles.title}>
-                <Typography variant="h3">
-                    <b>SNEAKERS REPUBLIC</b>
-                </Typography>
-            </Grid>
-            <Grid item>
-                <div className={styles.line}></div>
-            </Grid>
             <Grid
-                item
                 container
-                direction="row"
+                direction="column"
                 justifyContent="center"
-                alignItems="start"
+                alignItems="center"
+                className={`${styles.background} ${
+                    isClicked ? styles.slideUp : ""
+                }`}
             >
+                <Grid item className={styles.title}>
+                    <Typography variant="h3">
+                        <b>SNEAKERS REPUBLIC</b>
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <div className={styles.line}></div>
+                </Grid>
                 <Grid
                     item
                     container
-                    direction="column"
-                    justifyContent="flex-end"
-                    alignItems="flex-end"
-                    xs={6.8}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="start"
                 >
-                    <div className={styles.subtitle}>
-                        <Grid item>
-                            <Typography variant="h5">
-                                <b>MAKE A STATEMENT WITH</b>
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="h5">
-                                <b>EVERY STRIDE</b>
-                            </Typography>
-                        </Grid>
-                        <Grid item className={styles.button}>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                color="success"
-                                onClick={onClickGetStarted}
-                            >
-                                Get Started
-                            </Button>
-                        </Grid>
-                    </div>
-                </Grid>
-                <Grid item xs={5.2}>
-                    <img src={shoesPic} alt="shoes" className={styles.logo} />
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        justifyContent="flex-end"
+                        alignItems="flex-end"
+                        xs={6.8}
+                    >
+                        <div className={styles.subtitle}>
+                            <Grid item>
+                                <Typography variant="h5">
+                                    <b>MAKE A STATEMENT WITH</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h5">
+                                    <b>EVERY STRIDE</b>
+                                </Typography>
+                            </Grid>
+                            <Grid item className={styles.button}>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    color="success"
+                                    onClick={onClickGetStarted}
+                                >
+                                    Get Started
+                                </Button>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item xs={5.2}>
+                        <img
+                            src={shoesPic}
+                            alt="shoes"
+                            className={styles.logo}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Backdrop>
     );
 };
 
