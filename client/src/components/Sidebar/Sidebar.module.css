@@ -14,3 +14,8 @@
     display: flex;
     margin-bottom: 3vh;
 }
+
+.shoesOption {
+    background-color: #D1D1D1;
+    cursor: pointer;
+}

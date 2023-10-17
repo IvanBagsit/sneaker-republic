@@ -1,0 +1,27 @@
+.scrollbar {
+	overflow-y: scroll;
+	margin-right: 0;
+	padding-right: 0;
+}
+
+.scrollbar::-webkit-scrollbar {
+	width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+	background-color: #b1b1b1;
+	border-radius: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+	background-color: #7f7f7f;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 5px;
+}
+
+.children {
+	margin-right: 1%;
+}

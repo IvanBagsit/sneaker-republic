@@ -8,7 +8,6 @@ const Dashboard = () => {
 
     const handleGetStarted = (data) => {
         setIsGetStartedClosed(data);
-        console.log("ivan", data);
     };
     return (
         <div className={styles.background}>

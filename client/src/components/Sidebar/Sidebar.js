@@ -8,6 +8,7 @@ import {
     Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Scrollbar from "../Common/Scrollbar";
 
 const Sidebar = () => {
     const options = [
@@ -85,55 +86,75 @@ const Sidebar = () => {
             ],
         },
     ];
+
     return (
         <Stack direction="column" className={styles.background}>
             <div>
                 <img src={logo} alt="logo" className={styles.logo} />
             </div>
-
-            {options.map((items, index) => {
-                return (
-                    <Accordion
-                        key={items.name}
-                        expanded={!items.isDropDown ? false : undefined}
-                    >
-                        <AccordionSummary
-                            expandIcon={
-                                items.isDropDown ? <ExpandMoreIcon /> : null
-                            }
+            <Scrollbar maxHeight={"65vh"}>
+                {options.map((items) => {
+                    return (
+                        <Accordion
+                            key={items.name}
+                            expanded={!items.isDropDown ? false : undefined}
                         >
-                            <Typography>{items.name}</Typography>
-                        </AccordionSummary>
-                        {items.subOptions.map((items) => {
-                            return (
-                                <Accordion
-                                    key={items.brand}
-                                    expanded={
-                                        !items.isDropDown ? false : undefined
-                                    }
-                                >
-                                    <AccordionSummary
-                                        expandIcon={
-                                            items.isDropDown ? (
-                                                <ExpandMoreIcon />
-                                            ) : null
+                            <AccordionSummary
+                                expandIcon={
+                                    items.isDropDown ? <ExpandMoreIcon /> : null
+                                }
+                            >
+                                <Typography>{items.name}</Typography>
+                            </AccordionSummary>
+                            {items.subOptions.map((items) => {
+                                return (
+                                    <Accordion
+                                        key={items.brand}
+                                        expanded={
+                                            !items.isDropDown
+                                                ? false
+                                                : undefined
                                         }
                                     >
-                                        {items.brand}
-                                    </AccordionSummary>
-                                    {items.shoes.map((items) => {
-                                        return (
-                                            <AccordionDetails key={items}>
-                                                {items}
-                                            </AccordionDetails>
-                                        );
-                                    })}
-                                </Accordion>
-                            );
-                        })}
-                    </Accordion>
-                );
-            })}
+                                        <AccordionSummary
+                                            expandIcon={
+                                                items.isDropDown ? (
+                                                    <ExpandMoreIcon />
+                                                ) : null
+                                            }
+                                            style={{
+                                                backgroundColor: "#E8E8E8",
+                                            }}
+                                        >
+                                            <span style={{ marginLeft: "5%" }}>
+                                                {items.brand}
+                                            </span>
+                                        </AccordionSummary>
+                                        {items.shoes.map((items) => {
+                                            return (
+                                                <AccordionDetails
+                                                    key={items}
+                                                    className={
+                                                        styles.shoesOption
+                                                    }
+                                                >
+                                                    <span
+                                                        style={{
+                                                            marginLeft: "10%",
+                                                        }}
+                                                    >
+                                                        {items}
+                                                    </span>
+                                                </AccordionDetails>
+                                            );
+                                        })}
+                                    </Accordion>
+                                );
+                            })}
+                        </Accordion>
+                    );
+                })}
+            </Scrollbar>
         </Stack>
     );
 };
