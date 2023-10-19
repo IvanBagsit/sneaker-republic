@@ -62,7 +62,7 @@ const Home = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {featuredShoes.map((items, index) => {
+                        {featuredShoes.map((items) => {
                             return (
                                 <Card
                                     key={items.name}
@@ -78,7 +78,11 @@ const Home = () => {
                                             flexDirection: "column",
                                         }}
                                     >
-                                        <CardContent sx={{ flex: "1" }}>
+                                        <CardContent
+                                            sx={{
+                                                flex: "1",
+                                            }}
+                                        >
                                             <Typography
                                                 variant="h6"
                                                 component="div"
