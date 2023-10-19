@@ -9,13 +9,23 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Scrollbar from "../Common/Scrollbar";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const options = [
         {
+            name: "Home",
+            isDropDown: false,
+            subOptions: [],
+            haslink: true,
+            link: "/home",
+        },
+        {
             name: "View All",
             isDropDown: false,
             subOptions: [],
+            haslink: true,
+            link: "/view-all",
         },
         {
             name: "Male",
@@ -40,6 +50,7 @@ const Sidebar = () => {
                     shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
                 },
             ],
+            haslink: false,
         },
         {
             name: "Female",
@@ -62,6 +73,7 @@ const Sidebar = () => {
                     shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
                 },
             ],
+            haslink: false,
         },
         {
             name: "Kids",
@@ -84,6 +96,7 @@ const Sidebar = () => {
                     shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
                 },
             ],
+            haslink: false,
         },
     ];
 
@@ -99,13 +112,22 @@ const Sidebar = () => {
                             key={items.name}
                             expanded={!items.isDropDown ? false : undefined}
                         >
-                            <AccordionSummary
-                                expandIcon={
-                                    items.isDropDown ? <ExpandMoreIcon /> : null
-                                }
+                            <Link
+                                to={items.haslink ? items.link : null}
+                                className={styles.link}
                             >
-                                <Typography>{items.name}</Typography>
-                            </AccordionSummary>
+                                <AccordionSummary
+                                    expandIcon={
+                                        items.isDropDown ? (
+                                            <ExpandMoreIcon />
+                                        ) : null
+                                    }
+                                >
+                                    <Typography style={{ fontFamily: "unset" }}>
+                                        {items.name}
+                                    </Typography>
+                                </AccordionSummary>
+                            </Link>
                             {items.subOptions.map((items) => {
                                 return (
                                     <Accordion
@@ -131,21 +153,32 @@ const Sidebar = () => {
                                             </span>
                                         </AccordionSummary>
                                         {items.shoes.map((items) => {
+                                            const templink = items.replace(
+                                                " ",
+                                                ""
+                                            );
+                                            const link = templink.toLowerCase();
                                             return (
-                                                <AccordionDetails
+                                                <Link
+                                                    to={`/${link}`}
                                                     key={items}
-                                                    className={
-                                                        styles.shoesOption
-                                                    }
+                                                    className={styles.link}
                                                 >
-                                                    <span
-                                                        style={{
-                                                            marginLeft: "10%",
-                                                        }}
+                                                    <AccordionDetails
+                                                        className={
+                                                            styles.shoesOption
+                                                        }
                                                     >
-                                                        {items}
-                                                    </span>
-                                                </AccordionDetails>
+                                                        <span
+                                                            style={{
+                                                                marginLeft:
+                                                                    "10%",
+                                                            }}
+                                                        >
+                                                            {items}
+                                                        </span>
+                                                    </AccordionDetails>
+                                                </Link>
                                             );
                                         })}
                                     </Accordion>

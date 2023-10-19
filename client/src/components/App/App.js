@@ -1,11 +1,14 @@
 import styles from "./App.module.css";
 import Dashboard from "../Dashboard/Dashboard";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
     return (
-        <div className="App">
-            <Dashboard />
-        </div>
+        <Router>
+            <div className={styles.App}>
+                <Dashboard />
+            </div>
+        </Router>
     );
 };
 

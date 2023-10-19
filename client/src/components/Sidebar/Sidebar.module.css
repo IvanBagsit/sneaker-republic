@@ -19,3 +19,8 @@
     background-color: #D1D1D1;
     cursor: pointer;
 }
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}

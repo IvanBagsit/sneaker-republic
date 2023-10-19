@@ -2,6 +2,8 @@ import styles from "./GetStarted.module.css";
 import { Backdrop, Button, Grid, Typography } from "@mui/material";
 import shoesPic from "../../images/logo/logo.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { handleIsStarted } from "../Common/SessionStorage";
 
 const GetStarted = ({ isGetStartedClosed }) => {
     const [isBackdropEnabled, setIsBackdropEnabled] = useState(true);
@@ -13,6 +15,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
             isGetStartedClosed(true);
             setIsBackdropEnabled(false);
         }, 800);
+        handleIsStarted(true);
     };
 
     return (
@@ -33,7 +36,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                 }`}
             >
                 <Grid item className={styles.title}>
-                    <Typography variant="h3">
+                    <Typography variant="h3" style={{ fontFamily: "unset" }}>
                         <b>SNEAKERS REPUBLIC</b>
                     </Typography>
                 </Grid>
@@ -57,24 +60,33 @@ const GetStarted = ({ isGetStartedClosed }) => {
                     >
                         <div className={styles.subtitle}>
                             <Grid item>
-                                <Typography variant="h5">
+                                <Typography
+                                    variant="h5"
+                                    style={{ fontFamily: "unset" }}
+                                >
                                     <b>MAKE A STATEMENT WITH</b>
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="h5">
+                                <Typography
+                                    variant="h5"
+                                    style={{ fontFamily: "unset" }}
+                                >
                                     <b>EVERY STRIDE</b>
                                 </Typography>
                             </Grid>
                             <Grid item className={styles.button}>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    color="success"
-                                    onClick={onClickGetStarted}
-                                >
-                                    Get Started
-                                </Button>
+                                <Link to={"/home"}>
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        color="success"
+                                        onClick={onClickGetStarted}
+                                        style={{ fontFamily: "unset" }}
+                                    >
+                                        Get Started
+                                    </Button>
+                                </Link>
                             </Grid>
                         </div>
                     </Grid>
