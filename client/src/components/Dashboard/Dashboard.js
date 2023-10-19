@@ -4,6 +4,8 @@ import GetStarted from "./GetStarted";
 import Sidebar from "../Sidebar/Sidebar";
 import { Routes, Route } from "react-router-dom";
 import { handleGetIsStarted } from "../Common/SessionStorage";
+import Home from "../Pages/Home";
+import { Grid } from "@mui/material";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -32,14 +34,22 @@ const Dashboard = () => {
                 <GetStarted isGetStartedClosed={handleGetStarted} />
             )}
             {isPageLoaded && (
-                <Sidebar />
-                // <Routes>
-                //     <Route path="/" element={<Home />} />
-                //     <Route path="/home" element={<Home />} />
-                //     <Route path="/about" element={<About />} />
-                //     <Route path="/portfolio" element={<Portfolio />} />
-                //     <Route path="/*" element={<Invalid />} />
-                // </Routes>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="stretch"
+                >
+                    <Grid item xs={2}>
+                        <Sidebar />
+                    </Grid>
+                    <Grid item xs={10}>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/home" element={<Home />} />
+                        </Routes>
+                    </Grid>
+                </Grid>
             )}
         </div>
     );

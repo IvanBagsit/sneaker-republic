@@ -18,7 +18,7 @@ const Sidebar = () => {
             isDropDown: false,
             subOptions: [],
             haslink: true,
-            link: "/",
+            link: "/home",
         },
         {
             name: "View All",

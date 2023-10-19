@@ -76,7 +76,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                                 </Typography>
                             </Grid>
                             <Grid item className={styles.button}>
-                                <Link to={"/"}>
+                                <Link to={"/home"}>
                                     <Button
                                         variant="contained"
                                         size="large"
