@@ -7,6 +7,7 @@ import {
     CardMedia,
 } from "@mui/material";
 import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
 
 import AF1 from "../../images/shoes/Nike/AF1/Unisex 1.JPG";
 import J1 from "../../images/shoes/Nike/J1/Unisex 2.JPG";
@@ -15,22 +16,25 @@ import J3 from "../../images/shoes/Nike/J3/Men size.JPG";
 const Home = () => {
     const featuredShoes = [
         {
-            name: "AirForce 1",
+            name: "Airforce 1",
             brand: "Nike",
             price: 500,
             image: AF1,
+            link: "/airforce1",
         },
         {
             name: "Jordan 1",
             brand: "Nike",
             price: 600,
             image: J1,
+            link: "/jordan1",
         },
         {
             name: "Jordan 3",
             brand: "Nike",
             price: 550,
             image: J3,
+            link: "/jordan3",
         },
     ];
 
@@ -68,7 +72,7 @@ const Home = () => {
                                     key={items.name}
                                     sx={{
                                         display: "flex",
-                                        height: "25vh",
+                                        height: "23vh",
                                         margin: "0 2% 0 2%",
                                     }}
                                 >
@@ -81,6 +85,7 @@ const Home = () => {
                                         <CardContent
                                             sx={{
                                                 flex: "1",
+                                                width: "15vh",
                                             }}
                                         >
                                             <Typography
@@ -100,17 +105,25 @@ const Home = () => {
                                                 variant="subtitle1"
                                                 color="text.secondary"
                                                 component="div"
+                                                style={{
+                                                    textDecoration: "none",
+                                                }}
                                             >
                                                 P{items.price}
                                             </Typography>
                                         </CardContent>
                                     </Box>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{ width: "25vh", height: "25vh" }}
-                                        image={items.image}
-                                        alt="AF1"
-                                    />
+                                    <Link to={items.link}>
+                                        <CardMedia
+                                            component="img"
+                                            sx={{
+                                                width: "23vh",
+                                                height: "23vh",
+                                            }}
+                                            image={items.image}
+                                            alt="AF1"
+                                        />
+                                    </Link>
                                 </Card>
                             );
                         })}
