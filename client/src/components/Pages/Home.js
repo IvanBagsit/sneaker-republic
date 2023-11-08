@@ -178,14 +178,16 @@ const Home = () => {
                             style={{ width: "40vw" }}
                         >
                             <div>
-                                <h3>Hi! Welcome to Sneakers Republic!</h3>
+                                <h3>Welcome to Sneakers Republic!</h3>
                             </div>
                             <div>
-                                This e-commerce website is being built to scale
-                                and help our small business in the shoes
-                                industry. As of now, this project doesn't have
-                                payment feature yet but rest assured we are
-                                doing our best to improve our website.
+                                Hi! I'm Ivan and this is my girlfriend Tin. We
+                                are the owner and creator of this website. This
+                                e-commerce is being built to scale and help our
+                                small business in the shoes industry. As of now,
+                                this project doesn't have payment feature yet
+                                but rest assured we are doing our best to
+                                improve our website.
                             </div>
                             <div
                                 style={{
