@@ -166,7 +166,11 @@ const Home = () => {
                             <img
                                 src={AF1}
                                 alt="owner"
-                                style={{ height: "40vh", width: "40vh" }}
+                                style={{
+                                    height: "40vh",
+                                    width: "40vh",
+                                    borderRadius: "20%",
+                                }}
                             />
                         </div>
                         <div
