@@ -160,7 +160,7 @@ const Sidebar = () => {
                                             const link = templink.toLowerCase();
                                             return (
                                                 <Link
-                                                    to={`/${link}`}
+                                                    to={`/view?shoes=${link}`}
                                                     key={items}
                                                     className={styles.link}
                                                 >
