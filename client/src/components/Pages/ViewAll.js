@@ -108,7 +108,7 @@ const ViewAll = () => {
                                 title={item.name}
                                 subtitle={item.inventory}
                                 actionIcon={
-                                    <Link to={`view?shoes=${item.link}`}>
+                                    <Link to={`/view?shoes=${item.link}`}>
                                         <IconButton
                                             sx={{
                                                 color: "rgba(255, 255, 255, 0.54)",
