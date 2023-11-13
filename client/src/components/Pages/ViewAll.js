@@ -25,57 +25,57 @@ const ViewAll = () => {
         {
             img: AF1,
             name: "Nike Airforce 1",
-            sizes: "@bkristastucchio",
+            inventory: "Inventory: 3",
         },
         {
             img: Airmax97,
             name: "Nike Airmax 97",
-            sizes: "@rollelflex_graphy726",
+            inventory: "Inventory: 5",
         },
         {
             img: Fragment,
             name: "Nike Travis Scott x Fragment",
-            sizes: "@helloimnik",
+            inventory: "Inventory: 4",
         },
         {
             img: Giannis,
             name: "Nike Giannis",
-            sizes: "@nolanissac",
+            inventory: "Inventory: 4",
         },
         {
             img: J1,
             name: "Nike Jordan 1",
-            sizes: "@hjrc33",
+            inventory: "Inventory: 2",
         },
         {
             img: J3,
             name: "Nike Jordan 3",
-            sizes: "@arwinneil",
+            inventory: "Inventory: 1",
         },
         {
             img: Joyride,
             name: "Nike Joyride",
-            sizes: "@tjdragotta",
+            inventory: "Inventory: 5",
         },
         {
             img: Alphabounce,
             name: "Adidas Alphabounce",
-            sizes: "@katie_wasserman",
+            inventory: "Inventory: 4",
         },
         {
             img: Stansmith,
             name: "Adidas Stan Smith",
-            sizes: "@silverdalex",
+            inventory: "Inventory: 1",
         },
         {
             img: Ultraboost,
             name: "Adidas Ultraboost",
-            sizes: "@shelleypauls",
+            inventory: "Inventory: 2",
         },
         {
             img: Yeezy,
             name: "Adidas Yeezy",
-            sizes: "@peterlaster",
+            inventory: "Inventory: 3",
         },
     ];
 
@@ -94,7 +94,7 @@ const ViewAll = () => {
                             />
                             <ImageListItemBar
                                 title={item.name}
-                                subtitle={item.sizes}
+                                subtitle={item.inventory}
                                 actionIcon={
                                     <IconButton
                                         sx={{
