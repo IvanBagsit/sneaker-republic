@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { handleGetIsStarted } from "../Common/SessionStorage";
 import Home from "../Pages/Home";
 import { Grid } from "@mui/material";
+import ViewAll from "../Pages/ViewAll";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -47,6 +48,7 @@ const Dashboard = () => {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
+                            <Route path="/view-all" element={<ViewAll />} />
                         </Routes>
                     </Grid>
                 </Grid>

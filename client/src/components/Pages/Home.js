@@ -18,6 +18,8 @@ import gmailIcon from "../../images/contact/gmailIcon.png";
 import facebookIcon from "../../images/contact/facebookIcon.png";
 import instagramIcon from "../../images/contact/instagramIcon.png";
 
+import ownerImage from "../../images/owner/owner.jpg";
+
 const Home = () => {
     const featuredShoes = [
         {
@@ -164,12 +166,13 @@ const Home = () => {
                     <div className={styles.content}>
                         <div className={styles.contentItem}>
                             <img
-                                src={AF1}
+                                src={ownerImage}
                                 alt="owner"
                                 style={{
                                     height: "40vh",
                                     width: "40vh",
                                     borderRadius: "20%",
+                                    objectFit: "cover",
                                 }}
                             />
                         </div>
@@ -181,13 +184,13 @@ const Home = () => {
                                 <h3>Welcome to Sneakers Republic!</h3>
                             </div>
                             <div>
-                                Hi! I'm Ivan and this is my girlfriend Tin. We
-                                are the owner and creator of this website. This
-                                e-commerce is being built to scale and help our
-                                small business in the shoes industry. As of now,
-                                this project doesn't have payment feature yet
-                                but rest assured we are doing our best to
-                                improve our website.
+                                Hi! I'm Ivan and this is my partner Tin. We are
+                                the owner and creator of this e-commerce
+                                website. This project is being built to scale
+                                and help our small business in the shoes
+                                industry. As of now, this project doesn't have
+                                payment feature yet but rest assured we are
+                                doing our best to improve our website.
                             </div>
                             <div
                                 style={{
