@@ -6,13 +6,13 @@ const View = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
-    useEffect(() => {
-        console.log("ivan", queryParams.get("shoes"));
-    });
+    const viewableShoes = queryParams.get("shoes");
+
+    console.log("ivan", viewableShoes);
 
     return (
         <div>
-            <div>HI</div>
+            <div>{viewableShoes ? viewableShoes : "Null"}</div>
         </div>
     );
 };
