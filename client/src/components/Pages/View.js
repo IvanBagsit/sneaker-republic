@@ -1,3 +1,12 @@
+import {
+    Card,
+    Grid,
+    Box,
+    CardContent,
+    Typography,
+    CardMedia,
+    Tooltip,
+} from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import styles from "./View.module.css";
@@ -8,11 +17,9 @@ const View = () => {
 
     const viewableShoes = queryParams.get("shoes");
 
-    console.log("ivan", viewableShoes);
-
     return (
-        <div>
-            <div>{viewableShoes ? viewableShoes : "Null"}</div>
+        <div className={styles.background}>
+            <div className={styles.content}></div>
         </div>
     );
 };

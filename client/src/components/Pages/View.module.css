@@ -1,0 +1,18 @@
+.background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 100%;
+    border: 1px solid #dbdbdb;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-top-left-radius: 4% 10%;
+}
