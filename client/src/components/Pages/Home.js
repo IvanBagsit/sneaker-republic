@@ -10,15 +10,12 @@ import {
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
 
-import AF1 from "../../images/shoes/Nike/AF1/Unisex 1.JPG";
-import J1 from "../../images/shoes/Nike/J1/Unisex 2.JPG";
-import J3 from "../../images/shoes/Nike/J3/Men size.JPG";
-
 import gmailIcon from "../../images/contact/gmailIcon.png";
 import facebookIcon from "../../images/contact/facebookIcon.png";
 import instagramIcon from "../../images/contact/instagramIcon.png";
 
 import ownerImage from "../../images/owner/owner.jpg";
+import { AF1Unisex1, J1Unisex2, J3Men4 } from "../Common/Shoes";
 
 const Home = () => {
     const featuredShoes = [
@@ -26,21 +23,21 @@ const Home = () => {
             name: "Airforce 1",
             brand: "Nike",
             price: 500,
-            image: AF1,
+            image: AF1Unisex1,
             link: "/view?shoes=airforce1",
         },
         {
             name: "Jordan 1",
             brand: "Nike",
             price: 600,
-            image: J1,
+            image: J1Unisex2,
             link: "/view?shoes=jordan1",
         },
         {
             name: "Jordan 3",
             brand: "Nike",
             price: 550,
-            image: J3,
+            image: J3Men4,
             link: "/view?shoes=jordan3",
         },
     ];

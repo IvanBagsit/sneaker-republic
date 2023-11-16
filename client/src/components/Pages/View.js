@@ -8,7 +8,6 @@ import {
     Tooltip,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import styles from "./View.module.css";
 
 const View = () => {
@@ -19,7 +18,10 @@ const View = () => {
 
     return (
         <div className={styles.background}>
-            <div className={styles.content}></div>
+            <div className={styles.content}>
+                <div>Hi</div>
+                <div>HELLO</div>
+            </div>
         </div>
     );
 };

@@ -1,4 +1,17 @@
 import {
+    AF1Unisex1,
+    Airmax97Unisex2,
+    AlphabounceUnisex1,
+    FragmentUnisex1,
+    GiannisMen,
+    J1Unisex2,
+    J3Men4,
+    JoyrideUnisex3,
+    StansmithUnisex1,
+    UltraboostUnisex1,
+    YeezyUnisex1,
+} from "../Common/Shoes";
+import {
     ImageList,
     ImageListItem,
     ImageListItemBar,
@@ -7,84 +20,72 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 
 import styles from "./ViewAll.module.css";
-
-import AF1 from "../../images/shoes/Nike/AF1/Unisex 1.JPG";
-import Airmax97 from "../../images/shoes/Nike/Airmax 97/Unisex.JPG";
-import Fragment from "../../images/shoes/Nike/Fragment/Unisex 1.JPG";
-import Giannis from "../../images/shoes/Nike/Giannis/Men size.JPG";
-import J1 from "../../images/shoes/Nike/J1/Unisex 2.JPG";
-import J3 from "../../images/shoes/Nike/J3/Men size.JPG";
-import Joyride from "../../images/shoes/Nike/Joyride/Unisex 3.JPG";
-import Alphabounce from "../../images/shoes/Adidas/Alphabounce/Unisex 1.JPG";
-import Stansmith from "../../images/shoes/Adidas/Stansmith/Unisex 1.JPG";
-import Ultraboost from "../../images/shoes/Adidas/Ultraboost/Unisex 1.JPG";
-import Yeezy from "../../images/shoes/Adidas/Yeezy/Unisex 1.JPG";
 import { Link } from "react-router-dom";
 
 const ViewAll = () => {
     const itemData = [
         {
-            img: AF1,
+            img: AF1Unisex1,
             name: "Nike Airforce 1",
             inventory: "Inventory: 3",
             link: "airforce1",
         },
         {
-            img: Airmax97,
+            img: Airmax97Unisex2,
             name: "Nike Airmax 97",
             inventory: "Inventory: 5",
             link: "airforce1",
         },
         {
-            img: Fragment,
+            img: FragmentUnisex1,
             name: "Nike Travis Scott x Fragment",
             inventory: "Inventory: 4",
             link: "airforce1",
         },
         {
-            img: Giannis,
+            img: GiannisMen,
             name: "Nike Giannis",
             inventory: "Inventory: 4",
             link: "airforce1",
         },
         {
-            img: J1,
+            img: J1Unisex2,
             name: "Nike Jordan 1",
             inventory: "Inventory: 2",
             link: "airforce1",
         },
         {
-            img: J3,
+            img: J3Men4,
             name: "Nike Jordan 3",
             inventory: "Inventory: 1",
             link: "airforce1",
         },
         {
-            img: Joyride,
+            img: JoyrideUnisex3,
             name: "Nike Joyride",
             inventory: "Inventory: 5",
             link: "airforce1",
         },
         {
-            img: Alphabounce,
+            img: AlphabounceUnisex1,
             name: "Adidas Alphabounce",
             inventory: "Inventory: 4",
             link: "airforce1",
         },
         {
-            img: Stansmith,
+            img: StansmithUnisex1,
             name: "Adidas Stan Smith",
             inventory: "Inventory: 1",
             link: "airforce1",
         },
         {
-            img: Ultraboost,
+            img: UltraboostUnisex1,
             name: "Adidas Ultraboost",
             inventory: "Inventory: 2",
             link: "airforce1",
         },
         {
-            img: Yeezy,
+            img: YeezyUnisex1,
             name: "Adidas Yeezy",
             inventory: "Inventory: 3",
             link: "airforce1",
