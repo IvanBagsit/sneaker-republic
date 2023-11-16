@@ -198,8 +198,8 @@ const Home = () => {
                                 }}
                             >
                                 <span style={{ marginRight: "2%" }}>
-                                    Please message us if you find anything you
-                                    like:
+                                    For inquiries, please contact us on these
+                                    platforms:
                                 </span>
                                 {contactDetails.map((items, index) => {
                                     return (
