@@ -19,6 +19,7 @@ import Alphabounce from "../../images/shoes/Adidas/Alphabounce/Unisex 1.JPG";
 import Stansmith from "../../images/shoes/Adidas/Stansmith/Unisex 1.JPG";
 import Ultraboost from "../../images/shoes/Adidas/Ultraboost/Unisex 1.JPG";
 import Yeezy from "../../images/shoes/Adidas/Yeezy/Unisex 1.JPG";
+import { Link } from "react-router-dom";
 
 const ViewAll = () => {
     const itemData = [
@@ -26,56 +27,67 @@ const ViewAll = () => {
             img: AF1,
             name: "Nike Airforce 1",
             inventory: "Inventory: 3",
+            link: "airforce1",
         },
         {
             img: Airmax97,
             name: "Nike Airmax 97",
             inventory: "Inventory: 5",
+            link: "airforce1",
         },
         {
             img: Fragment,
             name: "Nike Travis Scott x Fragment",
             inventory: "Inventory: 4",
+            link: "airforce1",
         },
         {
             img: Giannis,
             name: "Nike Giannis",
             inventory: "Inventory: 4",
+            link: "airforce1",
         },
         {
             img: J1,
             name: "Nike Jordan 1",
             inventory: "Inventory: 2",
+            link: "airforce1",
         },
         {
             img: J3,
             name: "Nike Jordan 3",
             inventory: "Inventory: 1",
+            link: "airforce1",
         },
         {
             img: Joyride,
             name: "Nike Joyride",
             inventory: "Inventory: 5",
+            link: "airforce1",
         },
         {
             img: Alphabounce,
             name: "Adidas Alphabounce",
             inventory: "Inventory: 4",
+            link: "airforce1",
         },
         {
             img: Stansmith,
             name: "Adidas Stan Smith",
             inventory: "Inventory: 1",
+            link: "airforce1",
         },
         {
             img: Ultraboost,
             name: "Adidas Ultraboost",
             inventory: "Inventory: 2",
+            link: "airforce1",
         },
         {
             img: Yeezy,
             name: "Adidas Yeezy",
             inventory: "Inventory: 3",
+            link: "airforce1",
         },
     ];
 
@@ -89,21 +101,23 @@ const ViewAll = () => {
                             <img
                                 src={item.img}
                                 alt={item.title}
-                                loading="lazy"
                                 style={{ height: "248px", width: "248px" }}
+                                loading="lazy"
                             />
                             <ImageListItemBar
                                 title={item.name}
                                 subtitle={item.inventory}
                                 actionIcon={
-                                    <IconButton
-                                        sx={{
-                                            color: "rgba(255, 255, 255, 0.54)",
-                                        }}
-                                        aria-label={`info about ${item.name}`}
-                                    >
-                                        <InfoIcon />
-                                    </IconButton>
+                                    <Link to={`/view?shoes=${item.link}`}>
+                                        <IconButton
+                                            sx={{
+                                                color: "rgba(255, 255, 255, 0.54)",
+                                            }}
+                                            aria-label={`info about ${item.name}`}
+                                        >
+                                            <InfoIcon />
+                                        </IconButton>
+                                    </Link>
                                 }
                             />
                         </ImageListItem>

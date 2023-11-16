@@ -7,6 +7,7 @@ import { handleGetIsStarted } from "../Common/SessionStorage";
 import Home from "../Pages/Home";
 import { Grid } from "@mui/material";
 import ViewAll from "../Pages/ViewAll";
+import View from "../Pages/View";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -49,6 +50,7 @@ const Dashboard = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
                             <Route path="/view-all" element={<ViewAll />} />
+                            <Route path="/view" element={<View />} />
                         </Routes>
                     </Grid>
                 </Grid>

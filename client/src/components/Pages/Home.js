@@ -27,21 +27,21 @@ const Home = () => {
             brand: "Nike",
             price: 500,
             image: AF1,
-            link: "/airforce1",
+            link: "/view?shoes=airforce1",
         },
         {
             name: "Jordan 1",
             brand: "Nike",
             price: 600,
             image: J1,
-            link: "/jordan1",
+            link: "/view?shoes=jordan1",
         },
         {
             name: "Jordan 3",
             brand: "Nike",
             price: 550,
             image: J3,
-            link: "/jordan3",
+            link: "/view?shoes=jordan3",
         },
     ];
 
