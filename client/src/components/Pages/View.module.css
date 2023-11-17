@@ -16,3 +16,10 @@
     box-sizing: border-box;
     border-top-left-radius: 4% 10%;
 }
+
+.mainImage {
+    height: 80vh;
+    width: 30vw;
+    object-fit: cover;
+    border-radius: 15%;
+}
