@@ -58,18 +58,51 @@ const View = () => {
     const shoes = {
         Nike: {
             AF1: {
-                images: [
-                    AF1Unisex1,
-                    AF1Unisex2,
-                    AF1Unisex3,
-                    AF1Unisex4,
-                    AF1Unisex5,
-                    AF1Women1,
-                    AF1Women2,
-                    AF1Women3,
-                    AF1Women4,
-                    AF1Women5,
-                    AF1Women6,
+                shoes: [
+                    {
+                        image: AF1Unisex1,
+                        code: "CDT1BB",
+                    },
+                    {
+                        image: AF1Unisex2,
+                        code: "E3KDKH",
+                    },
+                    {
+                        image: AF1Unisex3,
+                        code: "T7KG2N",
+                    },
+                    {
+                        image: AF1Unisex4,
+                        code: "NVDU38",
+                    },
+                    {
+                        image: AF1Unisex5,
+                        code: "YQNZN2",
+                    },
+                    {
+                        image: AF1Women1,
+                        code: "821YVG",
+                    },
+                    {
+                        image: AF1Women2,
+                        code: "LE2YKK",
+                    },
+                    {
+                        image: AF1Women3,
+                        code: "XQUTY7",
+                    },
+                    {
+                        image: AF1Women4,
+                        code: "4AW5HF",
+                    },
+                    {
+                        image: AF1Women5,
+                        code: "IKCIM2",
+                    },
+                    {
+                        image: AF1Women6,
+                        code: "ICE1SJ",
+                    },
                 ],
                 title: "Airforce 1",
                 brand: "Nike",
@@ -93,11 +126,23 @@ const View = () => {
                 ],
             },
             Airmax97: {
-                images: [
-                    Airmax97Men,
-                    Airmax97Unisex1,
-                    Airmax97Unisex2,
-                    Airmax97Women,
+                shoes: [
+                    {
+                        image: Airmax97Men,
+                        code: "7LJMYI",
+                    },
+                    {
+                        image: Airmax97Unisex1,
+                        code: "WMRKKK",
+                    },
+                    {
+                        image: Airmax97Unisex2,
+                        code: "CWJHOU",
+                    },
+                    {
+                        image: Airmax97Women,
+                        code: "GEYPSA",
+                    },
                 ],
                 title: "Airmax 97",
                 brand: "Nike",
@@ -121,7 +166,20 @@ const View = () => {
                 ],
             },
             Fragment: {
-                images: [FragmentMen, FragmentUnisex1, FragmentUnisex2],
+                shoes: [
+                    {
+                        image: FragmentMen,
+                        code: "TY64SO",
+                    },
+                    {
+                        image: FragmentUnisex1,
+                        code: "2QFV0K",
+                    },
+                    {
+                        image: FragmentUnisex2,
+                        code: "M50F0I",
+                    },
+                ],
                 title: "Travis Scott x Fragment",
                 brand: "Nike",
                 price: 500,
@@ -144,7 +202,12 @@ const View = () => {
                 ],
             },
             Giannis: {
-                images: [GiannisMen],
+                shoes: [
+                    {
+                        image: GiannisMen,
+                        code: "60SG71",
+                    },
+                ],
                 title: "Giannis",
                 brand: "Nike",
                 price: 500,
@@ -167,15 +230,39 @@ const View = () => {
                 ],
             },
             J1: {
-                images: [
-                    J1Men1,
-                    J1Men2,
-                    J1Unisex1,
-                    J1Unisex2,
-                    J1Unisex3,
-                    J1Unisex4,
-                    J1Unisex5,
-                    J1UnisexUV,
+                shoes: [
+                    {
+                        image: J1Men1,
+                        code: "47QZUA",
+                    },
+                    {
+                        image: J1Men2,
+                        code: "6ITHBZ",
+                    },
+                    {
+                        image: J1Unisex1,
+                        code: "5M9OHJ",
+                    },
+                    {
+                        image: J1Unisex2,
+                        code: "1GQMJI",
+                    },
+                    {
+                        image: J1Unisex3,
+                        code: "32CXMQ",
+                    },
+                    {
+                        image: J1Unisex4,
+                        code: "U5B6AO",
+                    },
+                    {
+                        image: J1Unisex5,
+                        code: "1ZBXYK",
+                    },
+                    {
+                        image: J1UnisexUV,
+                        code: "YRBYHY",
+                    },
                 ],
                 title: "Jordan 1",
                 brand: "Nike",
@@ -199,7 +286,24 @@ const View = () => {
                 ],
             },
             J3: {
-                images: [J3Men1, J3Men2, J3Men3, J3Men4],
+                shoes: [
+                    {
+                        image: J3Men1,
+                        code: "H1CKJI",
+                    },
+                    {
+                        image: J3Men2,
+                        code: "H1AWNR",
+                    },
+                    {
+                        image: J3Men3,
+                        code: "FNYPNY",
+                    },
+                    {
+                        image: J3Men4,
+                        code: "J88STE",
+                    },
+                ],
                 title: "Jordan 3",
                 brand: "Nike",
                 price: 500,
@@ -222,11 +326,23 @@ const View = () => {
                 ],
             },
             Joyride: {
-                images: [
-                    JoyrideUnisex1,
-                    JoyrideUnisex2,
-                    JoyrideUnisex3,
-                    JoyrideUnisex4,
+                shoes: [
+                    {
+                        image: JoyrideUnisex1,
+                        code: "16S191",
+                    },
+                    {
+                        image: JoyrideUnisex2,
+                        code: "PDZSSW",
+                    },
+                    {
+                        image: JoyrideUnisex3,
+                        code: "Q0RLE7",
+                    },
+                    {
+                        image: JoyrideUnisex4,
+                        code: "87HFRW",
+                    },
                 ],
                 title: "Joyride",
                 brand: "Nike",
@@ -252,11 +368,23 @@ const View = () => {
         },
         Adidas: {
             Alphabounce: {
-                images: [
-                    AlphabounceMen1,
-                    AlphabounceUnisex1,
-                    AlphabounceUnisex2,
-                    AlphabounceUnisex3,
+                shoes: [
+                    {
+                        image: AlphabounceMen1,
+                        code: "7WUQUD",
+                    },
+                    {
+                        image: AlphabounceUnisex1,
+                        code: "O7KL2K",
+                    },
+                    {
+                        image: AlphabounceUnisex2,
+                        code: "2W6LRZ",
+                    },
+                    {
+                        image: AlphabounceUnisex3,
+                        code: "EV1IUF",
+                    },
                 ],
                 title: "Alphabounce",
                 brand: "Adidas",
@@ -280,7 +408,16 @@ const View = () => {
                 ],
             },
             Stansmith: {
-                images: [StansmithUnisex1, StansmithUnisex2],
+                shoes: [
+                    {
+                        image: StansmithUnisex1,
+                        code: "47K63S",
+                    },
+                    {
+                        image: StansmithUnisex2,
+                        code: "RKTYNW",
+                    },
+                ],
                 title: "Stansmith",
                 brand: "Adidas",
                 price: 500,
@@ -303,7 +440,20 @@ const View = () => {
                 ],
             },
             Ultraboost: {
-                images: [UltraboostUnisex1, UltraboostUnisex2, UltraboostWomen],
+                shoes: [
+                    {
+                        image: UltraboostUnisex1,
+                        code: "950H7C",
+                    },
+                    {
+                        image: UltraboostUnisex2,
+                        code: "UMQH3W",
+                    },
+                    {
+                        image: UltraboostWomen,
+                        code: "22B24S",
+                    },
+                ],
                 title: "Ultraboost",
                 brand: "Adidas",
                 price: 500,
@@ -326,13 +476,31 @@ const View = () => {
                 ],
             },
             Yeezy: {
-                images: [
-                    YeezyMen,
-                    YeezyUnisex1,
-                    YeezyUnisex2,
-                    YeezyUnisex3,
-                    YeezyUnisex4,
-                    YeezyUnisex5,
+                shoes: [
+                    {
+                        image: YeezyMen,
+                        code: "BKTVIU",
+                    },
+                    {
+                        image: YeezyUnisex1,
+                        code: "RMD4N4",
+                    },
+                    {
+                        image: YeezyUnisex2,
+                        code: "MJOXR1",
+                    },
+                    {
+                        image: YeezyUnisex3,
+                        code: "E1KGLE",
+                    },
+                    {
+                        image: YeezyUnisex4,
+                        code: "7DNUEQ",
+                    },
+                    {
+                        image: YeezyUnisex5,
+                        code: "N09EJU",
+                    },
                 ],
                 title: "Yeezy",
                 brand: "Adidas",
@@ -368,7 +536,7 @@ const View = () => {
             <div className={styles.content}>
                 <div>
                     <img
-                        src={shoes.Nike.AF1.images[0]}
+                        src={shoes.Nike.AF1.shoes[0].image}
                         alt="main-image"
                         className={styles.mainImage}
                     />
@@ -377,7 +545,8 @@ const View = () => {
                     <div>
                         <h3>{shoes.Nike.AF1.title}</h3>
                     </div>
-                    <div>{shoes.Nike.AF1.brand}</div>
+                    <div>Brand: {shoes.Nike.AF1.brand}</div>
+                    <div>Code: {shoes.Nike.AF1.shoes[0].code}</div>
                     <div>{shoes.Nike.AF1.price}</div>
                     <div>{shoes.Nike.AF1.sizes[0].availability}</div>
                     <div>Select Size: {shoes.Nike.AF1.sizes[0].sizes}</div>
