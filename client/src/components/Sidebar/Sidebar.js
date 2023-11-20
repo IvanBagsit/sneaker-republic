@@ -112,10 +112,25 @@ const Sidebar = () => {
                             key={items.name}
                             expanded={!items.isDropDown ? false : undefined}
                         >
-                            <Link
-                                to={items.haslink ? items.link : null}
-                                className={styles.link}
-                            >
+                            {items.haslink && (
+                                <Link to={items.link} className={styles.link}>
+                                    <AccordionSummary
+                                        expandIcon={
+                                            items.isDropDown ? (
+                                                <ExpandMoreIcon />
+                                            ) : null
+                                        }
+                                    >
+                                        <Typography
+                                            style={{ fontFamily: "unset" }}
+                                        >
+                                            {items.name}
+                                        </Typography>
+                                    </AccordionSummary>
+                                </Link>
+                            )}
+
+                            {!items.haslink && (
                                 <AccordionSummary
                                     expandIcon={
                                         items.isDropDown ? (
@@ -127,7 +142,8 @@ const Sidebar = () => {
                                         {items.name}
                                     </Typography>
                                 </AccordionSummary>
-                            </Link>
+                            )}
+
                             {items.subOptions.map((items) => {
                                 return (
                                     <Accordion
