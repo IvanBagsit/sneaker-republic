@@ -560,7 +560,7 @@ const View = () => {
                         Code: {shoes.Nike.AF1.shoes[0].code}
                     </div>
                     <div className={styles.details}>
-                        P{shoes.Nike.AF1.price}
+                        Price: P{shoes.Nike.AF1.price}
                     </div>
                     <div className={styles.details}>
                         {shoes.Nike.AF1.sizes[0].availability}
@@ -588,16 +588,30 @@ const View = () => {
                     <div className={styles.details}>
                         <div className={styles.details}>Informations:</div>
                         <div className={styles.subDetails}>
-                            Delivery Fee: Free
+                            Shipping Fee:{" "}
+                            <b style={{ color: "#1976d1" }}>FREE</b>
                         </div>
                         <div className={styles.subDetails}>
-                            Mode of Payment: BDO,BPI, GCash
+                            Mode of Payment: BDO, BPI, GCash
                         </div>
                         <div className={styles.subDetails}>
                             Mode of Delivery: LBC
                         </div>
                     </div>
-                    <div>Other shoes image</div>
+                    <div>
+                        {shoes.Nike.AF1.shoes.map((shoes) => {
+                            return (
+                                <img
+                                    src={shoes.image}
+                                    alt={shoes.code}
+                                    style={{
+                                        height: "15vh",
+                                        width: "15vh",
+                                    }}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
