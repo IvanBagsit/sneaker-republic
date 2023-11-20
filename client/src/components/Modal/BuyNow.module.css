@@ -1,5 +1,5 @@
 .image {
-    height: 50vh;
+    height: 60vh;
     width: auto;
     object-fit: cover;
 }
@@ -8,4 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.textField {
+    margin-bottom: 3%;
 }

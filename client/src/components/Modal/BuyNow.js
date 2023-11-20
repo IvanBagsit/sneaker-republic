@@ -8,6 +8,7 @@ import {
     DialogTitle,
     DialogActions,
     IconButton,
+    TextField,
 } from "@mui/material";
 import styles from "./BuyNow.module.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -34,7 +35,7 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
             open={isOpen}
             TransitionComponent={Transition}
             onClose={handleClose}
-            maxWidth={"sm"}
+            maxWidth={"md"}
             fullWidth
         >
             <DialogTitle>{`Buy ${shoes.brand} ${shoes.title}?`}</DialogTitle>
@@ -47,7 +48,12 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                             className={styles.image}
                         />
                     </div>
-                    <div style={{ marginLeft: "2%" }}>
+                    <div
+                        style={{
+                            marginLeft: "2%",
+                            width: "40%",
+                        }}
+                    >
                         <DialogContentText>
                             Code: {shoes.mainImage.code}
                         </DialogContentText>
@@ -55,7 +61,6 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                             Price: P{shoes.price}
                         </DialogContentText>
                         <DialogContentText>
-                            {" "}
                             Quantity:
                             <IconButton
                                 onClick={() => {
@@ -82,6 +87,38 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                         <DialogContentText>
                             Total Price: P{totalPrice}
                         </DialogContentText>
+                        <div>
+                            <TextField
+                                label={"Full Name"}
+                                variant="standard"
+                                className={styles.textField}
+                                fullWidth
+                            />
+                        </div>
+                        <div>
+                            <TextField
+                                label={"Email"}
+                                variant="standard"
+                                className={styles.textField}
+                                fullWidth
+                            />
+                        </div>
+                        <div>
+                            <TextField
+                                label={"Contact Number"}
+                                variant="standard"
+                                className={styles.textField}
+                                fullWidth
+                            />
+                        </div>
+                        <div>
+                            <TextField
+                                label={"LBC Pickup Branch Address"}
+                                variant="standard"
+                                className={styles.textField}
+                                fullWidth
+                            />
+                        </div>
                     </div>
                 </div>
             </DialogContent>
