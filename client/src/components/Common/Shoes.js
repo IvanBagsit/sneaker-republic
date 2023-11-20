@@ -8,7 +8,6 @@ export { default as Airmax97Unisex1 } from "../../images/shoes/Nike/Airmax 97/Un
 export { default as Airmax97Unisex2 } from "../../images/shoes/Nike/Airmax 97/Unisex.JPG";
 export { default as Airmax97Women } from "../../images/shoes/Nike/Airmax 97/Women size.JPG";
 
-export { default as FragmentMen } from "../../images/shoes/Nike/Fragment/Men size.JPG";
 export { default as FragmentUnisex1 } from "../../images/shoes/Nike/Fragment/Unisex 1.JPG";
 export { default as FragmentUnisex2 } from "../../images/shoes/Nike/Fragment/Unisex.JPG";
 

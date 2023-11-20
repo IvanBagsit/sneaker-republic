@@ -11,7 +11,6 @@ import {
     AlphabounceUnisex1,
     AlphabounceUnisex2,
     AlphabounceUnisex3,
-    FragmentMen,
     FragmentUnisex1,
     FragmentUnisex2,
     GiannisMen,
@@ -43,11 +42,17 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useLocation } from "react-router-dom";
 import styles from "./View.module.css";
+import { useEffect, useState } from "react";
+import BuyNow from "../Modal/BuyNow";
 
 const View = () => {
     const shoes = [
         {
             url: "airforce1",
+            mainImage: {
+                image: AF1Unisex1,
+                code: "CDT1BB",
+            },
             shoes: [
                 {
                     image: AF1Unisex1,
@@ -82,7 +87,15 @@ const View = () => {
         },
         {
             url: "airmax97",
+            mainImage: {
+                image: Airmax97Women,
+                code: "GEYPSA",
+            },
             shoes: [
+                {
+                    image: Airmax97Women,
+                    code: "GEYPSA",
+                },
                 {
                     image: Airmax97Men,
                     code: "7LJMYI",
@@ -94,10 +107,6 @@ const View = () => {
                 {
                     image: Airmax97Unisex2,
                     code: "CWJHOU",
-                },
-                {
-                    image: Airmax97Women,
-                    code: "GEYPSA",
                 },
             ],
             title: "Airmax 97",
@@ -116,14 +125,14 @@ const View = () => {
         },
         {
             url: "fragment",
+            mainImage: {
+                image: FragmentUnisex1,
+                code: "2QFV0K",
+            },
             shoes: [
                 {
                     image: FragmentUnisex1,
                     code: "2QFV0K",
-                },
-                {
-                    image: FragmentMen,
-                    code: "TY64SO",
                 },
                 {
                     image: FragmentUnisex2,
@@ -146,6 +155,10 @@ const View = () => {
         },
         {
             url: "giannis",
+            mainImage: {
+                image: GiannisMen,
+                code: "60SG71",
+            },
             shoes: [
                 {
                     image: GiannisMen,
@@ -168,6 +181,10 @@ const View = () => {
         },
         {
             url: "jordan1",
+            mainImage: {
+                image: J1Unisex2,
+                code: "1GQMJI",
+            },
             shoes: [
                 {
                     image: J1Unisex2,
@@ -202,6 +219,10 @@ const View = () => {
         },
         {
             url: "jordan3",
+            mainImage: {
+                image: J3Men4,
+                code: "J88STE",
+            },
             shoes: [
                 {
                     image: J3Men4,
@@ -236,6 +257,10 @@ const View = () => {
         },
         {
             url: "joyride",
+            mainImage: {
+                image: JoyrideUnisex3,
+                code: "Q0RLE7",
+            },
             shoes: [
                 {
                     image: JoyrideUnisex3,
@@ -270,6 +295,10 @@ const View = () => {
         },
         {
             url: "alphabounce",
+            mainImage: {
+                image: AlphabounceUnisex1,
+                code: "O7KL2K",
+            },
             shoes: [
                 {
                     image: AlphabounceUnisex1,
@@ -304,6 +333,10 @@ const View = () => {
         },
         {
             url: "stansmith",
+            mainImage: {
+                image: StansmithUnisex1,
+                code: "47K63S",
+            },
             shoes: [
                 {
                     image: StansmithUnisex1,
@@ -330,6 +363,10 @@ const View = () => {
         },
         {
             url: "ultraboost",
+            mainImage: {
+                image: UltraboostUnisex1,
+                code: "950H7C",
+            },
             shoes: [
                 {
                     image: UltraboostUnisex1,
@@ -360,6 +397,10 @@ const View = () => {
         },
         {
             url: "yeezy",
+            mainImage: {
+                image: YeezyUnisex1,
+                code: "RMD4N4",
+            },
             shoes: [
                 {
                     image: YeezyUnisex1,
@@ -398,14 +439,50 @@ const View = () => {
     const queryParams = new URLSearchParams(location.search);
     const viewableShoes = queryParams.get("shoes");
 
-    const viewedShoes = shoes.find((item) => item.url === viewableShoes);
+    const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
+    const [viewedShoes, setViewedShoes] = useState({
+        url: "",
+        mainImage: {
+            image: null,
+            code: "",
+        },
+        shoes: [],
+        title: "",
+        brand: "",
+        price: 0,
+        sizes: [
+            {
+                availability: "",
+                sizes: [],
+            },
+            {
+                availability: "",
+                sizes: [],
+            },
+        ],
+    });
+
+    useEffect(() => {
+        setViewedShoes(shoes.find((item) => item.url === viewableShoes));
+    }, [viewableShoes]);
+
+    const viewSubShoes = (code) => {
+        const tempViewedShoes = shoes.find((item) =>
+            item.shoes.find((item) => item.code === code)
+        );
+        const tempMainImage = tempViewedShoes.shoes.find(
+            (item) => item.code === code
+        );
+        tempViewedShoes.mainImage = tempMainImage;
+        setViewedShoes(tempViewedShoes);
+    };
 
     return (
         <div className={styles.background}>
             <div className={styles.content}>
                 <div style={{ width: "40%" }}>
                     <img
-                        src={viewedShoes.shoes[0].image}
+                        src={viewedShoes.mainImage.image}
                         alt="viewedshoes"
                         className={styles.mainImage}
                     />
@@ -422,13 +499,10 @@ const View = () => {
                         Brand: {viewedShoes.brand}
                     </div>
                     <div className={styles.details}>
-                        Code: {viewedShoes.shoes[0].code}
+                        Code: {viewedShoes.mainImage.code}
                     </div>
                     <div className={styles.details}>
                         Price: P{viewedShoes.price}
-                    </div>
-                    <div className={styles.details}>
-                        {viewedShoes.sizes[0].availability}
                     </div>
                     <div className={styles.details}>
                         <div>
@@ -449,6 +523,9 @@ const View = () => {
                             variant="contained"
                             color="primary"
                             sx={{ width: "40%", marginRight: "1%" }}
+                            onClick={() => {
+                                setIsBuyNowOpen(true);
+                            }}
                         >
                             Buy Now
                         </Button>
@@ -462,34 +539,44 @@ const View = () => {
                         </Button>
                     </div>
                     <div className={styles.details}>
-                        <div className={styles.details}>Informations:</div>
-                        <div className={styles.subDetails}>
+                        <div>
                             Shipping Fee:{" "}
                             <b style={{ color: "#1976d1" }}>FREE</b>
                         </div>
-                        <div className={styles.subDetails}>
-                            Mode of Payment: BDO, BPI, GCash
-                        </div>
-                        <div className={styles.subDetails}>
-                            Mode of Delivery: LBC
-                        </div>
+                        <div>Mode of Payment: BDO, BPI, GCash</div>
+                        <div>Mode of Delivery: LBC</div>
                     </div>
                     <div>
                         {viewedShoes.shoes.map((shoes) => {
                             return (
-                                <img
-                                    src={shoes.image}
-                                    alt={shoes.code}
-                                    style={{
-                                        height: "15vh",
-                                        width: "15vh",
-                                    }}
-                                />
+                                <span
+                                    onClick={() => viewSubShoes(shoes.code)}
+                                    className={styles.subShoes}
+                                >
+                                    <img
+                                        src={shoes.image}
+                                        alt={shoes.code}
+                                        style={{
+                                            height: "15vh",
+                                            width: "15vh",
+                                            marginRight: "1%",
+                                        }}
+                                    />
+                                </span>
                             );
                         })}
                     </div>
                 </div>
             </div>
+            {isBuyNowOpen && (
+                <BuyNow
+                    isOpen={isBuyNowOpen}
+                    onClose={() => {
+                        setIsBuyNowOpen(false);
+                    }}
+                    shoes={viewedShoes}
+                />
+            )}
         </div>
     );
 };
