@@ -72,18 +72,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -113,18 +106,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -150,18 +136,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -179,18 +158,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -220,18 +192,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -261,18 +226,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -302,18 +260,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -343,18 +294,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -376,18 +320,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -413,18 +350,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -454,18 +384,11 @@ const View = () => {
             sizes: [
                 {
                     availability: "Men",
-                    sizes: [
-                        "7 US",
-                        "8 US",
-                        "8.5 US",
-                        "9.5 US",
-                        "10 US",
-                        "11 US",
-                    ],
+                    sizes: ["7", "8", "8.5", "9.5", "10", "11"],
                 },
                 {
                     availability: "Women",
-                    sizes: ["5.5 US", "6.5 US", "7 US", "8 US"],
+                    sizes: ["5.5", "6.5", "7", "8"],
                 },
             ],
         },
@@ -508,8 +431,18 @@ const View = () => {
                         {viewedShoes.sizes[0].availability}
                     </div>
                     <div className={styles.details}>
-                        <div>Men size: {viewedShoes.sizes[0].sizes}</div>
-                        <div>Women size: {viewedShoes.sizes[1].sizes}</div>
+                        <div>
+                            Men size (US):{" "}
+                            {viewedShoes.sizes[0].sizes.map(
+                                (items) => `${items}, `
+                            )}
+                        </div>
+                        <div>
+                            Women size (US):{" "}
+                            {viewedShoes.sizes[1].sizes.map(
+                                (items) => `${items}, `
+                            )}
+                        </div>
                     </div>
                     <div className={styles.details}>
                         <Button
