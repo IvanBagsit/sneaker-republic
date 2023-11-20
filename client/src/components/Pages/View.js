@@ -1,13 +1,6 @@
 import {
     AF1Unisex1,
-    AF1Unisex2,
-    AF1Unisex3,
-    AF1Unisex4,
-    AF1Unisex5,
-    AF1Women1,
     AF1Women2,
-    AF1Women3,
-    AF1Women4,
     AF1Women5,
     AF1Women6,
     Airmax97Men,
@@ -23,13 +16,9 @@ import {
     FragmentUnisex2,
     GiannisMen,
     J1Men1,
-    J1Men2,
-    J1Unisex1,
     J1Unisex2,
     J1Unisex3,
-    J1Unisex4,
     J1Unisex5,
-    J1UnisexUV,
     J3Men1,
     J3Men2,
     J3Men3,
@@ -46,9 +35,7 @@ import {
     YeezyMen,
     YeezyUnisex1,
     YeezyUnisex2,
-    YeezyUnisex3,
     YeezyUnisex4,
-    YeezyUnisex5,
 } from "../Common/Shoes";
 
 import { Button } from "@mui/material";
@@ -67,36 +54,8 @@ const View = () => {
                     code: "CDT1BB",
                 },
                 {
-                    image: AF1Unisex2,
-                    code: "E3KDKH",
-                },
-                {
-                    image: AF1Unisex3,
-                    code: "T7KG2N",
-                },
-                {
-                    image: AF1Unisex4,
-                    code: "NVDU38",
-                },
-                {
-                    image: AF1Unisex5,
-                    code: "YQNZN2",
-                },
-                {
-                    image: AF1Women1,
-                    code: "821YVG",
-                },
-                {
                     image: AF1Women2,
                     code: "LE2YKK",
-                },
-                {
-                    image: AF1Women3,
-                    code: "XQUTY7",
-                },
-                {
-                    image: AF1Women4,
-                    code: "4AW5HF",
                 },
                 {
                     image: AF1Women5,
@@ -247,28 +206,12 @@ const View = () => {
                     code: "47QZUA",
                 },
                 {
-                    image: J1Men2,
-                    code: "6ITHBZ",
-                },
-                {
-                    image: J1Unisex1,
-                    code: "5M9OHJ",
-                },
-                {
                     image: J1Unisex3,
                     code: "32CXMQ",
                 },
                 {
-                    image: J1Unisex4,
-                    code: "U5B6AO",
-                },
-                {
                     image: J1Unisex5,
                     code: "1ZBXYK",
-                },
-                {
-                    image: J1UnisexUV,
-                    code: "YRBYHY",
                 },
             ],
             title: "Jordan 1",
@@ -501,16 +444,8 @@ const View = () => {
                     code: "MJOXR1",
                 },
                 {
-                    image: YeezyUnisex3,
-                    code: "E1KGLE",
-                },
-                {
                     image: YeezyUnisex4,
                     code: "7DNUEQ",
-                },
-                {
-                    image: YeezyUnisex5,
-                    code: "N09EJU",
                 },
             ],
             title: "Yeezy",
@@ -573,7 +508,8 @@ const View = () => {
                         {viewedShoes.sizes[0].availability}
                     </div>
                     <div className={styles.details}>
-                        Select Size: {viewedShoes.sizes[0].sizes}
+                        <div>Men size: {viewedShoes.sizes[0].sizes}</div>
+                        <div>Women size: {viewedShoes.sizes[1].sizes}</div>
                     </div>
                     <div className={styles.details}>
                         <Button
