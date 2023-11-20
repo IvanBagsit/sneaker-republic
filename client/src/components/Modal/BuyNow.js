@@ -17,6 +17,41 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const BuyNow = ({ isOpen, onClose, shoes }) => {};
+const BuyNow = ({ isOpen, onClose, shoes }) => {
+    const handleClose = () => {
+        onClose();
+    };
+
+    return (
+        <Dialog
+            open={isOpen}
+            TransitionComponent={Transition}
+            onClose={handleClose}
+            maxWidth={"sm"}
+            fullWidth
+        >
+            <DialogTitle>{`Buy ${shoes.brand} ${shoes.title}?`}</DialogTitle>
+            <DialogContent></DialogContent>
+            <DialogActions>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleClose}
+                    sx={{ width: "20%" }}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClose}
+                    sx={{ width: "20%" }}
+                >
+                    Buy
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
 
 export default BuyNow;
