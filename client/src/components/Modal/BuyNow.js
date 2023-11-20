@@ -85,13 +85,14 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                             </IconButton>
                         </DialogContentText>
                         <DialogContentText>
-                            Total Price: P{totalPrice}
+                            <b>Total Price:</b> P{totalPrice}
                         </DialogContentText>
                         <div>
                             <TextField
                                 label={"Full Name"}
                                 variant="standard"
                                 className={styles.textField}
+                                style={{ marginTop: "5%" }}
                                 fullWidth
                             />
                         </div>
