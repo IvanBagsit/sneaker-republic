@@ -18,6 +18,13 @@ const Transition = forwardRef((props, ref) => {
 });
 
 const BuyNow = ({ isOpen, onClose, shoes }) => {
+    const [quantity, setQuantity] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    useEffect(() => {
+        setTotalPrice(quantity * shoes.price);
+    }, [quantity]);
+
     const handleClose = () => {
         onClose();
     };
@@ -31,7 +38,53 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
             fullWidth
         >
             <DialogTitle>{`Buy ${shoes.brand} ${shoes.title}?`}</DialogTitle>
-            <DialogContent></DialogContent>
+            <DialogContent>
+                <div className={styles.contentContainer}>
+                    <div>
+                        <img
+                            src={shoes.mainImage.image}
+                            alt="mainImage"
+                            className={styles.image}
+                        />
+                    </div>
+                    <div style={{ marginLeft: "2%" }}>
+                        <DialogContentText>
+                            Code: {shoes.mainImage.code}
+                        </DialogContentText>
+                        <DialogContentText>
+                            Price: P{shoes.price}
+                        </DialogContentText>
+                        <DialogContentText>
+                            {" "}
+                            Quantity:
+                            <IconButton
+                                onClick={() => {
+                                    setQuantity((prev) => {
+                                        if (prev <= 1) {
+                                            return prev;
+                                        } else {
+                                            return prev - 1;
+                                        }
+                                    });
+                                }}
+                            >
+                                <RemoveCircleIcon />
+                            </IconButton>
+                            {quantity}
+                            <IconButton
+                                onClick={() => {
+                                    setQuantity((prev) => prev + 1);
+                                }}
+                            >
+                                <AddCircleIcon />
+                            </IconButton>
+                        </DialogContentText>
+                        <DialogContentText>
+                            Total Price: P{totalPrice}
+                        </DialogContentText>
+                    </div>
+                </div>
+            </DialogContent>
             <DialogActions>
                 <Button
                     variant="outlined"
