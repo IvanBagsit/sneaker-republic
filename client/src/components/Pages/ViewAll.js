@@ -1,6 +1,6 @@
 import {
     AF1Unisex1,
-    Airmax97Men,
+    Airmax97Women,
     AlphabounceUnisex1,
     FragmentUnisex1,
     GiannisMen,
@@ -27,11 +27,11 @@ const ViewAll = () => {
         {
             img: AF1Unisex1,
             name: "Nike Airforce 1",
-            inventory: "Inventory: 3",
+            inventory: "Inventory: 7",
             link: "airforce1",
         },
         {
-            img: Airmax97Men,
+            img: Airmax97Women,
             name: "Nike Airmax 97",
             inventory: "Inventory: 5",
             link: "airmax97",
@@ -39,7 +39,7 @@ const ViewAll = () => {
         {
             img: FragmentUnisex1,
             name: "Nike Travis Scott x Fragment",
-            inventory: "Inventory: 4",
+            inventory: "Inventory: 8",
             link: "fragment",
         },
         {
@@ -51,13 +51,13 @@ const ViewAll = () => {
         {
             img: J1Unisex2,
             name: "Nike Jordan 1",
-            inventory: "Inventory: 2",
+            inventory: "Inventory: 5",
             link: "jordan1",
         },
         {
             img: J3Men4,
             name: "Nike Jordan 3",
-            inventory: "Inventory: 1",
+            inventory: "Inventory: 6",
             link: "jordan3",
         },
         {
@@ -74,20 +74,20 @@ const ViewAll = () => {
         },
         {
             img: StansmithUnisex1,
-            name: "Adidas Stan Smith",
-            inventory: "Inventory: 1",
+            name: "Adidas Stansmith",
+            inventory: "Inventory: 5",
             link: "stansmith",
         },
         {
             img: UltraboostUnisex1,
             name: "Adidas Ultraboost",
-            inventory: "Inventory: 2",
+            inventory: "Inventory: 6",
             link: "ultraboost",
         },
         {
             img: YeezyUnisex1,
             name: "Adidas Yeezy",
-            inventory: "Inventory: 3",
+            inventory: "Inventory: 5",
             link: "yeezy",
         },
     ];

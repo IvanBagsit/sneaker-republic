@@ -1,0 +1,11 @@
+.image {
+    height: 50vh;
+    width: auto;
+    object-fit: cover;
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -28,6 +28,6 @@
     margin-bottom: 2%;
 }
 
-.subDetails {
-    margin-left: 2%;
+.subShoes:hover {
+    cursor: pointer;
 }
