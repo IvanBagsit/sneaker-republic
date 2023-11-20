@@ -51,6 +51,10 @@ import {
     YeezyUnisex5,
 } from "../Common/Shoes";
 
+import { Button } from "@mui/material";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 import { useLocation } from "react-router-dom";
 import styles from "./View.module.css";
 
@@ -534,29 +538,66 @@ const View = () => {
     return (
         <div className={styles.background}>
             <div className={styles.content}>
-                <div>
+                <div style={{ width: "40%" }}>
                     <img
                         src={shoes.Nike.AF1.shoes[0].image}
                         alt="main-image"
                         className={styles.mainImage}
                     />
                 </div>
-                <div>
-                    <div>
-                        <h3>{shoes.Nike.AF1.title}</h3>
+                <div
+                    style={{
+                        width: "40%",
+                    }}
+                >
+                    <div className={styles.details}>
+                        <h1>{shoes.Nike.AF1.title}</h1>
                     </div>
-                    <div>Brand: {shoes.Nike.AF1.brand}</div>
-                    <div>Code: {shoes.Nike.AF1.shoes[0].code}</div>
-                    <div>{shoes.Nike.AF1.price}</div>
-                    <div>{shoes.Nike.AF1.sizes[0].availability}</div>
-                    <div>Select Size: {shoes.Nike.AF1.sizes[0].sizes}</div>
-                    <div>Buy</div>
-                    <div>Add to Cart</div>
-                    <div>
-                        Informations - Delivery, Fees, Mode of Payment, message
-                        us
+                    <div className={styles.details}>
+                        Brand: {shoes.Nike.AF1.brand}
                     </div>
-                    <div>Other shoes images</div>
+                    <div className={styles.details}>
+                        Code: {shoes.Nike.AF1.shoes[0].code}
+                    </div>
+                    <div className={styles.details}>
+                        P{shoes.Nike.AF1.price}
+                    </div>
+                    <div className={styles.details}>
+                        {shoes.Nike.AF1.sizes[0].availability}
+                    </div>
+                    <div className={styles.details}>
+                        Select Size: {shoes.Nike.AF1.sizes[0].sizes}
+                    </div>
+                    <div className={styles.details}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            sx={{ width: "40%", marginRight: "1%" }}
+                        >
+                            Buy Now
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            startIcon={<ShoppingCartIcon />}
+                            sx={{ width: "40%", marginLeft: "1%" }}
+                        >
+                            Add to Cart
+                        </Button>
+                    </div>
+                    <div className={styles.details}>
+                        <div className={styles.details}>Informations:</div>
+                        <div className={styles.subDetails}>
+                            Delivery Fee: Free
+                        </div>
+                        <div className={styles.subDetails}>
+                            Mode of Payment: BDO,BPI, GCash
+                        </div>
+                        <div className={styles.subDetails}>
+                            Mode of Delivery: LBC
+                        </div>
+                    </div>
+                    <div>Other shoes image</div>
                 </div>
             </div>
         </div>
