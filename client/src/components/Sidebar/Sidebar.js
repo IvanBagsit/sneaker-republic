@@ -37,7 +37,7 @@ const Sidebar = () => {
                     shoes: [
                         "Airforce 1",
                         "Airmax 97",
-                        "TravisXFragment",
+                        "Fragment",
                         "Giannis",
                         "Jordan 1",
                         "Jordan 3",
@@ -62,7 +62,7 @@ const Sidebar = () => {
                     shoes: [
                         "Airforce 1",
                         "Airmax 97",
-                        "TravisXFragment",
+                        "Fragment",
                         "Jordan 1",
                         "Joyride",
                     ],
@@ -85,7 +85,7 @@ const Sidebar = () => {
                     shoes: [
                         "Airforce 1",
                         "Airmax 97",
-                        "TravisXFragment",
+                        "Fragment",
                         "Jordan 1",
                         "Joyride",
                     ],
