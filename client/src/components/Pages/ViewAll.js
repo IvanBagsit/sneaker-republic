@@ -1,6 +1,6 @@
 import {
     AF1Unisex1,
-    Airmax97Unisex2,
+    Airmax97Men,
     AlphabounceUnisex1,
     FragmentUnisex1,
     GiannisMen,
@@ -31,7 +31,7 @@ const ViewAll = () => {
             link: "airforce1",
         },
         {
-            img: Airmax97Unisex2,
+            img: Airmax97Men,
             name: "Nike Airmax 97",
             inventory: "Inventory: 5",
             link: "airmax97",

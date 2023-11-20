@@ -23,3 +23,11 @@
     object-fit: cover;
     border-radius: 15%;
 }
+
+.details {
+    margin-bottom: 2%;
+}
+
+.subDetails {
+    margin-left: 2%;
+}
