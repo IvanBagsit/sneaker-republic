@@ -74,7 +74,7 @@ const View = () => {
             ],
             title: "Airforce 1",
             brand: "Nike",
-            price: 500,
+            price: 800,
             sizes: [
                 {
                     availability: "Men",
@@ -112,7 +112,7 @@ const View = () => {
             ],
             title: "Airmax 97",
             brand: "Nike",
-            price: 500,
+            price: 600,
             sizes: [
                 {
                     availability: "Men",
@@ -142,7 +142,7 @@ const View = () => {
             ],
             title: "Travis Scott x Fragment",
             brand: "Nike",
-            price: 500,
+            price: 700,
             sizes: [
                 {
                     availability: "Men",
@@ -168,7 +168,7 @@ const View = () => {
             ],
             title: "Giannis",
             brand: "Nike",
-            price: 500,
+            price: 800,
             sizes: [
                 {
                     availability: "Men",
@@ -206,7 +206,7 @@ const View = () => {
             ],
             title: "Jordan 1",
             brand: "Nike",
-            price: 500,
+            price: 600,
             sizes: [
                 {
                     availability: "Men",
@@ -244,7 +244,7 @@ const View = () => {
             ],
             title: "Jordan 3",
             brand: "Nike",
-            price: 500,
+            price: 700,
             sizes: [
                 {
                     availability: "Men",
@@ -282,7 +282,7 @@ const View = () => {
             ],
             title: "Joyride",
             brand: "Nike",
-            price: 500,
+            price: 700,
             sizes: [
                 {
                     availability: "Men",
@@ -384,7 +384,7 @@ const View = () => {
             ],
             title: "Ultraboost",
             brand: "Adidas",
-            price: 500,
+            price: 800,
             sizes: [
                 {
                     availability: "Men",
@@ -422,7 +422,7 @@ const View = () => {
             ],
             title: "Yeezy",
             brand: "Adidas",
-            price: 500,
+            price: 700,
             sizes: [
                 {
                     availability: "Men",
