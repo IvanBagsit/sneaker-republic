@@ -51,12 +51,12 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
                         <img src={dnd100} alt="draganddrop" />
                     </div>
                     <div>
-                        <DialogContentText>
+                        <DialogContentText className={styles.dragdropText}>
                             Drag and drop files here or click 'Choose file'
                             buton
                         </DialogContentText>
                     </div>
-                    <div>
+                    <div style={{ marginTop: "3%" }}>
                         <Button variant="outlined" color="primary">
                             Choose File
                         </Button>

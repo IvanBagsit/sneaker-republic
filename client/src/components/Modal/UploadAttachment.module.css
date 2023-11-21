@@ -12,3 +12,7 @@
     border: 1px dashed #a8abad;
     border-radius: 3%;
 }
+
+.dragdropText {
+    font-style: italic;
+}
