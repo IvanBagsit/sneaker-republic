@@ -5,14 +5,16 @@
 Thanks for checking out my side project regarding selling sneakers.
 This project was created to handle and scale my business in sneaker industry
 
+[Visit the actual project here](https://sneakers-republic.vercel.app/)
+
 ## Table of Contents
 
--   [Features] (#features)
--   [Information] (#information)
--   [Installation] (#installation)
--   [Contributors] (#contributors)
+-   [Features](#features)
+-   [Information](#information)
+-   [Installation](#installation)
+-   [Contributors](#contributors)
 
-## Features
+## Features <a name="features">
 
 ### `USER`
 
@@ -29,7 +31,7 @@ This project was created to handle and scale my business in sneaker industry
 -   notification
 -   data and statistics
 
-## Information
+## Information <a name="information">
 
 Framework/Tools:
 
@@ -42,7 +44,7 @@ Programming Language:
 -   HTML
 -   CSS
 
-## Installation
+## Installation <a name="installation">
 
 ### `Front End`
 
@@ -56,6 +58,6 @@ Programming Language:
 1. git clone https://github.com/IvanBagsit/sneaker-republic
 2. go to 'server' folder
 
-## Contributors
+## Contributors <a name="contributors">
 
 -   Ivan Bagsit (Owner/Creator)
