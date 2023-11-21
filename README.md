@@ -2,7 +2,7 @@
 
 (Ongoing README file)
 
-Thanks for checking out my side project regarding selling sneakers.
+Thanks for checking out my ongoing side project regarding selling sneakers.
 This project was created to handle and scale my business in sneaker industry
 
 [Visit the actual project here](https://sneakers-republic.vercel.app/)
@@ -33,13 +33,15 @@ This project was created to handle and scale my business in sneaker industry
 
 ## Information <a name="information">
 
-Framework/Tools:
+Framework/Tools/Library used:
 
 -   React
+-   Material Ui
+-   React-Router-Dom
+-   React-Dropzone
 
 Programming Language:
 
--   Typescript
 -   Javascript
 -   HTML
 -   CSS
