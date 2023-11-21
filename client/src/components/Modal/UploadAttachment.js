@@ -50,10 +50,10 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
             maxWidth={"sm"}
             fullWidth
         >
-            <DialogTitle>Upload Attachment</DialogTitle>
+            <DialogTitle>Upload Attachment/s</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Please upload screenshot of payment
+                    Please upload screenshot/s of payment
                 </DialogContentText>
                 <DialogContentText>
                     Mode of Payment:{" "}
