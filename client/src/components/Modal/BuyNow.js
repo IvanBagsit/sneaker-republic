@@ -128,7 +128,7 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                     variant="outlined"
                     color="primary"
                     onClick={handleClose}
-                    sx={{ width: "20%" }}
+                    className={styles.button}
                 >
                     Cancel
                 </Button>
@@ -136,9 +136,9 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                     variant="contained"
                     color="primary"
                     onClick={handleClose}
-                    sx={{ width: "20%" }}
+                    className={styles.button}
                 >
-                    Buy
+                    Next
                 </Button>
             </DialogActions>
         </Dialog>
