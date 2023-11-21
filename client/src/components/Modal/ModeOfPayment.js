@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "@mui/material";
 import styles from "./ModeOfPayment.module.css";
-import mop from "../../images/mop/MOP.gif";
+import mop from "../../images/others/MOP.gif";
 
 const ModeOfPayment = ({ isOpen = false, onClose }) => {
     return (
