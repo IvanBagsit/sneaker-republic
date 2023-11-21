@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState, useCallback } from "react";
 import {
     Button,
     Slide,
@@ -8,10 +8,13 @@ import {
     DialogTitle,
     DialogActions,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styles from "./UploadAttachment.module.css";
 import ModeOfPayment from "./ModeOfPayment";
-import dnd50 from "../../images/others/dnd50.png";
 import dnd100 from "../../images/others/dnd100.png";
+
+import { useDropzone } from "react-dropzone";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -19,10 +22,26 @@ const Transition = forwardRef((props, ref) => {
 
 const UploadAttachment = ({ isOpen = false, onClose, details }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
+    const [selectedFile, setSelectedFile] = useState([]);
 
     const handleClose = () => {
         onClose();
     };
+
+    const onDrop = (acceptedFiles) => {
+        setSelectedFile((prev) => [...prev, ...acceptedFiles]);
+    };
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        open: openFileBrowser,
+    } = useDropzone({
+        onDrop,
+        noClick: true,
+        disabled: false,
+    });
 
     return (
         <Dialog
@@ -46,19 +65,26 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
                         View
                     </Button>
                 </DialogContentText>
-                <div className={styles.uploadsection}>
+                <div className={styles.uploadsection} {...getRootProps()}>
+                    <input {...getInputProps()} hidden />
                     <div>
                         <img src={dnd100} alt="draganddrop" />
                     </div>
                     <div>
                         <DialogContentText className={styles.dragdropText}>
-                            Drag and drop files here or click 'Choose file'
-                            buton
+                            {isDragActive
+                                ? "Drop here"
+                                : 'Drag and drop files here or click "Upload file" button'}
                         </DialogContentText>
                     </div>
                     <div style={{ marginTop: "3%" }}>
-                        <Button variant="outlined" color="primary">
-                            Choose File
+                        <Button
+                            component="label"
+                            variant="contained"
+                            startIcon={<CloudUploadIcon />}
+                            onClick={openFileBrowser}
+                        >
+                            Upload file
                         </Button>
                     </div>
                 </div>
