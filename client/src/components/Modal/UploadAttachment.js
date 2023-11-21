@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import {
     Button,
     Slide,
@@ -9,12 +9,15 @@ import {
     DialogActions,
 } from "@mui/material";
 import styles from "./UploadAttachment.module.css";
+import ModeOfPayment from "./ModeOfPayment";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const UploadAttachment = ({ isOpen = false, onClose, details }) => {
+    const [isMOPOpen, setIsMOPOpen] = useState(false);
+
     const handleClose = () => {
         onClose();
     };
@@ -22,14 +25,22 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
     return (
         <Dialog
             open={isOpen}
-            onClose={onClose}
             TransitionComponent={Transition}
             maxWidth={"sm"}
             fullWidth
         >
             <DialogTitle>Upload Attachment</DialogTitle>
             <DialogContent>
-                <DialogContentText>HELLO</DialogContentText>
+                <DialogContentText>
+                    Mode of Payment:{" "}
+                    <Button
+                        size="small"
+                        onClick={() => setIsMOPOpen(true)}
+                        variant="outlined"
+                    >
+                        View
+                    </Button>
+                </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button
@@ -49,6 +60,12 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
                     Buy
                 </Button>
             </DialogActions>
+            {isMOPOpen && (
+                <ModeOfPayment
+                    isOpen={isMOPOpen}
+                    onClose={() => setIsMOPOpen(false)}
+                />
+            )}
         </Dialog>
     );
 };

@@ -42,7 +42,6 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
         <Dialog
             open={isOpen}
             TransitionComponent={Transition}
-            onClose={handleClose}
             maxWidth={"md"}
             fullWidth
         >
@@ -80,6 +79,7 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                                         }
                                     });
                                 }}
+                                color="primary"
                             >
                                 <RemoveCircleIcon />
                             </IconButton>
@@ -88,6 +88,7 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                                 onClick={() => {
                                     setQuantity((prev) => prev + 1);
                                 }}
+                                color="primary"
                             >
                                 <AddCircleIcon />
                             </IconButton>

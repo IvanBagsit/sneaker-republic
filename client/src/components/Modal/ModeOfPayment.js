@@ -1,15 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
-import {
-    Button,
-    Slide,
-    Dialog,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    DialogActions,
-    IconButton,
-    TextField,
-} from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
 import styles from "./ModeOfPayment.module.css";
 import mop from "../../images/mop/MOP.gif";
 
