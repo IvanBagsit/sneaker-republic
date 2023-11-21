@@ -13,6 +13,7 @@ import {
 import styles from "./BuyNow.module.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import UploadAttachment from "./UploadAttachment";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -22,12 +23,19 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
     const [quantity, setQuantity] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
 
+    const [isUploadAttachmentDisplayed, setIsUploadAttachmentDisplayed] =
+        useState(false);
+
     useEffect(() => {
         setTotalPrice(quantity * shoes.price);
     }, [quantity]);
 
     const handleClose = () => {
         onClose();
+    };
+
+    const handleNext = () => {
+        setIsUploadAttachmentDisplayed(true);
     };
 
     return (
@@ -135,12 +143,18 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose}
+                    onClick={handleNext}
                     className={styles.button}
                 >
                     Next
                 </Button>
             </DialogActions>
+            {isUploadAttachmentDisplayed && (
+                <UploadAttachment
+                    isOpen={isUploadAttachmentDisplayed}
+                    onClose={() => setIsUploadAttachmentDisplayed(false)}
+                />
+            )}
         </Dialog>
     );
 };
