@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import styles from "./UploadAttachment.module.css";
 import ModeOfPayment from "./ModeOfPayment";
+import dnd50 from "../../images/others/dnd50.png";
+import dnd100 from "../../images/others/dnd100.png";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -32,6 +34,9 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
             <DialogTitle>Upload Attachment</DialogTitle>
             <DialogContent>
                 <DialogContentText>
+                    Please upload screenshot of payment
+                </DialogContentText>
+                <DialogContentText>
                     Mode of Payment:{" "}
                     <Button
                         size="small"
@@ -41,6 +46,22 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
                         View
                     </Button>
                 </DialogContentText>
+                <div className={styles.uploadsection}>
+                    <div>
+                        <img src={dnd100} alt="draganddrop" />
+                    </div>
+                    <div>
+                        <DialogContentText>
+                            Drag and drop files here or click 'Choose file'
+                            buton
+                        </DialogContentText>
+                    </div>
+                    <div>
+                        <Button variant="outlined" color="primary">
+                            Choose File
+                        </Button>
+                    </div>
+                </div>
             </DialogContent>
             <DialogActions>
                 <Button
