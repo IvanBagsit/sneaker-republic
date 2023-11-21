@@ -44,6 +44,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./View.module.css";
 import { useEffect, useState } from "react";
 import BuyNow from "../Modal/BuyNow";
+import ModeOfPayment from "../Modal/ModeOfPayment";
 
 const View = () => {
     const shoes = [
@@ -440,6 +441,7 @@ const View = () => {
     const viewableShoes = queryParams.get("shoes");
 
     const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
+    const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [viewedShoes, setViewedShoes] = useState({
         url: "",
         mainImage: {
@@ -543,8 +545,17 @@ const View = () => {
                             Shipping Fee:{" "}
                             <b style={{ color: "#1976d1" }}>FREE</b>
                         </div>
-                        <div>Mode of Payment: BDO, BPI, GCash</div>
                         <div>Mode of Delivery: LBC</div>
+                        <div>
+                            Mode of Payment:{" "}
+                            <Button
+                                size="small"
+                                onClick={() => setIsMOPOpen(true)}
+                                variant="outlined"
+                            >
+                                View
+                            </Button>
+                        </div>
                     </div>
                     <div>
                         {viewedShoes.shoes.map((shoes) => {
@@ -575,6 +586,12 @@ const View = () => {
                         setIsBuyNowOpen(false);
                     }}
                     shoes={viewedShoes}
+                />
+            )}
+            {isMOPOpen && (
+                <ModeOfPayment
+                    isOpen={isMOPOpen}
+                    onClose={() => setIsMOPOpen(false)}
                 />
             )}
         </div>
