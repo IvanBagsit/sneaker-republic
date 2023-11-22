@@ -563,6 +563,7 @@ const View = () => {
                                 <span
                                     onClick={() => viewSubShoes(shoes.code)}
                                     className={styles.subShoes}
+                                    key={shoes.code}
                                 >
                                     <img
                                         src={shoes.image}
