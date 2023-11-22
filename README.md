@@ -37,8 +37,10 @@ Framework/Tools/Library used:
 
 -   React
 -   Material Ui
--   React-Router-Dom
--   React-Dropzone
+-   react-router-dom
+-   react-dropzone
+-   react-pdf-viewer
+-   pdfjs-dist
 
 Programming Language:
 
