@@ -186,8 +186,8 @@ const Home = () => {
                                 website. This project is being built to scale
                                 and help our small business in the shoes
                                 industry. As of now, this project doesn't have
-                                payment feature yet but rest assured we are
-                                doing our best to improve our website.
+                                built-in payment feature yet but rest assured we
+                                are doing our best to improve our website.
                             </div>
                             <div
                                 style={{
