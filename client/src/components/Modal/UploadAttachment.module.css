@@ -11,6 +11,7 @@
     flex-direction: column;
     border: 1px dashed #a8abad;
     border-radius: 3%;
+    overflow: hidden;
 }
 
 .dragdropText {

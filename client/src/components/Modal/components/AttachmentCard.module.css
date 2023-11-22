@@ -1,4 +1,42 @@
 .background {
     margin: 0 3% 0 2%;
-    border: 1px solid blue;
+    border-radius: 5%;
+    width: 25%;
+    min-width: 25%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	box-shadow: 3px 5px 4px #0000003b;
+}
+
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+    border-radius: 5%;
+    background: #a8abad;
+}
+
+.thumbnail {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fileName {
+    height: 20%;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
 }

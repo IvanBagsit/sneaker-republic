@@ -4,8 +4,16 @@ import styles from "./AttachmentContainer.module.css";
 const AttachmentContainer = ({ attachments }) => {
     return (
         <div className={styles.background}>
-            {attachments.map((file) => {
-                return <AttachmentCard key={file.name} file={file} />;
+            {attachments.map((item) => {
+                const { file, status, url } = item;
+                return (
+                    <AttachmentCard
+                        key={file.name}
+                        file={file}
+                        status={status}
+                        url={url}
+                    />
+                );
             })}
         </div>
     );

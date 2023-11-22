@@ -1,10 +1,32 @@
+import { useEffect } from "react";
 import styles from "./AttachmentCard.module.css";
+import DescriptionIcon from "@mui/icons-material/Description";
 
-const AttachmentCard = ({ file }) => {
+const AttachmentCard = ({ file, status, url }) => {
+    useEffect(() => {
+        console.log(file);
+    }, []);
+
+    const imageTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+    const isImage = (type) => {
+        return imageTypes.includes(type.toLowerCase());
+    };
+
+    const thumbnail = () => {
+        if (isImage(file.type)) {
+            return (
+                <img className={styles.thumbnail} src={url} alt="thumbnail" />
+            );
+        } else {
+            return <DescriptionIcon />;
+        }
+    };
+
     return (
         <div className={styles.background}>
-            <div className={styles.preview}>{file.name}</div>
-            <div className={styles.title}>{file.name}</div>
+            <div className={styles.preview}>{thumbnail()}</div>
+            <div className={styles.fileName}>{file.name}</div>
         </div>
     );
 };

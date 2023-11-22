@@ -21,26 +21,47 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+export const MAX_SIZE = 5000000;
+export const acceptedFileTypes = [
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+    "application/pdf",
+];
+
 const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState([]);
 
     const handleClose = () => {
+        setIsMOPOpen(false);
+        setSelectedFile([]);
         onClose();
     };
 
-    const acceptedFileTypes = ["jpeg", "jpg", "png"];
-
     const verifyFiles = (files) => {
-        const tempAcceptedFiles = files.filter((file) =>
-            file.type.includes(acceptedFileTypes)
-        );
-        return tempAcceptedFiles;
+        const updatedFiles = files.map((file) => {
+            const url = URL.createObjectURL(file);
+            if (acceptedFileTypes.includes(file.type.toLowerCase())) {
+                const status = {
+                    hasError: false,
+                    errorMessage: "",
+                };
+                return { file, url, status };
+            } else {
+                const status = {
+                    hasError: true,
+                    errorMessage: "File type not supported",
+                };
+                return { file, url, status };
+            }
+        });
+        return updatedFiles;
     };
 
     const onDrop = (files) => {
-        const acceptedFile = verifyFiles(files);
-        setSelectedFile((prev) => [...prev, ...acceptedFile]);
+        const stucturedFile = verifyFiles(files);
+        setSelectedFile((prev) => [...prev, ...stucturedFile]);
     };
 
     const {
@@ -98,7 +119,9 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
                             Upload file
                         </Button>
                     </div>
-                    <AttachmentContainer attachments={selectedFile} />
+                    {selectedFile && (
+                        <AttachmentContainer attachments={selectedFile} />
+                    )}
                 </div>
             </DialogContent>
             <DialogActions>
