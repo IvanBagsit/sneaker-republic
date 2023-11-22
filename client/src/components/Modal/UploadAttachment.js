@@ -15,12 +15,13 @@ import ModeOfPayment from "./ModeOfPayment";
 import dnd100 from "../../images/others/dnd100.png";
 
 import { useDropzone } from "react-dropzone";
+import AttachmentContainer from "./components/AttachmentContainer";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const UploadAttachment = ({ isOpen = false, onClose, details }) => {
+const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState([]);
 
@@ -28,8 +29,18 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
         onClose();
     };
 
-    const onDrop = (acceptedFiles) => {
-        setSelectedFile((prev) => [...prev, ...acceptedFiles]);
+    const acceptedFileTypes = ["jpeg", "jpg", "png"];
+
+    const verifyFiles = (files) => {
+        const tempAcceptedFiles = files.filter((file) =>
+            file.type.includes(acceptedFileTypes)
+        );
+        return tempAcceptedFiles;
+    };
+
+    const onDrop = (files) => {
+        const acceptedFile = verifyFiles(files);
+        setSelectedFile((prev) => [...prev, ...acceptedFile]);
     };
 
     const {
@@ -87,6 +98,7 @@ const UploadAttachment = ({ isOpen = false, onClose, details }) => {
                             Upload file
                         </Button>
                     </div>
+                    <AttachmentContainer attachments={selectedFile} />
                 </div>
             </DialogContent>
             <DialogActions>
