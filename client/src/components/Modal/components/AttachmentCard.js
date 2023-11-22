@@ -1,12 +1,7 @@
-import { useEffect } from "react";
 import styles from "./AttachmentCard.module.css";
 import DescriptionIcon from "@mui/icons-material/Description";
 
 const AttachmentCard = ({ file, status, url }) => {
-    useEffect(() => {
-        console.log(file);
-    }, []);
-
     const imageTypes = ["image/png", "image/jpeg", "image/jpg"];
 
     const isImage = (type) => {
