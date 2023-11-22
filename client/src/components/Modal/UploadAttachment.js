@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState, useCallback } from "react";
+import { forwardRef, useState } from "react";
 import {
     Button,
     Slide,
@@ -8,20 +8,19 @@ import {
     DialogTitle,
     DialogActions,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useDropzone } from "react-dropzone";
+
+import AttachmentContainer from "./components/AttachmentContainer";
 import styles from "./UploadAttachment.module.css";
 import ModeOfPayment from "./ModeOfPayment";
 import dnd100 from "../../images/others/dnd100.png";
-
-import { useDropzone } from "react-dropzone";
-import AttachmentContainer from "./components/AttachmentContainer";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const MAX_SIZE = 5000000;
+export const MAX_SIZE = 4000000;
 export const acceptedFileTypes = [
     "image/png",
     "image/jpeg",
@@ -42,10 +41,20 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
     const verifyFiles = (files) => {
         const updatedFiles = files.map((file) => {
             const url = URL.createObjectURL(file);
-            if (acceptedFileTypes.includes(file.type.toLowerCase())) {
+            if (
+                acceptedFileTypes.includes(file.type.toLowerCase()) &&
+                file.size < MAX_SIZE
+            ) {
                 const status = {
                     hasError: false,
                     errorMessage: "",
+                };
+                return { file, url, status };
+            } else if (file.size >= MAX_SIZE) {
+                const status = {
+                    hasError: true,
+                    errorMessage:
+                        "File size limit reached. Max 4MB per attachment",
                 };
                 return { file, url, status };
             } else {
