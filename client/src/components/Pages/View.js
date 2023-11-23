@@ -46,6 +46,9 @@ import { useEffect, useState } from "react";
 import BuyNow from "../Modal/BuyNow";
 import ModeOfPayment from "../Modal/ModeOfPayment";
 
+import { useDispatch } from "react-redux";
+import { toggleIsSpeedDialDisplay } from "../Common/redux/redux";
+
 const View = () => {
     const shoes = [
         {
@@ -479,6 +482,12 @@ const View = () => {
         setViewedShoes(tempViewedShoes);
     };
 
+    const dispatch = useDispatch();
+
+    const handleAddToCart = () => {
+        dispatch(toggleIsSpeedDialDisplay());
+    };
+
     return (
         <div className={styles.background}>
             <div className={styles.content}>
@@ -536,6 +545,7 @@ const View = () => {
                             color="primary"
                             startIcon={<ShoppingCartIcon />}
                             sx={{ width: "40%", marginLeft: "1%" }}
+                            onClick={handleAddToCart}
                         >
                             Add to Cart
                         </Button>

@@ -37,6 +37,8 @@ Framework/Tools/Library used:
 
 -   React
 -   Material Ui
+-   react-redux
+-   reduxjs/toolkit
 -   react-router-dom
 -   react-dropzone
 -   react-pdf-viewer
