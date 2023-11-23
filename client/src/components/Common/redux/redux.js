@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
     name: "cartSlice",
     initialState: {
-        isSpeedDialDisplay: false,
+        isSpeedDialHidden: true,
         numberOfCartItem: 0,
         shoes: [
             // {
@@ -15,7 +15,6 @@ const cartSlice = createSlice({
             //     brand: "",
             //     quantity: 1,
             //     price: 0,
-            //     totalPrice: 0,
             //     sizes: {
             //         availability: "",
             //         sizes: "",
@@ -27,9 +26,9 @@ const cartSlice = createSlice({
         addCartShoes(state, action) {
             state.shoes.push(action.payload);
             if (state.shoes.length > 0) {
-                state.isSpeedDialDisplay = true;
+                state.isSpeedDialHidden = false;
             } else {
-                state.isSpeedDialDisplay = false;
+                state.isSpeedDialHidden = true;
             }
             state.numberOfCartItem = state.shoes.length;
         },
@@ -38,9 +37,9 @@ const cartSlice = createSlice({
                 (item) => item.mainImage.code === action.payload
             );
             if (state.shoes.length > 0) {
-                state.isSpeedDialDisplay = true;
+                state.isSpeedDialHidden = false;
             } else {
-                state.isSpeedDialDisplay = false;
+                state.isSpeedDialHidden = true;
             }
             state.numberOfCartItem = state.shoes.length;
         },
@@ -50,7 +49,6 @@ const cartSlice = createSlice({
             );
             if (shoe && action.payload.quantity > 0) {
                 shoe.quantity = action.payload.quantity;
-                shoe.totalPrice = shoe.quantity * shoe.price;
             } else {
                 console.error(`can't find shoes to update quantity`);
             }
@@ -65,8 +63,8 @@ const cartSlice = createSlice({
                 console.error(`can't find shoes to update size`);
             }
         },
-        toggleIsSpeedDialDisplay(state, action) {
-            state.isSpeedDialDisplay = !state.isSpeedDialDisplay;
+        toggleIsSpeedDialHidden(state, action) {
+            state.isSpeedDialHidden = !state.isSpeedDialHidden;
         },
     },
 });
@@ -76,6 +74,6 @@ export const {
     deleteCartShoes,
     updateCartShoesQuantity,
     updateCartShoesSize,
-    toggleIsSpeedDialDisplay,
+    toggleIsSpeedDialHidden,
 } = cartSlice.actions;
 export default cartSlice.reducer;

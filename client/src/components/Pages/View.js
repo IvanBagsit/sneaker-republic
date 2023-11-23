@@ -37,17 +37,22 @@ import {
     YeezyUnisex4,
 } from "../Common/Shoes";
 
-import { Button } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
 import { useLocation } from "react-router-dom";
-import styles from "./View.module.css";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import styles from "./View.module.css";
 import BuyNow from "../Modal/BuyNow";
 import ModeOfPayment from "../Modal/ModeOfPayment";
-
-import { useDispatch } from "react-redux";
-import { toggleIsSpeedDialDisplay } from "../Common/redux/redux";
+import {
+    addCartShoes,
+    deleteCartShoes,
+    updateCartShoesQuantity,
+    updateCartShoesSize,
+    toggleIsSpeedDialHidden,
+} from "../Common/redux/redux";
 
 const View = () => {
     const shoes = [
@@ -466,6 +471,10 @@ const View = () => {
             },
         ],
     });
+    const [size, setSize] = useState({
+        availability: "",
+        sizes: null,
+    });
 
     useEffect(() => {
         setViewedShoes(shoes.find((item) => item.url === viewableShoes));
@@ -482,10 +491,22 @@ const View = () => {
         setViewedShoes(tempViewedShoes);
     };
 
+    const handleSizeSelection = (availability, sizes) => {
+        const sizeObject = {
+            availability,
+            sizes,
+        };
+        setSize(sizeObject);
+    };
+
+    const handleSizeButton = (availability, sizes) => {
+        return size.availability === availability && size.sizes === sizes;
+    };
+
     const dispatch = useDispatch();
 
     const handleAddToCart = () => {
-        dispatch(toggleIsSpeedDialDisplay());
+        dispatch(addCartShoes({ ...viewedShoes, sizes: size, shoes: null }));
     };
 
     return (
@@ -518,15 +539,61 @@ const View = () => {
                     <div className={styles.details}>
                         <div>
                             Men size (US):{" "}
-                            {viewedShoes.sizes[0].sizes.map(
-                                (items) => `${items}, `
-                            )}
+                            <ButtonGroup
+                                variant="outlined"
+                                size="small"
+                                color="primary"
+                            >
+                                {viewedShoes.sizes[0].sizes.map((items) => {
+                                    return (
+                                        <Button
+                                            key={items}
+                                            onClick={() =>
+                                                handleSizeSelection(
+                                                    "Men",
+                                                    items
+                                                )
+                                            }
+                                            variant={
+                                                handleSizeButton("Men", items)
+                                                    ? "contained"
+                                                    : "outlined"
+                                            }
+                                        >
+                                            {items}
+                                        </Button>
+                                    );
+                                })}
+                            </ButtonGroup>
                         </div>
                         <div>
                             Women size (US):{" "}
-                            {viewedShoes.sizes[1].sizes.map(
-                                (items) => `${items}, `
-                            )}
+                            <ButtonGroup
+                                variant="outlined"
+                                size="small"
+                                color="primary"
+                            >
+                                {viewedShoes.sizes[1].sizes.map((items) => {
+                                    return (
+                                        <Button
+                                            key={items}
+                                            onClick={() =>
+                                                handleSizeSelection(
+                                                    "Women",
+                                                    items
+                                                )
+                                            }
+                                            variant={
+                                                handleSizeButton("Women", items)
+                                                    ? "contained"
+                                                    : "outlined"
+                                            }
+                                        >
+                                            {items}
+                                        </Button>
+                                    );
+                                })}
+                            </ButtonGroup>
                         </div>
                     </div>
                     <div className={styles.details}>
@@ -537,6 +604,7 @@ const View = () => {
                             onClick={() => {
                                 setIsBuyNowOpen(true);
                             }}
+                            disabled={size.sizes === null}
                         >
                             Buy Now
                         </Button>
@@ -556,16 +624,6 @@ const View = () => {
                             <b style={{ color: "#1976d1" }}>FREE</b>
                         </div>
                         <div>Mode of Delivery: LBC</div>
-                        <div>
-                            Mode of Payment:{" "}
-                            <Button
-                                size="small"
-                                onClick={() => setIsMOPOpen(true)}
-                                variant="outlined"
-                            >
-                                View
-                            </Button>
-                        </div>
                     </div>
                     <div>
                         {viewedShoes.shoes.map((shoes) => {
@@ -597,6 +655,7 @@ const View = () => {
                         setIsBuyNowOpen(false);
                     }}
                     shoes={viewedShoes}
+                    size={size}
                 />
             )}
             {isMOPOpen && (
