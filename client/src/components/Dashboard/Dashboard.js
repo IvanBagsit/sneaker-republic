@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SpeedDial, SpeedDialIcon, Box, Grid } from "@mui/material";
+import { SpeedDial, Grid, Badge } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import { handleGetIsStarted } from "../Common/SessionStorage";
 import { useSelector } from "react-redux";
@@ -22,6 +22,10 @@ const Dashboard = () => {
 
     const isSpeedDialDisplay = useSelector(
         (state) => state.cartSlice.isSpeedDialDisplay
+    );
+
+    const numberOfCartItem = useSelector(
+        (state) => state.cartSlice.numberOfCartItem
     );
 
     useEffect(() => {
@@ -70,7 +74,15 @@ const Dashboard = () => {
                             right: 0,
                             margin: "0 2% 2% 0",
                         }}
-                        icon={<ShoppingCartIcon />}
+                        icon={
+                            <Badge
+                                badgeContent={numberOfCartItem}
+                                max={99}
+                                color="secondary"
+                            >
+                                <ShoppingCartIcon />
+                            </Badge>
+                        }
                     ></SpeedDial>
                 </Grid>
             )}

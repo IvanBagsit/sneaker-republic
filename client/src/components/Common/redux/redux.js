@@ -4,22 +4,23 @@ const cartSlice = createSlice({
     name: "cartSlice",
     initialState: {
         isSpeedDialDisplay: false,
+        numberOfCartItem: 0,
         shoes: [
-            {
-                mainImage: {
-                    image: null,
-                    code: "",
-                },
-                title: "",
-                brand: "",
-                quantity: 1,
-                price: 0,
-                totalPrice: 0,
-                sizes: {
-                    availability: "",
-                    sizes: "",
-                },
-            },
+            // {
+            //     mainImage: {
+            //         image: null,
+            //         code: "",
+            //     },
+            //     title: "",
+            //     brand: "",
+            //     quantity: 1,
+            //     price: 0,
+            //     totalPrice: 0,
+            //     sizes: {
+            //         availability: "",
+            //         sizes: "",
+            //     },
+            // },
         ],
     },
     reducers: {
@@ -30,6 +31,7 @@ const cartSlice = createSlice({
             } else {
                 state.isSpeedDialDisplay = false;
             }
+            state.numberOfCartItem = state.shoes.length;
         },
         deleteCartShoes(state, action) {
             state.shoes = state.shoes.filter(
@@ -40,6 +42,7 @@ const cartSlice = createSlice({
             } else {
                 state.isSpeedDialDisplay = false;
             }
+            state.numberOfCartItem = state.shoes.length;
         },
         updateCartShoesQuantity(state, action) {
             const shoe = state.shoes.find(
