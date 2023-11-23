@@ -1,0 +1,19 @@
+.contentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    height: 60vh;
+    width: auto;
+    object-fit: cover;
+}
+
+.textField {
+    margin-bottom: 3%;
+}
+
+.button {
+    width: 20%;
+}

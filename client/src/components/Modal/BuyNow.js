@@ -65,7 +65,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                             Code: {shoes.mainImage.code}
                         </DialogContentText>
                         <DialogContentText>
-                            Size: {size.sizes} {size.availability}
+                            Size(US): {size.sizes} {size.availability}
                         </DialogContentText>
                         <DialogContentText>
                             Price: P{shoes.price}

@@ -9,12 +9,13 @@ import GetStarted from "./GetStarted";
 import Sidebar from "../Sidebar/Sidebar";
 import ViewAll from "../Pages/ViewAll";
 import View from "../Pages/View";
-import Cart from "../Pages/Cart";
+import Cart from "../Modal/Cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
     const handleGetStarted = (data) => {
         setIsGetStartedClosed(data);
@@ -87,7 +88,16 @@ const Dashboard = () => {
                                 <ShoppingCartIcon />
                             </Badge>
                         }
+                        onClick={() => {
+                            setIsCartOpen(true);
+                        }}
                     ></SpeedDial>
+                    {isCartOpen && (
+                        <Cart
+                            isOpen={isCartOpen}
+                            onClose={() => setIsCartOpen(false)}
+                        />
+                    )}
                 </Grid>
             )}
         </div>

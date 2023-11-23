@@ -41,7 +41,7 @@ import { Button, ButtonGroup } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import styles from "./View.module.css";
 import BuyNow from "../Modal/BuyNow";
@@ -614,6 +614,7 @@ const View = () => {
                             startIcon={<ShoppingCartIcon />}
                             sx={{ width: "40%", marginLeft: "1%" }}
                             onClick={handleAddToCart}
+                            disabled={size.sizes === null}
                         >
                             Add to Cart
                         </Button>
