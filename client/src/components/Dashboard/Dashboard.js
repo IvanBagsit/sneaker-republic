@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SpeedDial, SpeedDialIcon, Box, Grid } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import { handleGetIsStarted } from "../Common/SessionStorage";
+import { useSelector } from "react-redux";
 import styles from "./Dashboard.module.css";
 import Home from "../Pages/Home";
 import GetStarted from "./GetStarted";
@@ -18,6 +19,10 @@ const Dashboard = () => {
     const handleGetStarted = (data) => {
         setIsGetStartedClosed(data);
     };
+
+    const isSpeedDialDisplay = useSelector(
+        (state) => state.cartSlice.isSpeedDialDisplay
+    );
 
     useEffect(() => {
         if (!isGetStartedClosed) {
@@ -58,7 +63,7 @@ const Dashboard = () => {
                     </Grid>
                     <SpeedDial
                         ariaLabel="cart"
-                        hidden={false}
+                        hidden={isSpeedDialDisplay}
                         sx={{
                             position: "fixed",
                             bottom: 0,
