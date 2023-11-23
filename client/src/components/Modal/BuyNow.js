@@ -19,7 +19,7 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const BuyNow = ({ isOpen, onClose, shoes }) => {
+const BuyNow = ({ isOpen, onClose, shoes, size }) => {
     const [quantity, setQuantity] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -63,6 +63,9 @@ const BuyNow = ({ isOpen, onClose, shoes }) => {
                     >
                         <DialogContentText>
                             Code: {shoes.mainImage.code}
+                        </DialogContentText>
+                        <DialogContentText>
+                            Size: {size.sizes} {size.availability}
                         </DialogContentText>
                         <DialogContentText>
                             Price: P{shoes.price}

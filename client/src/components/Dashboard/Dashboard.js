@@ -20,8 +20,8 @@ const Dashboard = () => {
         setIsGetStartedClosed(data);
     };
 
-    const isSpeedDialDisplay = useSelector(
-        (state) => state.cartSlice.isSpeedDialDisplay
+    const isSpeedDialHidden = useSelector(
+        (state) => state.cartSlice.isSpeedDialHidden
     );
 
     const numberOfCartItem = useSelector(
@@ -67,7 +67,7 @@ const Dashboard = () => {
                     </Grid>
                     <SpeedDial
                         ariaLabel="cart"
-                        hidden={isSpeedDialDisplay}
+                        hidden={isSpeedDialHidden}
                         sx={{
                             position: "fixed",
                             bottom: 0,
@@ -78,7 +78,11 @@ const Dashboard = () => {
                             <Badge
                                 badgeContent={numberOfCartItem}
                                 max={99}
-                                color="secondary"
+                                color="warning"
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
                             >
                                 <ShoppingCartIcon />
                             </Badge>
