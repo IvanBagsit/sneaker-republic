@@ -40,7 +40,7 @@ const Cart = ({ isOpen, onClose }) => {
         >
             <DialogTitle>Shopping Cart</DialogTitle>
             <DialogContent>
-                {numberOfCartItem > 0 &&
+                {numberOfCartItem >= 1 &&
                     cartItems.map((item, index) => {
                         return (
                             <CartItem

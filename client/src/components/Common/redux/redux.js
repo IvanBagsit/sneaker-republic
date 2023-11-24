@@ -14,7 +14,8 @@ const cartSlice = createSlice({
             state.shoes.push(action.payload);
             state.numberOfCartItem = state.shoes.length;
             state.grandTotal = state.shoes.reduce(
-                (accumulator, currentItem) => accumulator + currentItem.price,
+                (accumulator, currentItem) =>
+                    accumulator + currentItem.totalPrice,
                 0
             );
             state.totalQuantities = state.shoes.reduce(
@@ -32,13 +33,14 @@ const cartSlice = createSlice({
             state.shoes = state.shoes.filter(
                 (item, index) => index !== action.payload.index
             );
-            state.grandTotal = state.shoes.reduce(
-                (accumulator, currentItem) => accumulator + currentItem.price,
-                0
-            );
             state.totalQuantities = state.shoes.reduce(
                 (accumulator, currentItem) =>
                     accumulator + currentItem.quantity,
+                0
+            );
+            state.grandTotal = state.shoes.reduce(
+                (accumulator, currentItem) =>
+                    accumulator + currentItem.totalPrice,
                 0
             );
             state.numberOfCartItem = state.shoes.length;
