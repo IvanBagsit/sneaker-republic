@@ -4,10 +4,12 @@ import {
     Slide,
     Dialog,
     DialogContent,
+    DialogContentText,
     DialogTitle,
     DialogActions,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 
 import styles from "./Cart.module.css";
 import CartItem from "./components/CartItem";
@@ -21,6 +23,9 @@ const Cart = ({ isOpen, onClose }) => {
     const [isCartFormOpen, setIsCartFormOpen] = useState(false);
 
     const cartItems = useSelector((state) => state.cartSlice.shoes);
+    const numberOfCartItem = useSelector(
+        (state) => state.cartSlice.numberOfCartItem
+    );
 
     const handleClose = () => {
         onClose();
@@ -35,15 +40,26 @@ const Cart = ({ isOpen, onClose }) => {
         >
             <DialogTitle>Shopping Cart</DialogTitle>
             <DialogContent>
-                {cartItems.map((item, index) => {
-                    return (
-                        <CartItem
-                            key={item.mainImage.code + index}
-                            index={index}
-                            item={item}
-                        />
-                    );
-                })}
+                {numberOfCartItem > 0 &&
+                    cartItems.map((item, index) => {
+                        return (
+                            <CartItem
+                                key={item.mainImage.code + index}
+                                index={index}
+                                item={item}
+                            />
+                        );
+                    })}
+                {numberOfCartItem < 1 && (
+                    <div className={styles.emptyCart}>
+                        <DialogContentText>
+                            <b>Shopping Cart is empty</b>
+                        </DialogContentText>
+                        <div style={{ marginTop: "1%" }}>
+                            <SentimentVeryDissatisfiedIcon fontSize="large" />
+                        </div>
+                    </div>
+                )}
             </DialogContent>
             <DialogActions>
                 <Button
@@ -52,13 +68,14 @@ const Cart = ({ isOpen, onClose }) => {
                     onClick={handleClose}
                     className={styles.button}
                 >
-                    Cancel
+                    Close
                 </Button>
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={() => setIsCartFormOpen(true)}
                     className={styles.button}
+                    disabled={numberOfCartItem < 1}
                 >
                     Next
                 </Button>
