@@ -109,7 +109,7 @@ export const UploadAttachmentContent = ({ handleMOPOpen, isClosing }) => {
                             : 'Drag and drop files here or click "Upload file" button'}
                     </DialogContentText>
                 </div>
-                <div style={{ marginTop: "3%" }}>
+                <div style={{ marginTop: "2%" }}>
                     <Button
                         component="label"
                         variant="contained"
