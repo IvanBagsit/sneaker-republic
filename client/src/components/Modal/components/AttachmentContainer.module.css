@@ -4,5 +4,7 @@
     justify-content: flex-start;
     height: auto;
     width: 100%;
-    margin-top: 4%;
+    margin-top: 2%;
+    padding-bottom: 1%;
+    overflow-y: auto;
 }
