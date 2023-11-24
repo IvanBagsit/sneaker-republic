@@ -1,0 +1,19 @@
+.button {
+    width: 20%;
+}
+
+.containerContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    padding-right: 1%;
+    width: 50%;
+}
+
+.uploadAttachments {
+    padding-left: 1%;
+    width: 50%;
+}
