@@ -2,8 +2,12 @@ import { useDispatch } from "react-redux";
 import { DialogContentText, IconButton } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { updateCartShoesQuantity } from "../../Common/redux/redux";
+import {
+    updateCartShoesQuantity,
+    deleteCartShoes,
+} from "../../Common/redux/redux";
 
 import styles from "./CartItem.module.css";
 
@@ -32,9 +36,21 @@ const CartItem = ({ item, index }) => {
         }
     };
 
+    const handleRemoveItem = () => {
+        dispatch(deleteCartShoes({ index: index, code: item.mainImage.code }));
+    };
+
     return (
         <div key={item.mainImage.code} className={styles.contentContainer}>
-            <div>
+            <div style={{ position: "relative" }}>
+                <IconButton
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                    sx={{ color: "red" }}
+                    size="large"
+                    onClick={handleRemoveItem}
+                >
+                    <DeleteIcon fontSize="30px" />
+                </IconButton>
                 <img
                     src={item.mainImage.image}
                     alt="mainImage"

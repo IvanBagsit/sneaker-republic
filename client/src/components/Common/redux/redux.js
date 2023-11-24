@@ -7,23 +7,7 @@ const cartSlice = createSlice({
         numberOfCartItem: 0,
         totalQuantities: 0,
         grandTotal: 0,
-        shoes: [
-            // {
-            //     mainImage: {
-            //         image: null,
-            //         code: "",
-            //     },
-            //     title: "",
-            //     brand: "",
-            //     quantity: 1,
-            //     totalPrice: 0,
-            //     price: 0,
-            //     sizes: {
-            //         availability: "",
-            //         sizes: "",
-            //     },
-            // },
-        ],
+        shoes: [],
     },
     reducers: {
         addCartShoes(state, action) {
@@ -38,7 +22,7 @@ const cartSlice = createSlice({
                     accumulator + currentItem.quantity,
                 0
             );
-            if (state.shoes.length > 0) {
+            if (state.numberOfCartItem > 0) {
                 state.isSpeedDialHidden = false;
             } else {
                 state.isSpeedDialHidden = true;
@@ -46,9 +30,8 @@ const cartSlice = createSlice({
         },
         deleteCartShoes(state, action) {
             state.shoes = state.shoes.filter(
-                (item) => item.mainImage.code === action.payload
+                (item, index) => index !== action.payload.index
             );
-            state.numberOfCartItem = state.shoes.length;
             state.grandTotal = state.shoes.reduce(
                 (accumulator, currentItem) => accumulator + currentItem.price,
                 0
@@ -58,7 +41,8 @@ const cartSlice = createSlice({
                     accumulator + currentItem.quantity,
                 0
             );
-            if (state.shoes.length > 0) {
+            state.numberOfCartItem = state.shoes.length;
+            if (state.numberOfCartItem > 0) {
                 state.isSpeedDialHidden = false;
             } else {
                 state.isSpeedDialHidden = true;
