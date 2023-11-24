@@ -46,13 +46,7 @@ import { useDispatch } from "react-redux";
 import styles from "./View.module.css";
 import BuyNow from "../Modal/BuyNow";
 import ModeOfPayment from "../Modal/ModeOfPayment";
-import {
-    addCartShoes,
-    deleteCartShoes,
-    updateCartShoesQuantity,
-    updateCartShoesSize,
-    toggleIsSpeedDialHidden,
-} from "../Common/redux/redux";
+import { addCartShoes } from "../Common/redux/redux";
 
 const View = () => {
     const shoes = [
@@ -506,7 +500,15 @@ const View = () => {
     const dispatch = useDispatch();
 
     const handleAddToCart = () => {
-        dispatch(addCartShoes({ ...viewedShoes, sizes: size, shoes: null }));
+        dispatch(
+            addCartShoes({
+                ...viewedShoes,
+                sizes: size,
+                quantity: 1,
+                totalPrice: viewedShoes.price,
+                shoes: null,
+            })
+        );
     };
 
     return (

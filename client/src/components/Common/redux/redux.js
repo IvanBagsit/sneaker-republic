@@ -5,6 +5,7 @@ const cartSlice = createSlice({
     initialState: {
         isSpeedDialHidden: true,
         numberOfCartItem: 0,
+        grandTotal: 0,
         shoes: [
             // {
             //     mainImage: {
@@ -14,6 +15,7 @@ const cartSlice = createSlice({
             //     title: "",
             //     brand: "",
             //     quantity: 1,
+            //     totalPrice: 0,
             //     price: 0,
             //     sizes: {
             //         availability: "",
@@ -25,42 +27,48 @@ const cartSlice = createSlice({
     reducers: {
         addCartShoes(state, action) {
             state.shoes.push(action.payload);
+            state.numberOfCartItem = state.shoes.length;
+            state.grandTotal = state.shoes.reduce(
+                (accumulator, currentItem) => accumulator + currentItem.price,
+                0
+            );
             if (state.shoes.length > 0) {
                 state.isSpeedDialHidden = false;
             } else {
                 state.isSpeedDialHidden = true;
             }
-            state.numberOfCartItem = state.shoes.length;
         },
         deleteCartShoes(state, action) {
             state.shoes = state.shoes.filter(
                 (item) => item.mainImage.code === action.payload
             );
+            state.numberOfCartItem = state.shoes.length;
+            state.grandTotal = state.shoes.reduce(
+                (accumulator, currentItem) => accumulator + currentItem.price,
+                0
+            );
             if (state.shoes.length > 0) {
                 state.isSpeedDialHidden = false;
             } else {
                 state.isSpeedDialHidden = true;
             }
-            state.numberOfCartItem = state.shoes.length;
         },
         updateCartShoesQuantity(state, action) {
             const shoe = state.shoes.find(
-                (item) => item.mainImage.code === action.payload.code
+                (item, index) =>
+                    item.mainImage.code === action.payload.code &&
+                    index === action.payload.index
             );
             if (shoe && action.payload.quantity > 0) {
                 shoe.quantity = action.payload.quantity;
+                shoe.totalPrice = shoe.quantity * shoe.price;
+                state.grandTotal = state.shoes.reduce(
+                    (accumulator, currentItem) =>
+                        accumulator + currentItem.totalPrice,
+                    0
+                );
             } else {
                 console.error(`can't find shoes to update quantity`);
-            }
-        },
-        updateCartShoesSize(state, action) {
-            const shoe = state.shoes.find(
-                (item) => item.mainImage.code === action.payload.code
-            );
-            if (shoe) {
-                shoe.sizes = action.payload.sizes;
-            } else {
-                console.error(`can't find shoes to update size`);
             }
         },
         toggleIsSpeedDialHidden(state, action) {
@@ -73,7 +81,6 @@ export const {
     addCartShoes,
     deleteCartShoes,
     updateCartShoesQuantity,
-    updateCartShoesSize,
     toggleIsSpeedDialHidden,
 } = cartSlice.actions;
 export default cartSlice.reducer;
