@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import {
     Button,
     Slide,
@@ -28,14 +28,17 @@ export const acceptedFileTypes = [
     "application/pdf",
 ];
 
-const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
-    const [isMOPOpen, setIsMOPOpen] = useState(false);
+export const UploadAttachmentContent = ({ handleMOPOpen, isClosing }) => {
     const [selectedFile, setSelectedFile] = useState([]);
 
-    const handleClose = () => {
-        setIsMOPOpen(false);
-        setSelectedFile([]);
-        onClose();
+    useEffect(() => {
+        if (isClosing) {
+            setSelectedFile([]);
+        }
+    }, [isClosing]);
+
+    const handleMOP = () => {
+        handleMOPOpen(true);
     };
 
     const verifyFiles = (files) => {
@@ -83,6 +86,60 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
         noClick: true,
         disabled: false,
     });
+    return (
+        <div>
+            <DialogContentText>
+                Please upload screenshot/s of payment
+            </DialogContentText>
+            <DialogContentText>
+                Mode of Payment:{" "}
+                <Button size="small" onClick={handleMOP} variant="outlined">
+                    View
+                </Button>
+            </DialogContentText>
+            <div className={styles.uploadsection} {...getRootProps()}>
+                <input {...getInputProps()} hidden />
+                <div>
+                    <img src={dnd100} alt="draganddrop" />
+                </div>
+                <div>
+                    <DialogContentText className={styles.dragdropText}>
+                        {isDragActive
+                            ? "Drop here"
+                            : 'Drag and drop files here or click "Upload file" button'}
+                    </DialogContentText>
+                </div>
+                <div style={{ marginTop: "3%" }}>
+                    <Button
+                        component="label"
+                        variant="contained"
+                        startIcon={<CloudUploadIcon />}
+                        onClick={openFileBrowser}
+                    >
+                        Upload file
+                    </Button>
+                </div>
+                {selectedFile && (
+                    <AttachmentContainer attachments={selectedFile} />
+                )}
+            </div>
+        </div>
+    );
+};
+
+const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
+    const [isMOPOpen, setIsMOPOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
+
+    const handleClose = () => {
+        setIsMOPOpen(false);
+        setIsClosing(true);
+        onClose();
+    };
+
+    const handleMOPOpen = (value) => {
+        setIsMOPOpen(value);
+    };
 
     return (
         <Dialog
@@ -93,45 +150,10 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
         >
             <DialogTitle>Upload Attachment/s</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    Please upload screenshot/s of payment
-                </DialogContentText>
-                <DialogContentText>
-                    Mode of Payment:{" "}
-                    <Button
-                        size="small"
-                        onClick={() => setIsMOPOpen(true)}
-                        variant="outlined"
-                    >
-                        View
-                    </Button>
-                </DialogContentText>
-                <div className={styles.uploadsection} {...getRootProps()}>
-                    <input {...getInputProps()} hidden />
-                    <div>
-                        <img src={dnd100} alt="draganddrop" />
-                    </div>
-                    <div>
-                        <DialogContentText className={styles.dragdropText}>
-                            {isDragActive
-                                ? "Drop here"
-                                : 'Drag and drop files here or click "Upload file" button'}
-                        </DialogContentText>
-                    </div>
-                    <div style={{ marginTop: "3%" }}>
-                        <Button
-                            component="label"
-                            variant="contained"
-                            startIcon={<CloudUploadIcon />}
-                            onClick={openFileBrowser}
-                        >
-                            Upload file
-                        </Button>
-                    </div>
-                    {selectedFile && (
-                        <AttachmentContainer attachments={selectedFile} />
-                    )}
-                </div>
+                <UploadAttachmentContent
+                    handleMOPOpen={handleMOPOpen}
+                    isClosing={isClosing}
+                />
             </DialogContent>
             <DialogActions>
                 <Button

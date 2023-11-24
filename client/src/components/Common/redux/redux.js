@@ -5,6 +5,7 @@ const cartSlice = createSlice({
     initialState: {
         isSpeedDialHidden: true,
         numberOfCartItem: 0,
+        totalQuantities: 0,
         grandTotal: 0,
         shoes: [
             // {
@@ -32,6 +33,11 @@ const cartSlice = createSlice({
                 (accumulator, currentItem) => accumulator + currentItem.price,
                 0
             );
+            state.totalQuantities = state.shoes.reduce(
+                (accumulator, currentItem) =>
+                    accumulator + currentItem.quantity,
+                0
+            );
             if (state.shoes.length > 0) {
                 state.isSpeedDialHidden = false;
             } else {
@@ -45,6 +51,11 @@ const cartSlice = createSlice({
             state.numberOfCartItem = state.shoes.length;
             state.grandTotal = state.shoes.reduce(
                 (accumulator, currentItem) => accumulator + currentItem.price,
+                0
+            );
+            state.totalQuantities = state.shoes.reduce(
+                (accumulator, currentItem) =>
+                    accumulator + currentItem.quantity,
                 0
             );
             if (state.shoes.length > 0) {
@@ -65,6 +76,11 @@ const cartSlice = createSlice({
                 state.grandTotal = state.shoes.reduce(
                     (accumulator, currentItem) =>
                         accumulator + currentItem.totalPrice,
+                    0
+                );
+                state.totalQuantities = state.shoes.reduce(
+                    (accumulator, currentItem) =>
+                        accumulator + currentItem.quantity,
                     0
                 );
             } else {

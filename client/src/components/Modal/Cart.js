@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import {
     Button,
     Slide,
@@ -6,24 +6,25 @@ import {
     DialogContent,
     DialogTitle,
     DialogActions,
-    DialogContentText,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
 import styles from "./Cart.module.css";
 import CartItem from "./components/CartItem";
+import CartForm from "./CartForm";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Cart = ({ isOpen, onClose }) => {
+    const [isCartFormOpen, setIsCartFormOpen] = useState(false);
+
+    const cartItems = useSelector((state) => state.cartSlice.shoes);
+
     const handleClose = () => {
         onClose();
     };
-
-    const cartItems = useSelector((state) => state.cartSlice.shoes);
-    const grandTotal = useSelector((state) => state.cartSlice.grandTotal);
 
     return (
         <Dialog
@@ -43,7 +44,6 @@ const Cart = ({ isOpen, onClose }) => {
                         />
                     );
                 })}
-                <DialogContentText>{grandTotal}</DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button
@@ -57,12 +57,18 @@ const Cart = ({ isOpen, onClose }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose}
+                    onClick={() => setIsCartFormOpen(true)}
                     className={styles.button}
                 >
                     Next
                 </Button>
             </DialogActions>
+            {isCartFormOpen && (
+                <CartForm
+                    isOpen={isCartFormOpen}
+                    onClose={() => setIsCartFormOpen(false)}
+                />
+            )}
         </Dialog>
     );
 };
