@@ -9,3 +9,10 @@
     width: auto;
     object-fit: cover;
 }
+
+.deleteIcon{
+    position: absolute;
+    top: 1;
+    left: 1;
+    z-index: 2;
+}
