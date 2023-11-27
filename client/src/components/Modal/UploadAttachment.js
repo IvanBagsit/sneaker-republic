@@ -155,7 +155,7 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
     };
 
     const constHandleSubmit = () => {
-        console.log("buying...", shoes);
+        console.log("buying shoes and details...", shoes);
         console.log("...attachments", attachments);
     };
 
