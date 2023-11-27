@@ -52,7 +52,8 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: CustomerDetailsSchema,
-        validateOnBlur: true,
+        validateOnChange: true,
+        validateOnMount: true,
         onSubmit: (values) => {
             handleNext(values);
         },
@@ -217,7 +218,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                         color="primary"
                         className={styles.button}
                         type="submit"
-                        disabled={Object.keys(formik.errors).length > 0}
+                        disabled={!formik.isValid}
                     >
                         Next
                     </Button>
