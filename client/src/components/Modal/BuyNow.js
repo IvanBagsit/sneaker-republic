@@ -44,20 +44,28 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
         onClose();
     };
 
-    const handleNext = (values) => {
-        console.log("form values", values);
-        setIsUploadAttachmentDisplayed(true);
-    };
-
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: CustomerDetailsSchema,
         validateOnChange: true,
         validateOnMount: true,
-        onSubmit: (values) => {
-            handleNext(values);
+        onSubmit: () => {
+            handleNext();
         },
     });
+
+    const shoesToBuy = {
+        shoes: shoes.mainImage,
+        availability: size.availability,
+        size: size.sizes,
+        quantity: quantity,
+        totalPrice: totalPrice,
+        formValues: formik.values,
+    };
+
+    const handleNext = () => {
+        setIsUploadAttachmentDisplayed(true);
+    };
 
     return (
         <Dialog
@@ -228,6 +236,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                 <UploadAttachment
                     isOpen={isUploadAttachmentDisplayed}
                     onClose={() => setIsUploadAttachmentDisplayed(false)}
+                    shoes={shoesToBuy}
                 />
             )}
         </Dialog>

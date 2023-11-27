@@ -2,7 +2,7 @@ import { DialogContentText, TextField } from "@mui/material";
 import styles from "./CartFormDetails.module.css";
 import { useSelector } from "react-redux";
 
-const CartFormDetails = () => {
+const CartFormDetails = ({ handleCartFormDetails }) => {
     const grandTotal = useSelector((state) => state.cartSlice.grandTotal);
     const numberOfCartItems = useSelector(
         (state) => state.cartSlice.numberOfCartItem

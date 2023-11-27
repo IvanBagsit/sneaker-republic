@@ -28,7 +28,11 @@ export const acceptedFileTypes = [
     "application/pdf",
 ];
 
-export const UploadAttachmentContent = ({ handleMOPOpen, isClosing }) => {
+export const UploadAttachmentContent = ({
+    handleMOPOpen,
+    isClosing,
+    handleAttachmentUpload,
+}) => {
     const [selectedFile, setSelectedFile] = useState([]);
 
     useEffect(() => {
@@ -36,6 +40,10 @@ export const UploadAttachmentContent = ({ handleMOPOpen, isClosing }) => {
             setSelectedFile([]);
         }
     }, [isClosing]);
+
+    useEffect(() => {
+        handleAttachmentUpload(selectedFile);
+    }, [selectedFile]);
 
     const handleMOP = () => {
         handleMOPOpen(true);
@@ -127,9 +135,10 @@ export const UploadAttachmentContent = ({ handleMOPOpen, isClosing }) => {
     );
 };
 
-const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
+const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [attachments, setAttachments] = useState([]);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -139,6 +148,15 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
 
     const handleMOPOpen = (value) => {
         setIsMOPOpen(value);
+    };
+
+    const handleAttachmentUpload = (values) => {
+        setAttachments(values);
+    };
+
+    const constHandleSubmit = () => {
+        console.log("buying...", shoes);
+        console.log("...attachments", attachments);
     };
 
     return (
@@ -153,6 +171,7 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
                 <UploadAttachmentContent
                     handleMOPOpen={handleMOPOpen}
                     isClosing={isClosing}
+                    handleAttachmentUpload={handleAttachmentUpload}
                 />
             </DialogContent>
             <DialogActions>
@@ -165,10 +184,11 @@ const UploadAttachment = ({ isOpen = false, onClose, attachments }) => {
                     Cancel
                 </Button>
                 <Button
-                    onClick={handleClose}
+                    onClick={constHandleSubmit}
                     variant="contained"
                     className={styles.buttons}
                     color="primary"
+                    disabled={attachments.length === 0}
                 >
                     Buy
                 </Button>

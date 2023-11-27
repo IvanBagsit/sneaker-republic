@@ -19,6 +19,8 @@ const Transition = forwardRef((props, ref) => {
 const CartForm = ({ isOpen, onClose }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [cartFormDetails, setCartFormDetails] = useState(null);
+    const [attachments, setAttachments] = useState([]);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -26,8 +28,21 @@ const CartForm = ({ isOpen, onClose }) => {
         onClose();
     };
 
+    const constHandleSubmit = () => {
+        console.log("buying...", cartFormDetails);
+        console.log("...attachments", attachments);
+    };
+
     const handleMOPOpen = (value) => {
         setIsMOPOpen(value);
+    };
+
+    const handleAttachmentUpload = (values) => {
+        setAttachments(values);
+    };
+
+    const handleCartFormDetails = (values) => {
+        setCartFormDetails(values);
     };
 
     return (
@@ -41,12 +56,15 @@ const CartForm = ({ isOpen, onClose }) => {
             <DialogContent>
                 <div className={styles.containerContent}>
                     <div className={styles.details}>
-                        <CartFormDetails />
+                        <CartFormDetails
+                            handleCartFormDetails={handleCartFormDetails}
+                        />
                     </div>
                     <div className={styles.uploadAttachments}>
                         <UploadAttachmentContent
                             handleMOPOpen={handleMOPOpen}
                             isClosing={isClosing}
+                            handleAttachmentUpload={handleAttachmentUpload}
                         />
                     </div>
                 </div>
@@ -63,7 +81,7 @@ const CartForm = ({ isOpen, onClose }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose}
+                    onClick={constHandleSubmit}
                     className={styles.button}
                 >
                     Buy
