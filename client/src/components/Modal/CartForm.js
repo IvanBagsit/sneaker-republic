@@ -20,7 +20,7 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CartForm = ({ isOpen, onClose }) => {
+const CartForm = ({ isOpen, onClose, cartItems }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
@@ -49,7 +49,9 @@ const CartForm = ({ isOpen, onClose }) => {
     });
 
     const callSubmitApi = (values) => {
-        console.log(values);
+        console.log("buying details...", values);
+        console.log("...cartItems", cartItems);
+        console.log("...attachments", attachments);
     };
 
     const submitForm = async () => {

@@ -84,6 +84,7 @@ const Cart = ({ isOpen, onClose }) => {
                 <CartForm
                     isOpen={isCartFormOpen}
                     onClose={() => setIsCartFormOpen(false)}
+                    cartItems={cartItems}
                 />
             )}
         </Dialog>
