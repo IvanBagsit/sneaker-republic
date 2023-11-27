@@ -43,6 +43,8 @@ Framework/Tools/Library used:
 -   react-dropzone
 -   react-pdf-viewer
 -   pdfjs-dist
+-   yup
+-   react-hook-form
 
 Programming Language:
 
