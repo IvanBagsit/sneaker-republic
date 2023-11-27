@@ -11,8 +11,8 @@ const CustomerDetailsSchema = Yup.object().shape({
     contactNumber: Yup.string()
         .label("Contact Number")
         .matches(/^[0-9]+$/, "numeric characters only")
-        .min(9, "min characters (9)")
-        .max(12, "max characters (12)")
+        .min(1, "min. characters (11)")
+        .max(13, "max characters (13)")
         .required("contact number required"),
     pickUpBranch: Yup.string()
         .label("LBC Pickup Branch Address")

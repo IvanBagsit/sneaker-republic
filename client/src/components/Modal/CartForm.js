@@ -7,10 +7,14 @@ import {
     DialogTitle,
     DialogActions,
 } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import styles from "./CartForm.module.css";
 import CartFormDetails from "./components/CartFormDetails";
 import { UploadAttachmentContent } from "./UploadAttachment";
 import ModeOfPayment from "./ModeOfPayment";
+import CustomerDetailsSchema from "../Common/yup/CustomerDetailsSchema";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -19,18 +23,12 @@ const Transition = forwardRef((props, ref) => {
 const CartForm = ({ isOpen, onClose }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
-    const [cartFormDetails, setCartFormDetails] = useState(null);
     const [attachments, setAttachments] = useState([]);
 
     const handleClose = () => {
         setIsMOPOpen(false);
         setIsClosing(true);
         onClose();
-    };
-
-    const constHandleSubmit = () => {
-        console.log("buying...", cartFormDetails);
-        console.log("...attachments", attachments);
     };
 
     const handleMOPOpen = (value) => {
@@ -41,8 +39,21 @@ const CartForm = ({ isOpen, onClose }) => {
         setAttachments(values);
     };
 
-    const handleCartFormDetails = (values) => {
-        setCartFormDetails(values);
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isValid, isDirty },
+        trigger,
+    } = useForm({
+        resolver: yupResolver(CustomerDetailsSchema),
+    });
+
+    const callSubmitApi = (values) => {
+        console.log(values);
+    };
+
+    const submitForm = async () => {
+        await handleSubmit((data) => callSubmitApi(data))();
     };
 
     return (
@@ -56,9 +67,7 @@ const CartForm = ({ isOpen, onClose }) => {
             <DialogContent>
                 <div className={styles.containerContent}>
                     <div className={styles.details}>
-                        <CartFormDetails
-                            handleCartFormDetails={handleCartFormDetails}
-                        />
+                        <CartFormDetails control={control} trigger={trigger} />
                     </div>
                     <div className={styles.uploadAttachments}>
                         <UploadAttachmentContent
@@ -81,8 +90,9 @@ const CartForm = ({ isOpen, onClose }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={constHandleSubmit}
+                    onClick={submitForm}
                     className={styles.button}
+                    disabled={attachments.length === 0 || !isValid}
                 >
                     Buy
                 </Button>
