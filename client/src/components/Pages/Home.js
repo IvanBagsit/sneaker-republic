@@ -90,7 +90,7 @@ const Home = () => {
             };
         } else {
             return {
-                width: "25vw",
+                width: "23vw",
                 flex: 1,
             };
         }
@@ -115,7 +115,7 @@ const Home = () => {
     return (
         <Grid
             container
-            direction="column"
+            direction={`${device === "desktop" ? "column" : "row"}`}
             justifyContent="flex-start"
             alignItems="flex-end"
             className={styles.mainBackground}
@@ -198,17 +198,11 @@ const Home = () => {
                             <img
                                 src={ownerImage}
                                 alt="owner"
-                                style={{
-                                    height: "40vh",
-                                    width: "40vh",
-                                    borderRadius: "20%",
-                                    objectFit: "cover",
-                                }}
+                                className={styles.owner}
                             />
                         </div>
                         <div
-                            className={styles.contentItem}
-                            style={{ width: "40vw" }}
+                            className={`${styles.contentItem} ${styles.contentDetails}`}
                         >
                             <div>
                                 <h3>Welcome to Sneakers Republic!</h3>
