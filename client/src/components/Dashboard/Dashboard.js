@@ -58,12 +58,12 @@ const Dashboard = () => {
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    <Grid item xs={12} sm={12} md={12}>
-                        {/* {device === "desktop" && <Sidebar />}
-                        {device !== "desktop" && <Appbar />} */}
+                    <Grid item xs={12} sm={12} md={2}>
+                        {device === "desktop" && <Sidebar />}
+                        {device !== "desktop" && <Appbar />}
                         <Appbar />
                     </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
+                    <Grid item xs={12} sm={12} md={10}>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
