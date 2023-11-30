@@ -4,6 +4,7 @@ import shoesPic from "../../images/logo/logo.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { handleIsStarted } from "../Common/SessionStorage";
+import DeviceChecker from "../Common/DeviceChecker.js";
 
 const GetStarted = ({ isGetStartedClosed }) => {
     const [isBackdropEnabled, setIsBackdropEnabled] = useState(true);
@@ -22,6 +23,8 @@ const GetStarted = ({ isGetStartedClosed }) => {
     useEffect(() => {
         setIsDOMReady(true);
     }, []);
+
+    const device = DeviceChecker();
 
     return (
         <Backdrop
@@ -43,7 +46,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                 >
                     <Grid item className={styles.title}>
                         <Typography
-                            variant="h3"
+                            variant={`${device === "desktop" ? "h3" : "h4"}`}
                             style={{ fontFamily: "unset" }}
                         >
                             <b>SNEAKERS REPUBLIC</b>
@@ -63,8 +66,16 @@ const GetStarted = ({ isGetStartedClosed }) => {
                             item
                             container
                             direction="column"
-                            justifyContent="flex-end"
-                            alignItems="flex-end"
+                            justifyContent={{
+                                xs: "center",
+                                sm: "center",
+                                md: "flex-end",
+                            }}
+                            alignItems={{
+                                xs: "center",
+                                sm: "center",
+                                md: "flex-end",
+                            }}
                             xs={6.8}
                         >
                             <div className={styles.subtitle}>
