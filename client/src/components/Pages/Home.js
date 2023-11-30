@@ -72,7 +72,7 @@ const Home = () => {
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-end"
-            style={{ height: "100%" }}
+            style={{ height: "100vh" }}
         >
             <Grid item style={{ width: "80vw" }}>
                 <Grid

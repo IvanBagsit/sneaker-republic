@@ -1,18 +1,10 @@
-import styles from "./Sidebar.module.css";
-import logo from "../../images/logo/logo.png";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Stack,
-    Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import styles from "./Appbar.module.css";
+import MenuIcon from "@mui/icons-material/Menu";
 import Scrollbar from "../Common/Scrollbar";
-import { Link } from "react-router-dom";
-import MenuOptions from "../Common/menu/MenuOptions";
+import { useState } from "react";
+import MenuOptions from "../Common/menu/MenuOptions.js";
 
-const Sidebar = () => {
+const Appbar = () => {
     const options = [
         {
             name: "Home",
@@ -101,18 +93,31 @@ const Sidebar = () => {
         },
     ];
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+    };
+
     return (
-        <Stack direction="column" className={styles.background}>
-            <div>
-                <img src={logo} alt="logo" className={styles.logo} />
+        <div className={styles.background}>
+            <div className={styles.content}>
+                <div className={styles.title}>
+                    <h4>Sneakers Republic</h4>
+                </div>
+                <div className={styles.menu} onClick={toggleMenu}>
+                    <MenuIcon />
+                </div>
             </div>
-            <Scrollbar maxHeight={"65vh"}>
-                {options.map((items) => {
-                    return <MenuOptions items={items} />;
-                })}
-            </Scrollbar>
-        </Stack>
+            {isMenuOpen && (
+                <Scrollbar maxHeight={"40vh"}>
+                    {options.map((items) => {
+                        return <MenuOptions items={items} />;
+                    })}
+                </Scrollbar>
+            )}
+        </div>
     );
 };
 
-export default Sidebar;
+export default Appbar;
