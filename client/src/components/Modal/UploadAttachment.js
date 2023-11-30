@@ -52,26 +52,28 @@ export const UploadAttachmentContent = ({
     const verifyFiles = (files) => {
         const updatedFiles = files.map((file) => {
             const url = URL.createObjectURL(file);
-            if (
-                acceptedFileTypes.includes(file.type.toLowerCase()) &&
-                file.size < MAX_SIZE
-            ) {
+            if (selectedFile.length >= 5) {
                 const status = {
-                    hasError: false,
-                    errorMessage: "",
+                    hasError: true,
+                    errorMessage: "Maximum of 5 files",
                 };
                 return { file, url, status };
             } else if (file.size >= MAX_SIZE) {
                 const status = {
                     hasError: true,
-                    errorMessage:
-                        "File size limit reached. Max 4MB per attachment",
+                    errorMessage: "Max 4MB per attachment",
+                };
+                return { file, url, status };
+            } else if (!acceptedFileTypes.includes(file.type.toLowerCase())) {
+                const status = {
+                    hasError: true,
+                    errorMessage: "File type not supported",
                 };
                 return { file, url, status };
             } else {
                 const status = {
-                    hasError: true,
-                    errorMessage: "File type not supported",
+                    hasError: false,
+                    errorMessage: "",
                 };
                 return { file, url, status };
             }
@@ -80,8 +82,11 @@ export const UploadAttachmentContent = ({
     };
 
     const onDrop = (files) => {
-        const stucturedFile = verifyFiles(files);
-        setSelectedFile((prev) => [...prev, ...stucturedFile]);
+        const structuredFile = verifyFiles(files);
+        const verifiedFiles = structuredFile.filter(
+            (files) => files.status.hasError === false
+        );
+        setSelectedFile((prev) => [...prev, ...verifiedFiles]);
     };
 
     const {
@@ -97,7 +102,10 @@ export const UploadAttachmentContent = ({
     return (
         <div>
             <DialogContentText>
-                Please upload screenshot/s of payment
+                Please upload screenshot/s of payment: <b>.jpg .png .pdf</b>
+            </DialogContentText>
+            <DialogContentText>
+                Max file count: <b>5</b>, Max file size: <b>4mb</b>
             </DialogContentText>
             <DialogContentText>
                 Mode of Payment:{" "}
