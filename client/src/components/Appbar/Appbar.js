@@ -101,11 +101,11 @@ const Appbar = () => {
 
     return (
         <div className={styles.background}>
-            <div className={styles.content}>
+            <div className={styles.content} onClick={toggleMenu}>
                 <div className={styles.title}>
                     <h4>Sneakers Republic</h4>
                 </div>
-                <div className={styles.menu} onClick={toggleMenu}>
+                <div className={styles.menu}>
                     <MenuIcon />
                 </div>
             </div>

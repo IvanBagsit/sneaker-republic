@@ -16,11 +16,13 @@ import {
     ImageListItem,
     ImageListItemBar,
     IconButton,
+    ListSubheader,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
 import styles from "./ViewAll.module.css";
 import { Link } from "react-router-dom";
+import DeviceChecker from "../Common/DeviceChecker";
 
 const ViewAll = () => {
     const itemData = [
@@ -92,17 +94,62 @@ const ViewAll = () => {
         },
     ];
 
+    const device = DeviceChecker();
+
+    const imageListDimension = () => {
+        if (device === "desktop") {
+            return {
+                width: "770px",
+                height: "90vh",
+            };
+        } else {
+            return {
+                width: "90vw",
+                height: "70vh",
+            };
+        }
+    };
+
+    const imageDimension = () => {
+        if (device === "desktop") {
+            return {
+                width: "248px",
+                height: "248px",
+            };
+        } else {
+            return {
+                width: "44vw",
+                height: "44vw",
+            };
+        }
+    };
+
     return (
         <div className={styles.background}>
             <div className={styles.content}>
-                <ImageList sx={{ width: "770px", height: "90vh" }}>
-                    <ImageListItem key="Subheader" cols={3}></ImageListItem>
+                <ImageList sx={imageListDimension()}>
+                    <ImageListItem
+                        key="Subheader"
+                        cols={`${device === "desktop" ? 3 : 2}`}
+                    >
+                        {device !== "desktop" && (
+                            <ListSubheader
+                                component="div"
+                                style={{
+                                    backgroundColor: "#E8E8E8",
+                                    color: "#000000",
+                                }}
+                            >
+                                List of available sneakers
+                            </ListSubheader>
+                        )}
+                    </ImageListItem>
                     {itemData.map((item) => (
                         <ImageListItem key={item.img}>
                             <img
                                 src={item.img}
                                 alt={item.title}
-                                style={{ height: "248px", width: "248px" }}
+                                style={imageDimension()}
                                 loading="lazy"
                             />
                             <ImageListItemBar
