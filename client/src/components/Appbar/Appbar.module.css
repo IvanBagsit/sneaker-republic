@@ -1,0 +1,30 @@
+.background {
+    position: absolute;
+    background-color: #cccccc;
+    width: 90vw;
+    height: 5vh;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-right-radius: 3% 50%;
+    border-bottom-right-radius: 3% 50%;
+    border-top-left-radius: 3% 50%;
+    border-bottom-left-radius: 3% 50%;
+    z-index: 100;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.title, .menu {
+    flex: 1;
+    margin: 5%;
+}
+
+.menu {
+    text-align: end;
+}

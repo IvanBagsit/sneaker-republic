@@ -11,6 +11,8 @@ import ViewAll from "../Pages/ViewAll";
 import View from "../Pages/View";
 import Cart from "../Modal/Cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Appbar from "../Appbar/Appbar";
+import DeviceChecker from "../Common/DeviceChecker";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -42,6 +44,8 @@ const Dashboard = () => {
         setIsGetStartedClosed(isStarted);
     }, []);
 
+    const device = DeviceChecker();
+
     return (
         <div className={styles.background}>
             {!isGetStartedClosed && (
@@ -55,7 +59,8 @@ const Dashboard = () => {
                     alignItems="stretch"
                 >
                     <Grid item xs={2}>
-                        <Sidebar />
+                        {device === "desktop" && <Sidebar />}
+                        {device !== "desktop" && <Appbar />}
                     </Grid>
                     <Grid item xs={10}>
                         <Routes>
