@@ -536,7 +536,7 @@ const View = () => {
             };
         } else {
             return {
-                width: "50%",
+                width: "45%",
             };
         }
     };

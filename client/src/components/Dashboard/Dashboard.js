@@ -61,7 +61,6 @@ const Dashboard = () => {
                     <Grid item xs={12} sm={12} md={2}>
                         {device === "desktop" && <Sidebar />}
                         {device !== "desktop" && <Appbar />}
-                        <Appbar />
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
                         <Routes>
