@@ -13,9 +13,9 @@ import { Link } from "react-router-dom";
 import gmailIcon from "../../images/contact/gmailIcon.png";
 import facebookIcon from "../../images/contact/facebookIcon.png";
 import instagramIcon from "../../images/contact/instagramIcon.png";
-
 import ownerImage from "../../images/owner/owner.jpg";
 import { AF1Unisex1, J1Unisex2, J3Men4 } from "../Common/Shoes";
+import DeviceChecker from "../Common/DeviceChecker.js";
 
 const Home = () => {
     const featuredShoes = [
@@ -66,18 +66,64 @@ const Home = () => {
         },
     ];
 
+    const device = DeviceChecker();
+
+    const featuredImageDimension = () => {
+        if (device === "desktop") {
+            return {
+                width: "23vh",
+                height: "23vh",
+            };
+        } else {
+            return {
+                width: "30vw",
+                height: "30vw",
+            };
+        }
+    };
+
+    const cardContentDimension = () => {
+        if (device === "desktop") {
+            return {
+                width: "23vh",
+                flex: 1,
+            };
+        } else {
+            return {
+                width: "25vw",
+                flex: 1,
+            };
+        }
+    };
+
+    const cardDimension = () => {
+        if (device === "desktop") {
+            return {
+                display: "flex",
+                height: "20vw",
+                margin: "0 2% 0 2%",
+            };
+        } else {
+            return {
+                display: "flex",
+                height: "30vw",
+                margin: "1% 0 1% 0",
+            };
+        }
+    };
+
     return (
         <Grid
             container
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-end"
-            style={{ height: "100vh" }}
+            className={styles.mainBackground}
         >
-            <Grid item style={{ width: "80vw" }}>
+            <Grid item className={styles.featuredBackground}>
                 <Grid
                     container
-                    direction="column"
+                    direction={`${device === "desktop" ? "column" : "row"}`}
                     justifyContent="center"
                     alignItems="center"
                     className={`${styles.background} ${styles.featured}`}
@@ -96,14 +142,7 @@ const Home = () => {
                     >
                         {featuredShoes.map((items) => {
                             return (
-                                <Card
-                                    key={items.name}
-                                    sx={{
-                                        display: "flex",
-                                        height: "23vh",
-                                        margin: "0 2% 0 2%",
-                                    }}
-                                >
+                                <Card key={items.name} sx={cardDimension()}>
                                     <Box
                                         sx={{
                                             display: "flex",
@@ -111,10 +150,7 @@ const Home = () => {
                                         }}
                                     >
                                         <CardContent
-                                            sx={{
-                                                flex: "1",
-                                                width: "15vh",
-                                            }}
+                                            sx={cardContentDimension()}
                                         >
                                             <Typography
                                                 variant="h6"
@@ -144,10 +180,7 @@ const Home = () => {
                                     <Link to={items.link}>
                                         <CardMedia
                                             component="img"
-                                            sx={{
-                                                width: "23vh",
-                                                height: "23vh",
-                                            }}
+                                            sx={featuredImageDimension()}
                                             image={items.image}
                                             alt="AF1"
                                         />
