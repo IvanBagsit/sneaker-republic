@@ -6,10 +6,10 @@
     top: 2%;
     left: 50%;
     transform: translateX(-50%);
-    border-top-right-radius: 3% 50%;
-    border-bottom-right-radius: 3% 50%;
-    border-top-left-radius: 3% 50%;
-    border-bottom-left-radius: 3% 50%;
+    border-top-right-radius: 5% 50%;
+    border-bottom-right-radius: 5% 50%;
+    border-top-left-radius: 5% 50%;
+    border-bottom-left-radius: 5% 50%;
     z-index: 100;
 }
 
