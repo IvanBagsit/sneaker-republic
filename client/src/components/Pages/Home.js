@@ -85,7 +85,7 @@ const Home = () => {
     const cardContentDimension = () => {
         if (device === "desktop") {
             return {
-                width: "23vh",
+                width: "15vh",
                 flex: 1,
             };
         } else {
@@ -100,7 +100,7 @@ const Home = () => {
         if (device === "desktop") {
             return {
                 display: "flex",
-                height: "20vw",
+                height: "23vh",
                 margin: "0 2% 0 2%",
             };
         } else {
