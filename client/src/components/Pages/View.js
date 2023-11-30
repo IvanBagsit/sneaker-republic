@@ -47,6 +47,7 @@ import styles from "./View.module.css";
 import BuyNow from "../Modal/BuyNow";
 import ModeOfPayment from "../Modal/ModeOfPayment";
 import { addCartShoes } from "../Common/redux/redux";
+import DeviceChecker from "../Common/DeviceChecker";
 
 const View = () => {
     const shoes = [
@@ -511,21 +512,46 @@ const View = () => {
         );
     };
 
+    const device = DeviceChecker();
+
+    const buyNowButtonStyle = () => {
+        if (device === "desktop") {
+            return {
+                width: "40%",
+                marginRight: "1%",
+            };
+        } else {
+            return {
+                width: "45%",
+                marginRight: "2%",
+            };
+        }
+    };
+
+    const addToCartButtonStyle = () => {
+        if (device === "desktop") {
+            return {
+                width: "40%",
+                marginRight: "1%",
+            };
+        } else {
+            return {
+                width: "50%",
+            };
+        }
+    };
+
     return (
         <div className={styles.background}>
             <div className={styles.content}>
-                <div style={{ width: "40%" }}>
+                <div className={styles.contentDetails}>
                     <img
                         src={viewedShoes.mainImage.image}
                         alt="viewedshoes"
                         className={styles.mainImage}
                     />
                 </div>
-                <div
-                    style={{
-                        width: "40%",
-                    }}
-                >
+                <div className={styles.contentDetails}>
                     <div className={styles.details}>
                         <h1>{viewedShoes.title}</h1>
                     </div>
@@ -602,7 +628,7 @@ const View = () => {
                         <Button
                             variant="contained"
                             color="primary"
-                            sx={{ width: "40%", marginRight: "1%" }}
+                            sx={buyNowButtonStyle()}
                             onClick={() => {
                                 setIsBuyNowOpen(true);
                             }}
@@ -614,7 +640,7 @@ const View = () => {
                             variant="outlined"
                             color="primary"
                             startIcon={<ShoppingCartIcon />}
-                            sx={{ width: "40%", marginLeft: "1%" }}
+                            sx={addToCartButtonStyle()}
                             onClick={handleAddToCart}
                             disabled={size.sizes === null}
                         >
@@ -639,11 +665,7 @@ const View = () => {
                                     <img
                                         src={shoes.image}
                                         alt={shoes.code}
-                                        style={{
-                                            height: "15vh",
-                                            width: "15vh",
-                                            marginRight: "1%",
-                                        }}
+                                        className={styles.subShoesImage}
                                     />
                                 </span>
                             );
