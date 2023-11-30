@@ -58,11 +58,11 @@ const Dashboard = () => {
                     justifyContent="space-between"
                     alignItems="stretch"
                 >
-                    <Grid item xs={2}>
+                    <Grid item xs={12} sm={12} md={2}>
                         {device === "desktop" && <Sidebar />}
                         {device !== "desktop" && <Appbar />}
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12} sm={12} md={10}>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
