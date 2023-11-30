@@ -3,6 +3,7 @@ import { DialogContentText, IconButton } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect, useState } from "react";
 
 import {
     updateCartShoesQuantity,
@@ -12,6 +13,8 @@ import {
 import styles from "./CartItem.module.css";
 
 const CartItem = ({ item, index }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     const dispatch = useDispatch();
 
     const handleQuantityOperation = (isAdding) => {
@@ -42,20 +45,29 @@ const CartItem = ({ item, index }) => {
 
     return (
         <div key={item.mainImage.code} className={styles.contentContainer}>
-            <div style={{ position: "relative" }}>
-                <IconButton
-                    style={{ position: "absolute", top: 0, left: 0 }}
-                    sx={{ color: "red" }}
-                    size="large"
-                    onClick={handleRemoveItem}
-                >
-                    <DeleteIcon fontSize="30px" />
-                </IconButton>
+            <div
+                style={{ position: "relative" }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <img
                     src={item.mainImage.image}
                     alt="mainImage"
                     className={styles.image}
+                    style={{
+                        filter: `${isHovered ? "brightness(50%)" : ""}`,
+                    }}
                 />
+                {isHovered && (
+                    <IconButton
+                        style={{ position: "absolute", top: 0, left: 0 }}
+                        sx={{ color: "red" }}
+                        size="large"
+                        onClick={handleRemoveItem}
+                    >
+                        <DeleteIcon fontSize="30px" />
+                    </IconButton>
+                )}
             </div>
             <div
                 style={{
