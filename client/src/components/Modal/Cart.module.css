@@ -13,10 +13,6 @@
     .emptyCart {
         height: 20vh;
     }
-    
-    .background {
-        max-height: 80vh;
-    }
 }
 
 @media (min-width: 768px) {
