@@ -1,5 +1,4 @@
 .image {
-    height: 60vh;
     width: auto;
     object-fit: cover;
 }
@@ -10,10 +9,39 @@
     align-items: center;
 }
 
-.textField {
-    margin-bottom: 3%;
+@media (max-width: 767px) {
+    .image {
+        height: 30vh;
+    }
+
+    .button {
+        width: 30%;
+    }
+    
+    .contentContainer {
+        flex-direction: column;
+    }
+    
+    .contentDetails {
+        width: 90%;
+    }
 }
 
-.button {
-    width: 20%;
+@media (min-width: 768px) {
+    .image {
+        height: 60vh;
+    }
+
+    .button {
+        width: 20%;
+    }
+    
+    .contentContainer {
+        flex-direction: row;
+    }
+
+    .contentDetails {
+        margin-left: 2%;
+        width: 40%;
+    }
 }
