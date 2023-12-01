@@ -1,3 +1,21 @@
 .background {
     background-color: #f1ffbb;
 }
+
+.speedDial {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+@media (max-width: 767px) {
+    .speedDial {
+        margin: 0 5% 5% 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .speedDial {
+        margin: 0 2% 2% 0;
+    }
+}

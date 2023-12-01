@@ -1,11 +1,30 @@
-.button {
-    width: 20%;
-}
-
 .emptyCart {
-    height: 40vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+@media (max-width: 767px) {
+    .buttons {
+        width: 30%;
+    }
+
+    .emptyCart {
+        height: 20vh;
+    }
+    
+    .background {
+        max-height: 80vh;
+    }
+}
+
+@media (min-width: 768px) {
+    .buttons {
+        width: 20%;
+    }
+
+    .emptyCart {
+        height: 40vh;
+    }
 }

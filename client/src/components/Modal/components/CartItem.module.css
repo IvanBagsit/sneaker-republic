@@ -5,8 +5,6 @@
 }
 
 .image {
-    height: 40vh;
-    width: auto;
     object-fit: cover;
     z-index: 1;
 }
@@ -15,4 +13,39 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+
+
+@media (max-width: 767px) {
+    .image {
+        height: 14vh;
+        width: 14vh;
+    }
+    
+    .contentContainer {
+        flex-direction: row;
+        margin-bottom: 5%;
+    }
+
+    .cartItemDetails {
+        margin-left: 1%;
+        width: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .image {
+        height: 40vh;
+        width: auto;
+    }
+
+    .contentContainer {
+        flex-direction: row;
+        margin-bottom: 3%;
+    }
+
+    .cartItemDetails {
+        margin-left: 2%;
+        width: 40%;
+    }
 }
