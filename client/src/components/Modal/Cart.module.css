@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 767px) {
-    .buttons {
+    .button {
         width: 30%;
     }
 
@@ -20,7 +20,7 @@
 }
 
 @media (min-width: 768px) {
-    .buttons {
+    .button {
         width: 20%;
     }
 
