@@ -102,7 +102,10 @@ const GetStarted = ({ isGetStartedClosed }) => {
                                             size="large"
                                             color="success"
                                             onClick={onClickGetStarted}
-                                            style={{ fontFamily: "unset" }}
+                                            style={{
+                                                fontFamily: "unset",
+                                                textDecoration: "none",
+                                            }}
                                         >
                                             Get Started
                                         </Button>
