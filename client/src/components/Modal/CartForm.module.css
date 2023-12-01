@@ -1,19 +1,44 @@
-.button {
-    width: 20%;
-}
-
 .containerContent {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.details {
-    padding-right: 1%;
-    width: 50%;
+@media (max-width: 767px) {
+    .buttons {
+        width: 30%;
+    }
+
+    .containerContent {
+        flex-direction: column;
+    }
+    
+    .uploadAttachments {
+        width: 100%;
+    }
+    
+    .details {
+        width: 100%;
+        margin-bottom: 10%;
+    }
 }
 
-.uploadAttachments {
-    padding-left: 1%;
-    width: 50%;
+@media (min-width: 768px) {
+    .buttons {
+        width: 20%;
+    }
+
+    .containerContent {
+        flex-direction: row;
+    }
+    
+    .uploadAttachments {
+        padding-left: 1%;
+        width: 50%;
+    }
+    
+    .details {
+        padding-right: 1%;
+        width: 50%;
+    }
 }

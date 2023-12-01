@@ -73,12 +73,7 @@ const Dashboard = () => {
                     <SpeedDial
                         ariaLabel="cart"
                         hidden={isSpeedDialHidden}
-                        sx={{
-                            position: "fixed",
-                            bottom: 0,
-                            right: 0,
-                            margin: "0 2% 2% 0",
-                        }}
+                        className={styles.speedDial}
                         icon={
                             <Badge
                                 badgeContent={numberOfCartItem}

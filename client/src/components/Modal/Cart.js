@@ -37,6 +37,7 @@ const Cart = ({ isOpen, onClose }) => {
             TransitionComponent={Transition}
             maxWidth={"sm"}
             fullWidth
+            className={styles.background}
         >
             <DialogTitle>Shopping Cart</DialogTitle>
             <DialogContent>

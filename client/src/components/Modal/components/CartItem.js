@@ -69,12 +69,7 @@ const CartItem = ({ item, index }) => {
                     </IconButton>
                 )}
             </div>
-            <div
-                style={{
-                    marginLeft: "2%",
-                    width: "40%",
-                }}
-            >
+            <div className={styles.cartItemDetails}>
                 <DialogContentText>
                     Code: {item.mainImage.code}
                 </DialogContentText>
