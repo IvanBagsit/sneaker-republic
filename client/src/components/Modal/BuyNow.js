@@ -85,12 +85,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                                 className={styles.image}
                             />
                         </div>
-                        <div
-                            style={{
-                                marginLeft: "2%",
-                                width: "40%",
-                            }}
-                        >
+                        <div className={styles.contentDetails}>
                             <DialogContentText>
                                 Code: {shoes.mainImage.code}
                             </DialogContentText>
