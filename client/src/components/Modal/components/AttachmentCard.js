@@ -37,7 +37,6 @@ const AttachmentCard = ({ file, status, url }) => {
 
     return (
         <div className={styles.background}>
-            <div className={styles.overlay}></div>
             <div className={isPDF() ? styles.previewPDF : styles.previewImage}>
                 {thumbnail()}
             </div>

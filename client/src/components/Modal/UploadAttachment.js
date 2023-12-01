@@ -125,7 +125,7 @@ export const UploadAttachmentContent = ({
                             : 'Drag and drop files here or click "Upload file" button'}
                     </DialogContentText>
                 </div>
-                <div style={{ marginTop: "2%" }}>
+                <div style={{ marginTop: "1%" }}>
                     <Button
                         component="label"
                         variant="contained"

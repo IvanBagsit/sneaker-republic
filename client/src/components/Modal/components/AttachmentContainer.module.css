@@ -4,7 +4,19 @@
     justify-content: flex-start;
     height: auto;
     width: 100%;
-    margin-top: 2%;
-    padding-bottom: 1%;
     overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+    .background {
+        margin-top: 5%;
+        padding-bottom: 7%;
+    }
+}
+
+@media (min-width: 768px) {
+    .background {
+        margin-top: 2%;
+        padding-bottom: 1%;
+    }
 }
