@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 // this loads the variables from the .env file into process.env
 require("dotenv").config();
@@ -10,7 +11,8 @@ const app = express();
 app.use(cors());
 
 // to get the images
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static("public"));
 
 // middleware for requests with body of x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
