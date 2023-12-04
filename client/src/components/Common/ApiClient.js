@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL: "http://localhost:3500",
+    baseURL: "https://sneaker-republic-api.vercel.app",
     headers: {
         "Content-Type": "application/json",
     },
