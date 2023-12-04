@@ -1,15 +1,7 @@
 import styles from "./Sidebar.module.css";
 import logo from "../../images/logo/logo.png";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Stack,
-    Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Stack } from "@mui/material";
 import Scrollbar from "../Common/Scrollbar";
-import { Link } from "react-router-dom";
 import MenuOptions from "../Common/menu/MenuOptions";
 
 const Sidebar = () => {
@@ -107,8 +99,8 @@ const Sidebar = () => {
                 <img src={logo} alt="logo" className={styles.logo} />
             </div>
             <Scrollbar maxHeight={"65vh"}>
-                {options.map((items) => {
-                    return <MenuOptions items={items} />;
+                {options.map((items, index) => {
+                    return <MenuOptions items={items} key={index} />;
                 })}
             </Scrollbar>
         </Stack>

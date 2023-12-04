@@ -45,6 +45,10 @@ Framework/Tools/Library used:
 -   pdfjs-dist
 -   yup
 -   react-hook-form
+-   ExpressJS
+-   axios
+-   cors
+-   dotenv
 
 Programming Language:
 
