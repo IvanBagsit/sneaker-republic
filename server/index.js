@@ -1,8 +1,10 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
+
 // this loads the variables from the .env file into process.env
 require("dotenv").config();
+
+const app = express();
 
 // to accept cors
 app.use(cors());
