@@ -42,4 +42,6 @@ app.use("/home", homeRouter);
 app.use("/view-all", viewAllRouter);
 app.use("/view", viewRouter);
 
-app.listen(3500);
+const PORT = process.env.PORT || 3500;
+
+app.listen(PORT, () => console.log(`server is running in port ${PORT}`));
