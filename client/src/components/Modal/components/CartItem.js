@@ -3,7 +3,7 @@ import { DialogContentText, IconButton } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
     updateCartShoesQuantity,

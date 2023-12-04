@@ -1,7 +1,5 @@
 import styles from "./AttachmentCard.module.css";
 import DescriptionIcon from "@mui/icons-material/Description";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import { Viewer } from "@react-pdf-viewer/core";
 
