@@ -3,7 +3,7 @@ const router = express.Router();
 
 const imageUrls = require("../common/shoes.js");
 
-router.get("/shoes", (req, res) => {
+router.get("/featured", (req, res) => {
     const featuredShoes = [
         {
             name: "Airforce 1",

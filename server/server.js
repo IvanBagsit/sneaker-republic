@@ -39,7 +39,7 @@ const viewAllRouter = require("./routes/viewAll.js");
 
 app.use("/test", testRouter);
 app.use("/home", homeRouter);
-app.use("/view", viewRouter);
 app.use("/view-all", viewAllRouter);
+app.use("/view", viewRouter);
 
 app.listen(3500);
