@@ -1,17 +1,4 @@
 import {
-    AF1Unisex1,
-    Airmax97Women,
-    AlphabounceUnisex1,
-    FragmentUnisex1,
-    GiannisMen,
-    J1Unisex2,
-    J3Men4,
-    JoyrideUnisex3,
-    StansmithUnisex1,
-    UltraboostUnisex1,
-    YeezyUnisex1,
-} from "../Common/Shoes";
-import {
     ImageList,
     ImageListItem,
     ImageListItemBar,
