@@ -9,38 +9,33 @@ import {
 } from "@mui/material";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import gmailIcon from "../../images/contact/gmailIcon.png";
 import facebookIcon from "../../images/contact/facebookIcon.png";
 import instagramIcon from "../../images/contact/instagramIcon.png";
 import ownerImage from "../../images/owner/owner.jpg";
-import { AF1Unisex1, J1Unisex2, J3Men4 } from "../Common/Shoes";
 import DeviceChecker from "../Common/DeviceChecker.js";
+import client from "../Common/ApiClient.js";
 
 const Home = () => {
-    const featuredShoes = [
-        {
-            name: "Airforce 1",
-            brand: "Nike",
-            price: 500,
-            image: AF1Unisex1,
-            link: "/view?shoes=airforce1",
-        },
-        {
-            name: "Jordan 1",
-            brand: "Nike",
-            price: 600,
-            image: J1Unisex2,
-            link: "/view?shoes=jordan1",
-        },
-        {
-            name: "Jordan 3",
-            brand: "Nike",
-            price: 550,
-            image: J3Men4,
-            link: "/view?shoes=jordan3",
-        },
-    ];
+    const [featuredShoes, setFeaturedShoes] = useState([]);
+
+    const callFeaturedShoes = async () => {
+        await client
+            .get("/home/featured")
+            .then((item) => {
+                const { data } = item;
+                if (data) {
+                    setFeaturedShoes(data);
+                }
+            })
+            .catch((error) => console.error(error));
+    };
+
+    useEffect(() => {
+        callFeaturedShoes();
+    }, []);
 
     const gmailCompose = {
         recipient: "ivanbagsit23@gmail.com",
@@ -140,7 +135,7 @@ const Home = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {featuredShoes.map((items) => {
+                        {featuredShoes?.map((items) => {
                             return (
                                 <Card key={items.name} sx={cardDimension()}>
                                     <Box
