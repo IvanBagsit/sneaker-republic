@@ -7,9 +7,16 @@
         }
     ],
     "routes": [
+        { 
+            "src": "/public/(.*)", 
+            "dest": "/public/$1" 
+        },
+        { 
+            "handle": "filesystem" 
+        },
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "/index.js"
         }
     ]
 }
