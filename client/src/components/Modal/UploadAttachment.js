@@ -236,7 +236,7 @@ const UploadAttachment = ({
                     color="primary"
                     disabled={attachments.length === 0}
                 >
-                    Buy Now
+                    Buy
                 </Button>
             </DialogActions>
             {isMOPOpen && (
