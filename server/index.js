@@ -40,11 +40,13 @@ const testRouter = require("./routes/test.js");
 const homeRouter = require("./routes/home.js");
 const viewRouter = require("./routes/view.js");
 const viewAllRouter = require("./routes/viewAll.js");
+const orderRouter = require("./routes/order.js");
 
 app.use("/test", testRouter);
 app.use("/home", homeRouter);
 app.use("/view-all", viewAllRouter);
 app.use("/view", viewRouter);
+app.use("/order", orderRouter);
 
 const PORT = process.env.PORT || 3500;
 

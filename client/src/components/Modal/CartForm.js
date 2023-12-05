@@ -15,6 +15,8 @@ import CartFormDetails from "./components/CartFormDetails";
 import { UploadAttachmentContent } from "./UploadAttachment";
 import ModeOfPayment from "./ModeOfPayment";
 import CustomerDetailsSchema from "../Common/yup/CustomerDetailsSchema";
+import FullPageLoader from "../Common/FullPageLoader";
+import client from "../Common/ApiClient";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -24,6 +26,7 @@ const CartForm = ({ isOpen, onClose, cartItems }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -48,14 +51,26 @@ const CartForm = ({ isOpen, onClose, cartItems }) => {
         resolver: yupResolver(CustomerDetailsSchema),
     });
 
+    const callConfirmOrder = async (orderDetails) => {
+        setIsLoading(true);
+        await client
+            .post("/order/send-order", { orderDetails })
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+    };
+
     const callSubmitApi = (values) => {
-        console.log("buying details...", values);
-        console.log("...cartItems", cartItems);
-        console.log("...attachments", attachments);
+        const orderDetails = {
+            shoes: cartItems,
+            formValues: values,
+            attachments: attachments,
+        };
+        callConfirmOrder(orderDetails);
     };
 
     const submitForm = async () => {
-        await handleSubmit((data) => callSubmitApi(data))();
+        await handleSubmit((values) => callSubmitApi(values))();
     };
 
     return (
@@ -65,6 +80,7 @@ const CartForm = ({ isOpen, onClose, cartItems }) => {
             maxWidth={"md"}
             fullWidth
         >
+            {isLoading && <FullPageLoader open={isLoading} />}
             <DialogTitle>Shopping Cart Form</DialogTitle>
             <DialogContent>
                 <div className={styles.containerContent}>

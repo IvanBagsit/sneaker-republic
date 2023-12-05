@@ -15,6 +15,8 @@ import AttachmentContainer from "./components/AttachmentContainer";
 import styles from "./UploadAttachment.module.css";
 import ModeOfPayment from "./ModeOfPayment";
 import dnd100 from "../../images/others/dnd100.png";
+import client from "../Common/ApiClient";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -143,10 +145,11 @@ export const UploadAttachmentContent = ({
     );
 };
 
-const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
+const UploadAttachment = ({ isOpen = false, onClose, shoes, formValues }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -162,9 +165,22 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
         setAttachments(values);
     };
 
-    const constHandleSubmit = () => {
-        console.log("buying shoes and details...", shoes);
-        console.log("...attachments", attachments);
+    const callConfirmOrder = async (orderDetails) => {
+        setIsLoading(true);
+        await client
+            .post("/order/send-order", { orderDetails })
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+    };
+
+    const handleSubmit = () => {
+        const orderDetails = {
+            ...shoes,
+            formValues: formValues,
+            attachments: attachments,
+        };
+        callConfirmOrder(orderDetails);
     };
 
     return (
@@ -174,6 +190,7 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
             maxWidth={"sm"}
             fullWidth
         >
+            {isLoading && <FullPageLoader open={isLoading} />}
             <DialogTitle>Upload Attachment/s</DialogTitle>
             <DialogContent>
                 <UploadAttachmentContent
@@ -192,7 +209,7 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes }) => {
                     Cancel
                 </Button>
                 <Button
-                    onClick={constHandleSubmit}
+                    onClick={handleSubmit}
                     variant="contained"
                     className={styles.buttons}
                     color="primary"
