@@ -1,7 +1,7 @@
 import styles from "./Appbar.module.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import Scrollbar from "../Common/Scrollbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuOptions from "../Common/menu/MenuOptions.js";
 
 const Appbar = () => {
@@ -94,14 +94,33 @@ const Appbar = () => {
     ];
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
     };
 
+    useEffect(() => {
+        if (isMenuOpen) {
+            setBackgroundColor("#cccccc");
+        } else {
+            setBackgroundColor("#ffffff");
+        }
+    }, [isMenuOpen]);
+
     return (
         <div className={styles.background}>
-            <div className={styles.content} onClick={toggleMenu}>
+            <div
+                className={styles.content}
+                style={{
+                    backgroundColor: `${backgroundColor}`,
+                    borderBottomLeftRadius: "5% 50%",
+                    borderBottomRightRadius: "5% 50%",
+                    borderTopLeftRadius: "5% 50%",
+                    borderTopRightRadius: "5% 50%",
+                }}
+                onClick={toggleMenu}
+            >
                 <div className={styles.title}>
                     <h4>Sneakers Republic</h4>
                 </div>
