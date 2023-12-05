@@ -12,11 +12,14 @@ import { Link } from "react-router-dom";
 import DeviceChecker from "../Common/DeviceChecker";
 import { useState, useEffect } from "react";
 import client from "../Common/ApiClient";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const ViewAll = () => {
     const [itemData, setItemdata] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const callViewAllShoes = async () => {
+        setIsLoading(true);
         await client
             .get("/view-all/shoes")
             .then((item) => {
@@ -25,7 +28,8 @@ const ViewAll = () => {
                     setItemdata(data);
                 }
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -68,6 +72,7 @@ const ViewAll = () => {
 
     return (
         <div className={styles.background}>
+            {isLoading && <FullPageLoader open={isLoading} />}
             <div className={styles.content}>
                 <ImageList sx={imageListDimension()}>
                     <ImageListItem key="Subheader" cols={columnNumber()}>

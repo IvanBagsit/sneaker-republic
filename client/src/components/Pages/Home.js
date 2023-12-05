@@ -17,11 +17,14 @@ import instagramIcon from "../../images/contact/instagramIcon.png";
 import ownerImage from "../../images/owner/owner.jpg";
 import DeviceChecker from "../Common/DeviceChecker.js";
 import client from "../Common/ApiClient.js";
+import FullPageLoader from "../Common/FullPageLoader.js";
 
 const Home = () => {
     const [featuredShoes, setFeaturedShoes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const callFeaturedShoes = async () => {
+        setIsLoading(true);
         await client
             .get("/home/featured")
             .then((item) => {
@@ -30,7 +33,8 @@ const Home = () => {
                     setFeaturedShoes(data);
                 }
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -115,6 +119,7 @@ const Home = () => {
             alignItems="flex-end"
             className={styles.mainBackground}
         >
+            {isLoading && <FullPageLoader open={isLoading} />}
             <Grid item className={styles.featuredBackground}>
                 <Grid
                     container

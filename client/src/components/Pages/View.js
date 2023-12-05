@@ -10,12 +10,14 @@ import ModeOfPayment from "../Modal/ModeOfPayment";
 import { addCartShoes } from "../Common/redux/redux";
 import DeviceChecker from "../Common/DeviceChecker";
 import client from "../Common/ApiClient";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const View = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const viewableShoes = queryParams.get("shoes");
 
+    const [isLoading, setIsLoading] = useState(false);
     const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [viewedShoes, setViewedShoes] = useState({
@@ -45,6 +47,7 @@ const View = () => {
     });
 
     const callViewedShoesAPI = async () => {
+        setIsLoading(true);
         await client
             .get(`/view?shoes=${viewableShoes}`)
             .then((item) => {
@@ -53,7 +56,8 @@ const View = () => {
                     setViewedShoes(data);
                 }
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -132,6 +136,7 @@ const View = () => {
 
     return (
         <div className={styles.background}>
+            {isLoading && <FullPageLoader open={isLoading} />}
             <div className={styles.content}>
                 <div className={styles.contentDetails}>
                     <img
