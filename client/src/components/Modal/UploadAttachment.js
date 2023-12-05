@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState, useRef } from "react";
 import {
     Button,
     Slide,
@@ -18,6 +18,7 @@ import dnd100 from "../../images/others/dnd100.png";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
 import Success from "./Success";
+import ErrorModal from "./ErrorModal";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -158,6 +159,9 @@ const UploadAttachment = ({
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isError, setIsError] = useState(false);
+
+    const retryRef = useRef(null);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -174,6 +178,8 @@ const UploadAttachment = ({
     };
 
     const callConfirmOrder = async (orderDetails) => {
+        setIsSuccess(false);
+        setIsError(false);
         setIsLoading(true);
         await client
             .post("/order/send-order", { orderDetails })
@@ -181,7 +187,10 @@ const UploadAttachment = ({
                 console.log(data);
                 setIsSuccess(true);
             })
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                setIsError(true);
+            })
             .finally(() => setIsLoading(false));
     };
 
@@ -192,6 +201,7 @@ const UploadAttachment = ({
             attachments: attachments,
         };
         callConfirmOrder(orderDetails);
+        retryRef.current = handleSubmit;
     };
 
     return (
@@ -245,6 +255,17 @@ const UploadAttachment = ({
                         handleClose();
                         onCloseBuyNow();
                     }}
+                />
+            )}
+            {isError && (
+                <ErrorModal
+                    isOpen={isError}
+                    title={"Something went wrong!"}
+                    message={"Please contact administration."}
+                    onClose={() => {
+                        setIsError(false);
+                    }}
+                    onRetry={() => retryRef.current()}
                 />
             )}
         </Dialog>
