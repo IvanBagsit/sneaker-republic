@@ -1,6 +1,5 @@
 .background {
     position: absolute;
-    background-color: #cccccc;
     width: 90vw;
     height: 5vh;
     top: 2%;
@@ -11,6 +10,8 @@
     border-top-left-radius: 5% 50%;
     border-bottom-left-radius: 5% 50%;
     z-index: 100;
+    border: 1px solid white;
+    box-shadow: -1vw 2vw 5px -1px rgba(168,168,168,0.75);
 }
 
 .content {
