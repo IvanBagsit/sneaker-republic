@@ -64,8 +64,22 @@ const Dashboard = () => {
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
                         <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/home" element={<Home />} />
+                            <Route
+                                path="/"
+                                element={
+                                    <Home
+                                        isGetStartedClosed={isGetStartedClosed}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/home"
+                                element={
+                                    <Home
+                                        isGetStartedClosed={isGetStartedClosed}
+                                    />
+                                }
+                            />
                             <Route path="/view-all" element={<ViewAll />} />
                             <Route path="/view" element={<View />} />
                         </Routes>
