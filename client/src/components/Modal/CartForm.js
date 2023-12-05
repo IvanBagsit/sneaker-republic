@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, useRef } from "react";
 import {
     Button,
     Slide,
@@ -18,6 +18,7 @@ import CustomerDetailsSchema from "../Common/yup/CustomerDetailsSchema";
 import FullPageLoader from "../Common/FullPageLoader";
 import client from "../Common/ApiClient";
 import Success from "./Success";
+import ErrorModal from "./ErrorModal";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -29,6 +30,9 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [isError, setIsError] = useState(false);
+
+    const retryRef = useRef(null);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -54,6 +58,8 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     });
 
     const callConfirmOrder = async (orderDetails) => {
+        setIsSuccess(false);
+        setIsError(false);
         setIsLoading(true);
         await client
             .post("/order/send-order", { orderDetails })
@@ -61,7 +67,10 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
                 console.log(data);
                 setIsSuccess(true);
             })
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                setIsError(true);
+            })
             .finally(() => setIsLoading(false));
     };
 
@@ -75,6 +84,7 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     };
 
     const submitForm = async () => {
+        retryRef.current = submitForm;
         await handleSubmit((values) => callSubmitApi(values))();
     };
 
@@ -136,6 +146,17 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
                         handleClose();
                         onCloseCart();
                     }}
+                />
+            )}
+            {isError && (
+                <ErrorModal
+                    isOpen={isError}
+                    title={"Something went wrong!"}
+                    message={"Please contact administration."}
+                    onClose={() => {
+                        setIsError(false);
+                    }}
+                    onRetry={() => retryRef.current()}
                 />
             )}
         </Dialog>
