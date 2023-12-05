@@ -55,12 +55,18 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
     });
 
     const shoesToBuy = {
-        shoes: shoes.mainImage,
-        availability: size.availability,
-        size: size.sizes,
-        quantity: quantity,
-        totalPrice: totalPrice,
-        formValues: formik.values,
+        shoes: [
+            {
+                ...shoes,
+                sizes: {
+                    availability: size.availability,
+                    sizes: size.sizes,
+                },
+                shoes: null,
+                quantity: quantity,
+                totalPrice: totalPrice,
+            },
+        ],
     };
 
     const handleNext = () => {
@@ -232,6 +238,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                     isOpen={isUploadAttachmentDisplayed}
                     onClose={() => setIsUploadAttachmentDisplayed(false)}
                     shoes={shoesToBuy}
+                    formValues={formik.values}
                 />
             )}
         </Dialog>
