@@ -49,6 +49,7 @@ Framework/Tools/Library used:
 -   axios
 -   cors
 -   dotenv
+-   nodemailer
 
 Programming Language:
 
