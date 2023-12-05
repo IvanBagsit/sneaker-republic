@@ -17,16 +17,18 @@ import ModeOfPayment from "./ModeOfPayment";
 import CustomerDetailsSchema from "../Common/yup/CustomerDetailsSchema";
 import FullPageLoader from "../Common/FullPageLoader";
 import client from "../Common/ApiClient";
+import Success from "./Success";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CartForm = ({ isOpen, onClose, cartItems }) => {
+const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -55,7 +57,10 @@ const CartForm = ({ isOpen, onClose, cartItems }) => {
         setIsLoading(true);
         await client
             .post("/order/send-order", { orderDetails })
-            .then((data) => console.log(data))
+            .then((data) => {
+                console.log(data);
+                setIsSuccess(true);
+            })
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
     };
@@ -112,13 +117,25 @@ const CartForm = ({ isOpen, onClose, cartItems }) => {
                     className={styles.button}
                     disabled={attachments.length === 0 || !isValid}
                 >
-                    Buy
+                    Checkout
                 </Button>
             </DialogActions>
             {isMOPOpen && (
                 <ModeOfPayment
                     isOpen={isMOPOpen}
                     onClose={() => setIsMOPOpen(false)}
+                />
+            )}
+            {isSuccess && (
+                <Success
+                    isOpen={isSuccess}
+                    title={"Checkout Successful!"}
+                    message={"We will contact you very soon."}
+                    onClose={() => {
+                        setIsSuccess(false);
+                        handleClose();
+                        onCloseCart();
+                    }}
                 />
             )}
         </Dialog>
