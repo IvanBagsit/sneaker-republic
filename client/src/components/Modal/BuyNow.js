@@ -239,6 +239,7 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                     onClose={() => setIsUploadAttachmentDisplayed(false)}
                     shoes={shoesToBuy}
                     formValues={formik.values}
+                    onCloseBuyNow={onClose}
                 />
             )}
         </Dialog>

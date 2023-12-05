@@ -85,6 +85,7 @@ const Cart = ({ isOpen, onClose }) => {
                     isOpen={isCartFormOpen}
                     onClose={() => setIsCartFormOpen(false)}
                     cartItems={cartItems}
+                    onCloseCart={onClose}
                 />
             )}
         </Dialog>

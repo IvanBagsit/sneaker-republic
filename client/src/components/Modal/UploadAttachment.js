@@ -17,6 +17,7 @@ import ModeOfPayment from "./ModeOfPayment";
 import dnd100 from "../../images/others/dnd100.png";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
+import Success from "./Success";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -145,11 +146,18 @@ export const UploadAttachmentContent = ({
     );
 };
 
-const UploadAttachment = ({ isOpen = false, onClose, shoes, formValues }) => {
+const UploadAttachment = ({
+    isOpen = false,
+    onClose,
+    shoes,
+    formValues,
+    onCloseBuyNow,
+}) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleClose = () => {
         setIsMOPOpen(false);
@@ -169,7 +177,10 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes, formValues }) => {
         setIsLoading(true);
         await client
             .post("/order/send-order", { orderDetails })
-            .then((data) => console.log(data))
+            .then((data) => {
+                console.log(data);
+                setIsSuccess(true);
+            })
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
     };
@@ -215,13 +226,25 @@ const UploadAttachment = ({ isOpen = false, onClose, shoes, formValues }) => {
                     color="primary"
                     disabled={attachments.length === 0}
                 >
-                    Buy
+                    Buy Now
                 </Button>
             </DialogActions>
             {isMOPOpen && (
                 <ModeOfPayment
                     isOpen={isMOPOpen}
                     onClose={() => setIsMOPOpen(false)}
+                />
+            )}
+            {isSuccess && (
+                <Success
+                    isOpen={isSuccess}
+                    title={"Order Successful!"}
+                    message={"We will contact you very soon."}
+                    onClose={() => {
+                        setIsSuccess(false);
+                        handleClose();
+                        onCloseBuyNow();
+                    }}
                 />
             )}
         </Dialog>
