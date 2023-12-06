@@ -2,6 +2,12 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 
+// accepts "Content-Type":"multipart/form-data"
+const multer = require("multer");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -10,21 +16,38 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-router.post("/send-order", (req, res) => {
-    const { shoes, formValues, attachments } = req.body.orderDetails;
+router.post("/send-order", upload.array("attachments"), (req, res) => {
+    let shoesDetails;
+    if (Array.isArray(req.body.shoes)) {
+        const shoesArray = req.body.shoes.map((item) => {
+            return JSON.parse(item);
+        });
+        shoesDetails = shoesArray.map(
+            (item) =>
+                `Shoes: ${item.title}
+            Brand: ${item.brand}
+            Code: ${item.mainImage.code}
+            Size: ${item.sizes.sizes} ${item.sizes.availability}
+            Price: ${item.price}
+            Quantity: ${item.quantity}
+            Total Price: ${item.totalPrice}
+    
+            `
+        );
+    } else {
+        const shoesArray = JSON.parse(req.body.shoes);
+        shoesDetails = `Shoes: ${shoesArray.title}
+        Brand: ${shoesArray.brand}
+        Code: ${shoesArray.mainImage.code}
+        Size: ${shoesArray.sizes.sizes} ${shoesArray.sizes.availability}
+        Price: ${shoesArray.price}
+        Quantity: ${shoesArray.quantity}
+        Total Price: ${shoesArray.totalPrice}
 
-    const shoesDetails = shoes.map(
-        (item) =>
-            `Shoes: ${item.title}
-        Brand: ${item.brand}
-        Code: ${item.mainImage.code}
-        Size: ${item.sizes.sizes} ${item.sizes.availability}
-        Price: ${item.price}
-        Quantity: ${item.quantity}
-        Total Price: ${item.totalPrice}
+        `;
+    }
 
-        `
-    );
+    const formValues = JSON.parse(req.body.formValues);
 
     const message = `
         Order Recieved! Please see details below:
@@ -34,17 +57,22 @@ router.post("/send-order", (req, res) => {
         Email: ${formValues.email}
         Contact Number: ${formValues.contactNumber}
         LBC Pickup Branch: ${formValues.pickUpBranch}
-        
+
         Order Details
-        ${shoesDetails.join("")}
+        ${Array.isArray(req.body.shoes) ? shoesDetails.join("") : shoesDetails}
     `;
+
+    const attachments = req.files.map((file) => ({
+        filename: file.originalname,
+        content: file.buffer,
+    }));
 
     const mailOptions = {
         from: process.env.EMAIL_KEY,
-        to: "ivanbagsit23@gmail.com",
-        subject: "ORDER - Sneakers Republic",
+        to: process.env.EMAIL_RECEIVER,
+        subject: process.env.EMAIL_SUBJECT,
         text: message,
-        attachments: [...attachments],
+        attachments: attachments,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

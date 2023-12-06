@@ -118,7 +118,7 @@ export const UploadAttachmentContent = ({
                 </Button>
             </DialogContentText>
             <div className={styles.uploadsection} {...getRootProps()}>
-                <input {...getInputProps()} hidden />
+                <input {...getInputProps()} hidden multiple type="file" />
                 <div>
                     <img src={dnd100} alt="draganddrop" />
                 </div>
@@ -177,12 +177,18 @@ const UploadAttachment = ({
         setAttachments(values);
     };
 
-    const callConfirmOrder = async (orderDetails) => {
+    const callConfirmOrder = async (formData) => {
+        console.log("callConfirmOrder called");
         setIsSuccess(false);
         setIsError(false);
         setIsLoading(true);
+
         await client
-            .post("/order/send-order", { orderDetails })
+            .post("/order/send-order", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
             .then((data) => {
                 console.log(data);
                 setIsSuccess(true);
@@ -195,12 +201,15 @@ const UploadAttachment = ({
     };
 
     const handleSubmit = () => {
-        const orderDetails = {
-            ...shoes,
-            formValues: formValues,
-            attachments: attachments,
-        };
-        callConfirmOrder(orderDetails);
+        const formData = new FormData();
+        attachments.forEach((item) => {
+            formData.append("attachments", item.file);
+        });
+        shoes.shoes.forEach((item) => {
+            formData.append("shoes", JSON.stringify(item));
+        });
+        formData.append("formValues", JSON.stringify(formValues));
+        callConfirmOrder(formData);
         retryRef.current = handleSubmit;
     };
 
