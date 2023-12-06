@@ -56,7 +56,13 @@ const View = () => {
                     setViewedShoes(data);
                 }
             })
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                setViewedShoes({
+                    code: error.response.status,
+                    message: error.response.data.message,
+                });
+            })
             .finally(() => setIsLoading(false));
     };
 
@@ -143,134 +149,159 @@ const View = () => {
                 />
             )}
             <div className={styles.content}>
-                <div className={styles.contentDetails}>
-                    <img
-                        src={viewedShoes.mainImage.image}
-                        alt="viewedshoes"
-                        className={styles.mainImage}
-                    />
-                </div>
-                <div className={styles.contentDetails}>
-                    <div className={styles.details}>
-                        <h1>{viewedShoes.title}</h1>
+                {viewedShoes.url && (
+                    <div className={styles.contentDetails}>
+                        <img
+                            src={viewedShoes.mainImage.image}
+                            alt="viewedshoes"
+                            className={styles.mainImage}
+                        />
                     </div>
-                    <div className={styles.details}>
-                        Brand: {viewedShoes.brand}
-                    </div>
-                    <div className={styles.details}>
-                        Code: {viewedShoes.mainImage.code}
-                    </div>
-                    <div className={styles.details}>
-                        Price: P{viewedShoes.price}
-                    </div>
-                    <div className={styles.details}>
-                        <div>
-                            Men size (US):{" "}
-                            <ButtonGroup
-                                variant="outlined"
-                                size="small"
-                                color="primary"
-                            >
-                                {viewedShoes.sizes[0].sizes.map((items) => {
-                                    return (
-                                        <Button
-                                            key={items}
-                                            onClick={() =>
-                                                handleSizeSelection(
-                                                    "Men",
-                                                    items
-                                                )
-                                            }
-                                            variant={
-                                                handleSizeButton("Men", items)
-                                                    ? "contained"
-                                                    : "outlined"
-                                            }
-                                        >
-                                            {items}
-                                        </Button>
-                                    );
-                                })}
-                            </ButtonGroup>
+                )}
+                {viewedShoes.url && (
+                    <div className={styles.contentDetails}>
+                        <div className={styles.details}>
+                            <h1>{viewedShoes.title}</h1>
                         </div>
-                        <div>
-                            Women size (US):{" "}
-                            <ButtonGroup
-                                variant="outlined"
-                                size="small"
-                                color="primary"
-                            >
-                                {viewedShoes.sizes[1].sizes.map((items) => {
-                                    return (
-                                        <Button
-                                            key={items}
-                                            onClick={() =>
-                                                handleSizeSelection(
-                                                    "Women",
-                                                    items
-                                                )
-                                            }
-                                            variant={
-                                                handleSizeButton("Women", items)
-                                                    ? "contained"
-                                                    : "outlined"
-                                            }
-                                        >
-                                            {items}
-                                        </Button>
-                                    );
-                                })}
-                            </ButtonGroup>
+                        <div className={styles.details}>
+                            Brand: {viewedShoes.brand}
                         </div>
-                    </div>
-                    <div className={styles.details}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={buyNowButtonStyle()}
-                            onClick={() => {
-                                setIsBuyNowOpen(true);
-                            }}
-                            disabled={size.sizes === null}
-                        >
-                            Buy Now
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            startIcon={<ShoppingCartIcon />}
-                            sx={addToCartButtonStyle()}
-                            onClick={handleAddToCart}
-                            disabled={size.sizes === null}
-                        >
-                            Add to Cart
-                        </Button>
-                    </div>
-                    <div className={styles.details}>
-                        <div>
-                            Shipping Fee:{" "}
-                            <b style={{ color: "#1976d1" }}>FREE</b>
+                        <div className={styles.details}>
+                            Code: {viewedShoes.mainImage.code}
                         </div>
-                        <div>Mode of Delivery: LBC</div>
-                    </div>
-                    <div>
-                        {viewedShoes.shoes.map((shoes) => {
-                            return (
-                                <span
-                                    onClick={() => viewSubShoes(shoes.code)}
-                                    className={styles.subShoes}
-                                    key={shoes.code}
+                        <div className={styles.details}>
+                            Price: P{viewedShoes.price}
+                        </div>
+                        <div className={styles.details}>
+                            <div>
+                                Men size (US):{" "}
+                                <ButtonGroup
+                                    variant="outlined"
+                                    size="small"
+                                    color="primary"
                                 >
-                                    <img
-                                        src={shoes.image}
-                                        alt={shoes.code}
-                                        className={styles.subShoesImage}
-                                    />
-                                </span>
-                            );
-                        })}
+                                    {viewedShoes.sizes[0].sizes.map((items) => {
+                                        return (
+                                            <Button
+                                                key={items}
+                                                onClick={() =>
+                                                    handleSizeSelection(
+                                                        "Men",
+                                                        items
+                                                    )
+                                                }
+                                                variant={
+                                                    handleSizeButton(
+                                                        "Men",
+                                                        items
+                                                    )
+                                                        ? "contained"
+                                                        : "outlined"
+                                                }
+                                            >
+                                                {items}
+                                            </Button>
+                                        );
+                                    })}
+                                </ButtonGroup>
+                            </div>
+                            <div>
+                                Women size (US):{" "}
+                                <ButtonGroup
+                                    variant="outlined"
+                                    size="small"
+                                    color="primary"
+                                >
+                                    {viewedShoes.sizes[1].sizes.map((items) => {
+                                        return (
+                                            <Button
+                                                key={items}
+                                                onClick={() =>
+                                                    handleSizeSelection(
+                                                        "Women",
+                                                        items
+                                                    )
+                                                }
+                                                variant={
+                                                    handleSizeButton(
+                                                        "Women",
+                                                        items
+                                                    )
+                                                        ? "contained"
+                                                        : "outlined"
+                                                }
+                                            >
+                                                {items}
+                                            </Button>
+                                        );
+                                    })}
+                                </ButtonGroup>
+                            </div>
+                        </div>
+                        <div className={styles.details}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                sx={buyNowButtonStyle()}
+                                onClick={() => {
+                                    setIsBuyNowOpen(true);
+                                }}
+                                disabled={size.sizes === null}
+                            >
+                                Buy Now
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                startIcon={<ShoppingCartIcon />}
+                                sx={addToCartButtonStyle()}
+                                onClick={handleAddToCart}
+                                disabled={size.sizes === null}
+                            >
+                                Add to Cart
+                            </Button>
+                        </div>
+                        <div className={styles.details}>
+                            <div>
+                                Shipping Fee:{" "}
+                                <b style={{ color: "#1976d1" }}>FREE</b>
+                            </div>
+                            <div>Mode of Delivery: LBC</div>
+                        </div>
+                        <div>
+                            {viewedShoes.shoes.map((shoes) => {
+                                return (
+                                    <span
+                                        onClick={() => viewSubShoes(shoes.code)}
+                                        className={styles.subShoes}
+                                        key={shoes.code}
+                                    >
+                                        <img
+                                            src={shoes.image}
+                                            alt={shoes.code}
+                                            className={styles.subShoesImage}
+                                        />
+                                    </span>
+                                );
+                            })}
+                        </div>
                     </div>
-                </div>
+                )}
+                {viewedShoes.code && (
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <div style={{ fontSize: "8vh" }}>
+                            <b>{viewedShoes.code}</b>
+                        </div>
+                        <div>{viewedShoes.message}</div>
+                    </div>
+                )}
             </div>
             {isBuyNowOpen && (
                 <BuyNow
