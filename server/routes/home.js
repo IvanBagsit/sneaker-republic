@@ -3,6 +3,75 @@ const router = express.Router();
 
 const imageUrls = require("../common/shoes.js");
 
+router.get("/menu", (req, res) => {
+    const options = [
+        {
+            name: "Home",
+            isDropDown: false,
+            subOptions: [],
+            haslink: true,
+            link: "/home",
+        },
+        {
+            name: "View All",
+            isDropDown: false,
+            subOptions: [],
+            haslink: true,
+            link: "/view-all",
+        },
+        {
+            name: "Male",
+            isDropDown: true,
+            subOptions: [
+                {
+                    brand: "Nike",
+                    isDropDown: true,
+                    shoes: [
+                        "Airforce 1",
+                        "Airmax 97",
+                        "Fragment",
+                        "Giannis",
+                        "Jordan 1",
+                        "Jordan 3",
+                        "Joyride",
+                    ],
+                },
+                {
+                    brand: "Addidas",
+                    isDropDown: true,
+                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
+                },
+            ],
+            haslink: false,
+        },
+        {
+            name: "Female",
+            isDropDown: true,
+            subOptions: [
+                {
+                    brand: "Nike",
+                    isDropDown: true,
+                    shoes: [
+                        "Airforce 1",
+                        "Airmax 97",
+                        "Fragment",
+                        "Jordan 1",
+                        "Joyride",
+                    ],
+                },
+                {
+                    brand: "Addidas",
+                    isDropDown: true,
+                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
+                },
+            ],
+            haslink: false,
+        },
+    ];
+
+    res.status(200).send(options);
+});
+
 router.get("/featured", (req, res) => {
     const featuredShoes = [
         {

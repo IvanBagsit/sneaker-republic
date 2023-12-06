@@ -3,98 +3,29 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Scrollbar from "../Common/Scrollbar";
 import { useEffect, useState } from "react";
 import MenuOptions from "../Common/menu/MenuOptions.js";
+import client from "../Common/ApiClient.js";
+import FullPageLoader from "../Common/FullPageLoader.js";
 
 const Appbar = () => {
-    const options = [
-        {
-            name: "Home",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/home",
-        },
-        {
-            name: "View All",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/view-all",
-        },
-        {
-            name: "Male",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Giannis",
-                        "Jordan 1",
-                        "Jordan 3",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-        {
-            name: "Female",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Jordan 1",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-        {
-            name: "Kids",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Jordan 1",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-    ];
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+    const [menuOptions, setMenuOptions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const callMenuOptionsApi = async () => {
+        setIsLoading(true);
+        await client("/home/menu")
+            .then((menu) => {
+                const { data } = menu;
+                setMenuOptions(data);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+    };
+
+    useEffect(() => {
+        callMenuOptionsApi();
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -110,6 +41,7 @@ const Appbar = () => {
 
     return (
         <div className={styles.background}>
+            {isLoading && <FullPageLoader open={isLoading} />}
             <div
                 className={styles.content}
                 style={{
@@ -130,8 +62,8 @@ const Appbar = () => {
             </div>
             {isMenuOpen && (
                 <Scrollbar maxHeight={"40vh"}>
-                    {options.map((items) => {
-                        return <MenuOptions items={items} />;
+                    {menuOptions?.map((items, index) => {
+                        return <MenuOptions items={items} key={items.name} />;
                     })}
                 </Scrollbar>
             )}
