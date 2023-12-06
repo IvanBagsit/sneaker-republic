@@ -4,23 +4,19 @@ import Scrollbar from "../Common/Scrollbar";
 import { useEffect, useState } from "react";
 import MenuOptions from "../Common/menu/MenuOptions.js";
 import client from "../Common/ApiClient.js";
-import FullPageLoader from "../Common/FullPageLoader.js";
 
 const Appbar = ({ isGetStartedClosed }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
     const [menuOptions, setMenuOptions] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
 
     const callMenuOptionsApi = async () => {
-        setIsLoading(true);
         await client("/home/menu")
             .then((menu) => {
                 const { data } = menu;
                 setMenuOptions(data);
             })
-            .catch((error) => console.error(error))
-            .finally(() => setIsLoading(false));
+            .catch((error) => console.error(error));
     };
 
     useEffect(() => {
@@ -41,9 +37,6 @@ const Appbar = ({ isGetStartedClosed }) => {
 
     return (
         <div className={styles.background}>
-            {isLoading && isGetStartedClosed && (
-                <FullPageLoader open={isLoading} />
-            )}
             <div
                 className={styles.content}
                 style={{
