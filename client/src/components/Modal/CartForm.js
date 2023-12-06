@@ -28,7 +28,10 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState({
+        enabled: false,
+        message: "Please wait while we load the contents...",
+    });
     const [isSuccess, setIsSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
 
@@ -60,7 +63,10 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     const callConfirmOrder = async (formData) => {
         setIsSuccess(false);
         setIsError(false);
-        setIsLoading(true);
+        setIsLoading({
+            enabled: true,
+            message: "Please wait while we process your order...",
+        });
         await client
             .post("/order/send-order", formData, {
                 headers: {
@@ -75,7 +81,12 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
                 console.error(error);
                 setIsError(true);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() =>
+                setIsLoading({
+                    enabled: false,
+                    message: "Please wait while we load the contents...",
+                })
+            );
     };
 
     const callSubmitApi = (values) => {
@@ -102,7 +113,12 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
             maxWidth={"md"}
             fullWidth
         >
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading.enabled && (
+                <FullPageLoader
+                    open={isLoading.enabled}
+                    message={isLoading.message}
+                />
+            )}
             <DialogTitle>Shopping Cart Form</DialogTitle>
             <DialogContent>
                 <div className={styles.containerContent}>
