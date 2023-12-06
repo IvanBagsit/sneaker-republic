@@ -1,106 +1,41 @@
+import { useEffect, useState } from "react";
+import { Stack } from "@mui/material";
+
 import styles from "./Sidebar.module.css";
 import logo from "../../images/logo/logo.png";
-import { Stack } from "@mui/material";
 import Scrollbar from "../Common/Scrollbar";
 import MenuOptions from "../Common/menu/MenuOptions";
+import client from "../Common/ApiClient";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const Sidebar = () => {
-    const options = [
-        {
-            name: "Home",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/home",
-        },
-        {
-            name: "View All",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/view-all",
-        },
-        {
-            name: "Male",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Giannis",
-                        "Jordan 1",
-                        "Jordan 3",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-        {
-            name: "Female",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Jordan 1",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-        {
-            name: "Kids",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Jordan 1",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-    ];
+    const [menuOptions, setMenuOptions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const callMenuOptionsApi = async () => {
+        setIsLoading(true);
+        await client("/home/menu")
+            .then((menu) => {
+                const { data } = menu;
+                setMenuOptions(data);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+    };
+
+    useEffect(() => {
+        callMenuOptionsApi();
+    }, []);
 
     return (
         <Stack direction="column" className={styles.background}>
+            {isLoading && <FullPageLoader open={isLoading} />}
             <div>
                 <img src={logo} alt="logo" className={styles.logo} />
             </div>
             <Scrollbar maxHeight={"65vh"}>
-                {options.map((items, index) => {
-                    return <MenuOptions items={items} key={index} />;
+                {menuOptions?.map((items, index) => {
+                    return <MenuOptions items={items} key={items.name} />;
                 })}
             </Scrollbar>
         </Stack>
