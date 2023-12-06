@@ -59,8 +59,12 @@ const Dashboard = () => {
                     alignItems="center"
                 >
                     <Grid item xs={12} sm={12} md={2}>
-                        {device === "desktop" && <Sidebar />}
-                        {device !== "desktop" && <Appbar />}
+                        {device === "desktop" && (
+                            <Sidebar isGetStartedClosed={handleGetStarted} />
+                        )}
+                        {device !== "desktop" && (
+                            <Appbar isGetStartedClosed={handleGetStarted} />
+                        )}
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
                         <Routes>

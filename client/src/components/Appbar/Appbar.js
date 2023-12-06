@@ -6,7 +6,7 @@ import MenuOptions from "../Common/menu/MenuOptions.js";
 import client from "../Common/ApiClient.js";
 import FullPageLoader from "../Common/FullPageLoader.js";
 
-const Appbar = () => {
+const Appbar = ({ isGetStartedClosed }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
     const [menuOptions, setMenuOptions] = useState([]);
@@ -41,7 +41,9 @@ const Appbar = () => {
 
     return (
         <div className={styles.background}>
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading && isGetStartedClosed && (
+                <FullPageLoader open={isLoading} />
+            )}
             <div
                 className={styles.content}
                 style={{

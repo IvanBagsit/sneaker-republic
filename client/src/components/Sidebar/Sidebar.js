@@ -8,7 +8,7 @@ import MenuOptions from "../Common/menu/MenuOptions";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
 
-const Sidebar = () => {
+const Sidebar = ({ isGetStartedClosed }) => {
     const [menuOptions, setMenuOptions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +29,9 @@ const Sidebar = () => {
 
     return (
         <Stack direction="column" className={styles.background}>
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading && isGetStartedClosed && (
+                <FullPageLoader open={isLoading} />
+            )}
             <div>
                 <img src={logo} alt="logo" className={styles.logo} />
             </div>
