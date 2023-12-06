@@ -157,7 +157,10 @@ const UploadAttachment = ({
     const [isMOPOpen, setIsMOPOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState({
+        enabled: false,
+        message: "Please wait while we load the contents...",
+    });
     const [isSuccess, setIsSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
 
@@ -178,11 +181,12 @@ const UploadAttachment = ({
     };
 
     const callConfirmOrder = async (formData) => {
-        console.log("callConfirmOrder called");
         setIsSuccess(false);
         setIsError(false);
-        setIsLoading(true);
-
+        setIsLoading({
+            enabled: true,
+            message: "Please wait while we process your order...",
+        });
         await client
             .post("/order/send-order", formData, {
                 headers: {
@@ -197,7 +201,12 @@ const UploadAttachment = ({
                 console.error(error);
                 setIsError(true);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() =>
+                setIsLoading({
+                    enabled: false,
+                    message: "Please wait while we load the contents...",
+                })
+            );
     };
 
     const handleSubmit = () => {
@@ -220,7 +229,12 @@ const UploadAttachment = ({
             maxWidth={"sm"}
             fullWidth
         >
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading.enabled && (
+                <FullPageLoader
+                    open={isLoading.enabled}
+                    message={isLoading.message}
+                />
+            )}
             <DialogTitle>Upload Attachment/s</DialogTitle>
             <DialogContent>
                 <UploadAttachmentContent

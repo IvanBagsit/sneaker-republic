@@ -7,11 +7,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FullPageLoader = ({ open }) => {
+const FullPageLoader = ({ open, message }) => {
     const classes = useStyles();
     return (
         <Backdrop className={classes.backdrop} open={open}>
-            <CircularProgress color="inherit" />
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                }}
+            >
+                <div style={{ marginBottom: "5%" }}>{message}</div>
+                <CircularProgress color="inherit" />
+            </div>
         </Backdrop>
     );
 };

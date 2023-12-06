@@ -136,7 +136,12 @@ const View = () => {
 
     return (
         <div className={styles.background}>
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading && (
+                <FullPageLoader
+                    open={isLoading}
+                    message={"Please wait while we load the contents..."}
+                />
+            )}
             <div className={styles.content}>
                 <div className={styles.contentDetails}>
                     <img

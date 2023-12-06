@@ -120,7 +120,10 @@ const Home = ({ isGetStartedClosed }) => {
             className={styles.mainBackground}
         >
             {isLoading && isGetStartedClosed && (
-                <FullPageLoader open={isLoading} />
+                <FullPageLoader
+                    open={isLoading}
+                    message={"Please wait while we load the contents..."}
+                />
             )}
             <Grid item className={styles.featuredBackground}>
                 <Grid

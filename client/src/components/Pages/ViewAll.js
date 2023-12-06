@@ -72,7 +72,12 @@ const ViewAll = () => {
 
     return (
         <div className={styles.background}>
-            {isLoading && <FullPageLoader open={isLoading} />}
+            {isLoading && (
+                <FullPageLoader
+                    open={true}
+                    message={"Please wait while we load the contents..."}
+                />
+            )}
             <div className={styles.content}>
                 <ImageList sx={imageListDimension()}>
                     <ImageListItem key="Subheader" cols={columnNumber()}>
