@@ -401,13 +401,11 @@ router.get("/", (req, res) => {
             res.status(200).send(viewableShoe);
         } else {
             res.status(404).send({
-                error: 404,
-                message: `can't find shoes of ${queryString}`,
+                message: `${queryString} can't be found`,
             });
         }
     } else {
-        res.status(500).send({
-            error: 404,
+        res.status(404).send({
             message: "queryString undefined",
         });
     }
