@@ -60,10 +60,10 @@ const Dashboard = () => {
                 >
                     <Grid item xs={12} sm={12} md={2}>
                         {device === "desktop" && (
-                            <Sidebar isGetStartedClosed={handleGetStarted} />
+                            <Sidebar isGetStartedClosed={isGetStartedClosed} />
                         )}
                         {device !== "desktop" && (
-                            <Appbar isGetStartedClosed={handleGetStarted} />
+                            <Appbar isGetStartedClosed={isGetStartedClosed} />
                         )}
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
