@@ -10,14 +10,14 @@ const app = express();
 // to accept cors
 app.use(cors());
 
-// to get the images
+// to get the images in 'public' folder
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(express.static("public"));
 
 // middleware for requests with body of x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 // middleware for requests with body of (raw JSON)
 app.use(express.json());
+
 // set view engine for server side rendering - htmls/ejs/pug
 app.set("view engine", "ejs");
 
@@ -27,11 +27,11 @@ app.use(logger);
 // another middleware
 function logger(req, res, next) {
     // console.log is like log4j in java
-    console.log("Request", req.originalUrl, req.body);
+    console.log("Request endpoint", req.originalUrl);
     next();
 }
 
-// logger here if you want to specify an api to apply logger
+// do this if you want to specify an api to apply specific middleware
 app.get("/app", logger, (req, res) => {
     res.send("this is app.get");
 });

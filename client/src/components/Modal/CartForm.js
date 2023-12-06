@@ -57,12 +57,16 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
         resolver: yupResolver(CustomerDetailsSchema),
     });
 
-    const callConfirmOrder = async (orderDetails) => {
+    const callConfirmOrder = async (formData) => {
         setIsSuccess(false);
         setIsError(false);
         setIsLoading(true);
         await client
-            .post("/order/send-order", { orderDetails })
+            .post("/order/send-order", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
             .then((data) => {
                 console.log(data);
                 setIsSuccess(true);
@@ -75,12 +79,15 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     };
 
     const callSubmitApi = (values) => {
-        const orderDetails = {
-            shoes: cartItems,
-            formValues: values,
-            attachments: attachments,
-        };
-        callConfirmOrder(orderDetails);
+        const formData = new FormData();
+        attachments.forEach((item) => {
+            formData.append("attachments", item.file);
+        });
+        cartItems.forEach((item) => {
+            formData.append("shoes", JSON.stringify(item));
+        });
+        formData.append("formValues", JSON.stringify(values));
+        callConfirmOrder(formData);
     };
 
     const submitForm = async () => {
