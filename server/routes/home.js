@@ -2,74 +2,35 @@ const express = require("express");
 const router = express.Router();
 
 const imageUrls = require("../common/shoes.js");
+const { mongoose } = require("../index.js");
 
-router.get("/menu", (req, res) => {
-    const options = [
-        {
-            name: "Home",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/home",
-        },
-        {
-            name: "View All",
-            isDropDown: false,
-            subOptions: [],
-            haslink: true,
-            link: "/view-all",
-        },
-        {
-            name: "Male",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Giannis",
-                        "Jordan 1",
-                        "Jordan 3",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-        {
-            name: "Female",
-            isDropDown: true,
-            subOptions: [
-                {
-                    brand: "Nike",
-                    isDropDown: true,
-                    shoes: [
-                        "Airforce 1",
-                        "Airmax 97",
-                        "Fragment",
-                        "Jordan 1",
-                        "Joyride",
-                    ],
-                },
-                {
-                    brand: "Addidas",
-                    isDropDown: true,
-                    shoes: ["Alphabounce", "Stansmith", "Ultraboost", "Yeezy"],
-                },
-            ],
-            haslink: false,
-        },
-    ];
+const subOptionSchema = new mongoose.Schema({
+    brand: String,
+    isDropDown: Boolean,
+    shoes: [String],
+});
 
-    res.status(200).send(options);
+const menuOptionSchema = new mongoose.Schema({
+    name: String,
+    isDropDown: Boolean,
+    subOptions: [subOptionSchema],
+    haslink: Boolean,
+    link: String,
+});
+
+const menuOptionsSchema = new mongoose.Schema({
+    options: [menuOptionSchema],
+});
+
+const MenuOptions = mongoose.model("MenuOptions", menuOptionsSchema, "options");
+
+router.get("/menu", async (req, res) => {
+    const data = await MenuOptions.findOne({ "options.name": "Home" });
+    if (data) {
+        res.status(200).send(data.options);
+    } else {
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.get("/featured", (req, res) => {

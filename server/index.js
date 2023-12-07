@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const mongoose = require("mongoose");
 
 // this loads the variables from the .env file into process.env
 require("dotenv").config();
@@ -20,6 +21,24 @@ app.use(express.json());
 
 // set view engine for server side rendering - htmls/ejs/pug
 app.set("view engine", "ejs");
+
+// mongodb connection
+mongoose.connect(process.env.MONGO_ATLAS_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "sneakers-republic",
+});
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+    console.log("Connected to MongoDB Atlas");
+});
+
+module.exports = {
+    mongoose,
+};
 
 // if you want to use logger in all api
 app.use(logger);
@@ -51,3 +70,10 @@ app.use("/order", orderRouter);
 const PORT = process.env.PORT || 3500;
 
 app.listen(PORT, () => console.log(`server is running in port ${PORT}`));
+
+process.on("SIGINT", () => {
+    mongoose.connection.close(() => {
+        console.log("Mongoose connection closed");
+        process.exit(0);
+    });
+});
