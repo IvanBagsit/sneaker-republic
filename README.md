@@ -50,6 +50,7 @@ Framework/Tools/Library used:
 -   cors
 -   dotenv
 -   nodemailer
+-   mongoose
 
 Programming Language:
 
