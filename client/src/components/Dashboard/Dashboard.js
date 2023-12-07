@@ -13,14 +13,20 @@ import Cart from "../Modal/Cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Appbar from "../Appbar/Appbar";
 import DeviceChecker from "../Common/DeviceChecker";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isMenuOptionsLoaded, setIsMenuOptionsLoaded] = useState(false);
 
     const handleGetStarted = (data) => {
         setIsGetStartedClosed(data);
+    };
+
+    const handleMenuLoaded = (value) => {
+        setIsMenuOptionsLoaded(value);
     };
 
     const isSpeedDialHidden = useSelector(
@@ -51,6 +57,12 @@ const Dashboard = () => {
             {!isGetStartedClosed && (
                 <GetStarted isGetStartedClosed={handleGetStarted} />
             )}
+            {!isMenuOptionsLoaded && isGetStartedClosed && (
+                <FullPageLoader
+                    open={!isMenuOptionsLoaded}
+                    message={"Please wait while we load the contents..."}
+                />
+            )}
             {isPageLoaded && (
                 <Grid
                     container
@@ -60,10 +72,10 @@ const Dashboard = () => {
                 >
                     <Grid item xs={12} sm={12} md={2}>
                         {device === "desktop" && (
-                            <Sidebar isGetStartedClosed={isGetStartedClosed} />
+                            <Sidebar isContentLoaded={handleMenuLoaded} />
                         )}
                         {device !== "desktop" && (
-                            <Appbar isGetStartedClosed={isGetStartedClosed} />
+                            <Appbar isContentLoaded={handleMenuLoaded} />
                         )}
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
@@ -73,6 +85,9 @@ const Dashboard = () => {
                                 element={
                                     <Home
                                         isGetStartedClosed={isGetStartedClosed}
+                                        isMenuOptionsLoaded={
+                                            isMenuOptionsLoaded
+                                        }
                                     />
                                 }
                             />
@@ -81,6 +96,9 @@ const Dashboard = () => {
                                 element={
                                     <Home
                                         isGetStartedClosed={isGetStartedClosed}
+                                        isMenuOptionsLoaded={
+                                            isMenuOptionsLoaded
+                                        }
                                     />
                                 }
                             />

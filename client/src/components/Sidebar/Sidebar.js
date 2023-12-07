@@ -7,7 +7,7 @@ import Scrollbar from "../Common/Scrollbar";
 import MenuOptions from "../Common/menu/MenuOptions";
 import client from "../Common/ApiClient";
 
-const Sidebar = ({ isGetStartedClosed }) => {
+const Sidebar = ({ isContentLoaded }) => {
     const [menuOptions, setMenuOptions] = useState([]);
 
     const callMenuOptionsApi = async () => {
@@ -15,6 +15,7 @@ const Sidebar = ({ isGetStartedClosed }) => {
             .then((menu) => {
                 const { data } = menu;
                 setMenuOptions(data);
+                isContentLoaded(true);
             })
             .catch((error) => console.error(error));
     };
