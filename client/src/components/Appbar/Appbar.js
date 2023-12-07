@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import MenuOptions from "../Common/menu/MenuOptions.js";
 import client from "../Common/ApiClient.js";
 
-const Appbar = ({ isGetStartedClosed }) => {
+const Appbar = ({ isContentLoaded }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
     const [menuOptions, setMenuOptions] = useState([]);
@@ -15,6 +15,7 @@ const Appbar = ({ isGetStartedClosed }) => {
             .then((menu) => {
                 const { data } = menu;
                 setMenuOptions(data);
+                isContentLoaded(true);
             })
             .catch((error) => console.error(error));
     };
