@@ -36,6 +36,8 @@ This project was created to handle and scale my business in sneaker industry
 Framework/Tools/Library used:
 
 -   React
+-   ExpressJS
+-   MongoDB Atlas / NoSQL
 -   Material Ui
 -   react-redux
 -   reduxjs/toolkit
@@ -45,7 +47,6 @@ Framework/Tools/Library used:
 -   pdfjs-dist
 -   yup
 -   react-hook-form
--   ExpressJS
 -   axios
 -   cors
 -   dotenv
