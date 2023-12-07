@@ -2,29 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const imageUrls = require("../common/shoes.js");
-const { mongoose } = require("../index.js");
-
-const mainImage = new mongoose.Schema({
-    image: String,
-    code: String,
-});
-
-const sizes = new mongoose.Schema({
-    availability: String,
-    sizes: [String],
-});
-
-const sneakers = new mongoose.Schema({
-    url: String,
-    mainImage: mainImage,
-    shoes: [mainImage],
-    title: String,
-    brand: String,
-    price: Number,
-    sizes: [sizes],
-});
-
-const SneakersModel = mongoose.model("Sneakers", sneakers, "sneakers-details");
+const { SneakersModel } = require("../model/sneakers.js");
 
 router.post("/insert-shoes", async (req, res) => {
     const body = req.body;
@@ -39,12 +17,28 @@ router.post("/insert-shoes", async (req, res) => {
     });
 
     console.log("uploading sneaker...", newSneakers);
-    const savedData = await newSneakers.save();
-    if (savedData) {
-        console.log("sneaker uploaded!", savedData);
-        res.status(200).send(savedData);
+    const result = await newSneakers.save();
+    if (result) {
+        console.log("sneaker uploaded!", result);
+        res.status(200).send(result);
     } else {
+        console.log("uploading of sneaker failed", newSneakers);
         res.status(500).json({ message: "uploading of sneaker failed" });
+    }
+});
+
+router.delete("/delete-sneaker/:value", async (req, res) => {
+    const value = req.params.value;
+    const result = await SneakersModel.deleteOne({ url: value });
+    if (result.deletedCount > 0) {
+        console.log(`${value} deleted successfully`);
+        res.status(200).json({
+            message: "Sneaker deleted successfully.",
+            value: value,
+        });
+    } else {
+        console.log(`${value} not found`);
+        res.status(404).json({ message: "Sneaker not found.", value: value });
     }
 });
 

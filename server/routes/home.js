@@ -2,33 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const imageUrls = require("../common/shoes.js");
-const { mongoose } = require("../index.js");
-
-const subOptionSchema = new mongoose.Schema({
-    brand: String,
-    isDropDown: Boolean,
-    shoes: [String],
-});
-
-const menuOptionSchema = new mongoose.Schema({
-    name: String,
-    isDropDown: Boolean,
-    subOptions: [subOptionSchema],
-    haslink: Boolean,
-    link: String,
-});
-
-const menuOptionsSchema = new mongoose.Schema({
-    options: [menuOptionSchema],
-});
-
-const MenuOptions = mongoose.model("MenuOptions", menuOptionsSchema, "options");
+const { MenuOptions } = require("../model/options.js");
 
 router.get("/menu", async (req, res) => {
     const data = await MenuOptions.findOne({ "options.name": "Home" });
     if (data) {
+        console.log("menu options", data);
         res.status(200).send(data.options);
     } else {
+        console.log("menu options null/undefined");
         res.status(500).send("Internal Server Error");
     }
 });
