@@ -4,7 +4,7 @@ const router = express.Router();
 const imageUrls = require("../common/shoes.js");
 const { SneakersModel } = require("../model/sneakers.js");
 
-router.post("/insert-shoes", async (req, res) => {
+router.post("/insert-sneaker", async (req, res) => {
     const body = req.body;
     const newSneakers = new SneakersModel({
         url: body.url,
@@ -39,6 +39,30 @@ router.delete("/delete-sneaker/:value", async (req, res) => {
     } else {
         console.log(`${value} not found`);
         res.status(404).json({ message: "Sneaker not found.", value: value });
+    }
+});
+
+router.put("/update-sneaker/:value", async (req, res) => {
+    const value = req.params.value;
+    const updateFields = {};
+
+    for (const key in req.body) {
+        if (req.body[key] !== "" && req.body[key] !== undefined) {
+            updateFields[key] = req.body[key];
+        }
+    }
+
+    const result = await SneakersModel.updateOne(
+        { url: value },
+        { $set: updateFields }
+    );
+
+    if (result) {
+        console.log("Sneaker updated successfully.", value);
+        res.json({ message: "Sneaker updated successfully.", value });
+    } else {
+        console.log("Sneaker not found");
+        res.status(404).json({ message: "Sneaker not found." });
     }
 });
 
