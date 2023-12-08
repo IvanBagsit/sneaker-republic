@@ -8,7 +8,14 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const MenuOptions = ({ items }) => {
+const MenuOptions = ({ items, isLoginModalOpen }) => {
+    const isLoggingIn = (value) => {
+        if (value.toLowerCase() === "admin login") {
+            isLoginModalOpen(true);
+        } else {
+            isLoginModalOpen(false);
+        }
+    };
     return (
         <Accordion
             key={items.name}
@@ -31,6 +38,7 @@ const MenuOptions = ({ items }) => {
             {!items.haslink && (
                 <AccordionSummary
                     expandIcon={items.isDropDown ? <ExpandMoreIcon /> : null}
+                    onClick={() => isLoggingIn(items.name)}
                 >
                     <Typography style={{ fontFamily: "unset" }}>
                         {items.name}
