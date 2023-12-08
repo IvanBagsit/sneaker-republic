@@ -14,12 +14,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Appbar from "../Appbar/Appbar";
 import DeviceChecker from "../Common/DeviceChecker";
 import FullPageLoader from "../Common/FullPageLoader";
+import Login from "../Modal/Login";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isMenuOptionsLoaded, setIsMenuOptionsLoaded] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const handleGetStarted = (data) => {
         setIsGetStartedClosed(data);
@@ -36,6 +38,10 @@ const Dashboard = () => {
     const numberOfCartItem = useSelector(
         (state) => state.cartSlice.numberOfCartItem
     );
+
+    const handleLoginModal = (value) => {
+        setIsLoginModalOpen(value);
+    };
 
     useEffect(() => {
         if (!isGetStartedClosed) {
@@ -72,10 +78,16 @@ const Dashboard = () => {
                 >
                     <Grid item xs={12} sm={12} md={2}>
                         {device === "desktop" && (
-                            <Sidebar isContentLoaded={handleMenuLoaded} />
+                            <Sidebar
+                                isContentLoaded={handleMenuLoaded}
+                                isLoginModalOpen={handleLoginModal}
+                            />
                         )}
                         {device !== "desktop" && (
-                            <Appbar isContentLoaded={handleMenuLoaded} />
+                            <Appbar
+                                isContentLoaded={handleMenuLoaded}
+                                isLoginModalOpen={handleLoginModal}
+                            />
                         )}
                     </Grid>
                     <Grid item xs={12} sm={12} md={10}>
@@ -131,6 +143,12 @@ const Dashboard = () => {
                         <Cart
                             isOpen={isCartOpen}
                             onClose={() => setIsCartOpen(false)}
+                        />
+                    )}
+                    {isLoginModalOpen && (
+                        <Login
+                            isOpen={isLoginModalOpen}
+                            onClose={() => setIsLoginModalOpen(false)}
                         />
                     )}
                 </Grid>

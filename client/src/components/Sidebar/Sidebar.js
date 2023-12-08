@@ -7,7 +7,7 @@ import Scrollbar from "../Common/Scrollbar";
 import MenuOptions from "../Common/menu/MenuOptions";
 import client from "../Common/ApiClient";
 
-const Sidebar = ({ isContentLoaded }) => {
+const Sidebar = ({ isContentLoaded, isLoginModalOpen }) => {
     const [menuOptions, setMenuOptions] = useState([]);
 
     const callMenuOptionsApi = async () => {
@@ -18,6 +18,10 @@ const Sidebar = ({ isContentLoaded }) => {
                 isContentLoaded(true);
             })
             .catch((error) => console.error(error));
+    };
+
+    const handleLoginModal = (value) => {
+        isLoginModalOpen(value);
     };
 
     useEffect(() => {
@@ -31,7 +35,13 @@ const Sidebar = ({ isContentLoaded }) => {
             </div>
             <Scrollbar maxHeight={"65vh"}>
                 {menuOptions?.map((items, index) => {
-                    return <MenuOptions items={items} key={items.name} />;
+                    return (
+                        <MenuOptions
+                            items={items}
+                            key={items.name}
+                            isLoginModalOpen={handleLoginModal}
+                        />
+                    );
                 })}
             </Scrollbar>
         </Stack>

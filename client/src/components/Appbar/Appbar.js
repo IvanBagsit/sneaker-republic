@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import MenuOptions from "../Common/menu/MenuOptions.js";
 import client from "../Common/ApiClient.js";
 
-const Appbar = ({ isContentLoaded }) => {
+const Appbar = ({ isContentLoaded, isLoginModalOpen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [backgroundColor, setBackgroundColor] = useState("#ffffff");
     const [menuOptions, setMenuOptions] = useState([]);
@@ -18,6 +18,10 @@ const Appbar = ({ isContentLoaded }) => {
                 isContentLoaded(true);
             })
             .catch((error) => console.error(error));
+    };
+
+    const handleLoginModal = (value) => {
+        isLoginModalOpen(value);
     };
 
     useEffect(() => {
@@ -59,7 +63,13 @@ const Appbar = ({ isContentLoaded }) => {
             {isMenuOpen && (
                 <Scrollbar maxHeight={"40vh"}>
                     {menuOptions?.map((items, index) => {
-                        return <MenuOptions items={items} key={items.name} />;
+                        return (
+                            <MenuOptions
+                                items={items}
+                                key={items.name}
+                                isLoginModalOpen={handleLoginModal}
+                            />
+                        );
                     })}
                 </Scrollbar>
             )}
