@@ -11,6 +11,7 @@ import {
     TextField,
 } from "@mui/material";
 import styles from "./Login.module.css";
+import loginImage from "../../images/others/login.png";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -20,30 +21,56 @@ const Login = ({ isOpen, onClose }) => {
     return (
         <Dialog
             open={isOpen}
+            onClose={onClose}
             TransitionComponent={Transition}
-            maxWidth={"xs"}
+            maxWidth={"sm"}
             fullWidth
         >
-            <DialogTitle>Admin Login</DialogTitle>
-            <DialogContent>Hi Admin</DialogContent>
-            <DialogActions>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    className={styles.button}
-                    onClick={onClose}
-                >
-                    Close
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.button}
-                    type="submit"
-                >
-                    Login
-                </Button>
-            </DialogActions>
+            <DialogContent className={styles.background}>
+                <div className={styles.imageContainer}>
+                    <img
+                        src={loginImage}
+                        alt="loginImage"
+                        className={styles.image}
+                    />
+                </div>
+                <div className={styles.loginContainer}>
+                    <div>
+                        <div className={styles.title}>Hello Admin!</div>
+                        <div className={styles.subTitle}>
+                            Welcome back, we miss you!
+                        </div>
+                        <TextField
+                            label={"Username"}
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            style={{ margin: "3% 0 3% 0" }}
+                        />
+                        <TextField
+                            label={"Password"}
+                            variant="outlined"
+                            type="password"
+                            size="small"
+                            fullWidth
+                            style={{ marginBottom: "3%" }}
+                        />
+                        <div className={styles.forgotPassword}>
+                            Forgot Password?
+                        </div>
+                    </div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        size="small"
+                        fullWidth
+                        className={styles.button}
+                    >
+                        Login
+                    </Button>
+                </div>
+            </DialogContent>
         </Dialog>
     );
 };
