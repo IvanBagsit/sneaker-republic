@@ -150,7 +150,6 @@ const Login = ({ isOpen, onClose }) => {
                             <div className={styles.subTitle}>
                                 Welcome back, we miss you!
                             </div>
-
                             <TextField
                                 label={"Username"}
                                 variant="outlined"
