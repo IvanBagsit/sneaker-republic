@@ -1,22 +1,14 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
 const router = express.Router();
 
 // accepts "Content-Type":"multipart/form-data"
 const multer = require("multer");
+const sendEmail = require("../common/email");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_KEY,
-        pass: process.env.EMAIL_APP_KEY,
-    },
-});
-
-router.post("/send-order", upload.array("attachments"), (req, res) => {
+router.post("/send-order", upload.array("attachments"), async (req, res) => {
     let shoesDetails;
     if (Array.isArray(req.body.shoes)) {
         const shoesArray = req.body.shoes.map((item) => {
@@ -67,23 +59,8 @@ router.post("/send-order", upload.array("attachments"), (req, res) => {
         content: file.buffer,
     }));
 
-    const mailOptions = {
-        from: process.env.EMAIL_KEY,
-        to: process.env.EMAIL_RECEIVER,
-        subject: process.env.EMAIL_SUBJECT,
-        text: message,
-        attachments: attachments,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error(error.toString());
-            res.status(500).send(error.toString());
-        } else {
-            console.log("Email sent: ", info);
-            res.status(200).send("Email sent: " + info.response);
-        }
-    });
+    const result = await sendEmail(message, attachments);
+    res.status(result.status).send(result.message);
 });
 
 module.exports = router;
