@@ -5,6 +5,7 @@ const usersSchema = new mongoose.Schema({
     username: String,
     password: String,
     role: String,
+    isLoggedIn: Boolean,
 });
 
 usersSchema.pre("save", async function (next) {

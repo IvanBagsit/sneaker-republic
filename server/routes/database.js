@@ -82,6 +82,7 @@ router.post("/signup/user", async (req, res) => {
             username: username,
             password: password,
             role: role,
+            isLoggedIn: false,
         });
 
         const result = await newUser.save();
