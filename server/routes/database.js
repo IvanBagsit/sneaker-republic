@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const imageUrls = require("../common/shoes.js");
 const { SneakersModel } = require("../model/sneakers.js");
 const { User } = require("../model/users.js");
+const sendEmail = require("../common/email.js");
 
 router.post("/insert-sneaker", async (req, res) => {
     const body = req.body;
@@ -125,6 +126,22 @@ router.post("/login/user", async (req, res) => {
         console.error(error);
         res.status(500).send({
             message: "Internal Server Error",
+        });
+    }
+});
+
+router.get("/login/forgot-password", async (req, res) => {
+    const user = await User.findOne({
+        $and: [{ username: "admin" }, { role: "admin" }],
+    });
+    if (user) {
+        const adminAccount = "Admin Acount: admin:admin";
+        const subject = process.env.EMAIL_SUBJECT_FORGOT_PASSWORD;
+        const result = await sendEmail(adminAccount, subject);
+        res.status(result.status).send(result.message);
+    } else {
+        res.status(404).send({
+            message: "No Admin Account stored in the database",
         });
     }
 });

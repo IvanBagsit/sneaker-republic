@@ -59,7 +59,9 @@ router.post("/send-order", upload.array("attachments"), async (req, res) => {
         content: file.buffer,
     }));
 
-    const result = await sendEmail(message, attachments);
+    const subject = process.env.EMAIL_SUBJECT_ORDER;
+
+    const result = await sendEmail(message, subject, attachments);
     res.status(result.status).send(result.message);
 });
 
