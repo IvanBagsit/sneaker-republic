@@ -114,12 +114,12 @@ router.post("/login/user", async (req, res) => {
                 });
             } else {
                 res.status(401).send({
-                    message: "Incorrect password",
+                    message: "Incorrect Credentials",
                 });
             }
         } else {
             res.status(404).send({
-                message: "Invalid Account",
+                message: "Incorrect Credentials",
                 user: username,
             });
         }

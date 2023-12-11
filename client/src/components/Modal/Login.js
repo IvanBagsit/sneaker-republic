@@ -42,7 +42,10 @@ const Login = ({ isOpen, onClose }) => {
                 console.log("ERROR", error);
                 if (error.response.status === 401) {
                     formik.errors.password = error.response.data.message;
-                } else if (error.response.status === 404) {
+                } else if (
+                    error.response.status === 404 ||
+                    error.response.status === 401
+                ) {
                     formik.errors.username = error.response.data.message;
                     formik.errors.password = error.response.data.message;
                 } else {
