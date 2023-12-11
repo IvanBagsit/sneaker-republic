@@ -38,7 +38,7 @@ const Login = ({ isOpen, onClose }) => {
                     <div>
                         <div className={styles.title}>Hello Admin!</div>
                         <div className={styles.subTitle}>
-                            Welcome back, we miss you!
+                            Welcome back, we missed you!
                         </div>
                         <TextField
                             label={"Username"}
