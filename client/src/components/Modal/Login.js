@@ -1,14 +1,12 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 import {
     Button,
     Slide,
     Dialog,
     DialogContent,
-    DialogContentText,
-    DialogTitle,
-    DialogActions,
-    IconButton,
     TextField,
+    Alert,
+    Collapse,
 } from "@mui/material";
 import { useFormik } from "formik";
 import styles from "./Login.module.css";
@@ -21,7 +19,12 @@ const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Login = ({ isOpen, onClose, isLoginLoading }) => {
+const Login = ({ isOpen, onClose }) => {
+    const [alert, setAlert] = useState({
+        enabled: false,
+        severity: "success",
+        message: "Account Recovery email sent to admin email",
+    });
     const [isLoading, setIsLoading] = useState({
         enabled: false,
         message: "Please wait while logging in...",
@@ -35,7 +38,18 @@ const Login = ({ isOpen, onClose, isLoginLoading }) => {
         await client
             .post("/db/login/user", details)
             .then((data) => console.log(data))
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.log("ERROR", error);
+                if (error.response.status === 401) {
+                    formik.errors.password = error.response.data.message;
+                } else if (error.response.status === 404) {
+                    formik.errors.username = error.response.data.message;
+                    formik.errors.password = error.response.data.message;
+                } else {
+                    formik.errors.username = error.message;
+                    formik.errors.password = error.message;
+                }
+            })
             .finally(() =>
                 setIsLoading({
                     enabled: false,
@@ -66,8 +80,23 @@ const Login = ({ isOpen, onClose, isLoginLoading }) => {
         });
         await client
             .get("/db/login/forgot-password")
-            .then((data) => console.log(data))
-            .catch((error) => console.error(error))
+            .then(() => {
+                setAlert({
+                    enabled: true,
+                    severity: "success",
+                    message: "Account Recovery email sent to admin email",
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                setAlert({
+                    enabled: true,
+                    severity: "error",
+                    message:
+                        error.response.data.message ||
+                        "Encountered error during account recovery",
+                });
+            })
             .finally(() =>
                 setIsLoading({
                     enabled: false,
@@ -90,6 +119,22 @@ const Login = ({ isOpen, onClose, isLoginLoading }) => {
                     message={isLoading.message}
                 />
             )}
+            <Collapse in={alert.enabled}>
+                <Alert
+                    variant="filled"
+                    onClose={() =>
+                        setAlert((prev) => {
+                            return {
+                                ...prev,
+                                enabled: false,
+                            };
+                        })
+                    }
+                    severity={alert.severity}
+                >
+                    {alert.message}
+                </Alert>
+            </Collapse>
             <DialogContent className={styles.background}>
                 <div className={styles.imageContainer}>
                     <img
