@@ -35,6 +35,10 @@
     text-align: left;
     margin-bottom: 10%;
     font-size: small;
+    cursor: pointer;
+    color: #1976d1;
+    width: fit-content;
+    text-decoration: underline;
 }
 
 @media (max-width: 767px) {
