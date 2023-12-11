@@ -52,19 +52,19 @@ const Login = ({ isOpen, onClose }) => {
             fullWidth
         >
             <DialogContent className={styles.background}>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className={styles.imageContainer}>
-                        <img
-                            src={loginImage}
-                            alt="loginImage"
-                            className={styles.image}
-                        />
-                    </div>
-                    <div className={styles.loginContainer}>
+                <div className={styles.imageContainer}>
+                    <img
+                        src={loginImage}
+                        alt="loginImage"
+                        className={styles.image}
+                    />
+                </div>
+                <div className={styles.loginContainer}>
+                    <form onSubmit={formik.handleSubmit}>
                         <div>
                             <div className={styles.title}>Hello Admin!</div>
                             <div className={styles.subTitle}>
-                                Welcome back, we missed you!
+                                Welcome back, we miss you!
                             </div>
 
                             <TextField
@@ -118,8 +118,8 @@ const Login = ({ isOpen, onClose }) => {
                         >
                             Login
                         </Button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </DialogContent>
         </Dialog>
     );
