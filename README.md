@@ -52,6 +52,7 @@ Framework/Tools/Library used:
 -   dotenv
 -   nodemailer
 -   mongoose
+-   bcrypt
 
 Programming Language:
 

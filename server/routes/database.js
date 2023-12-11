@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 
 const imageUrls = require("../common/shoes.js");
 const { SneakersModel } = require("../model/sneakers.js");
+const { User } = require("../model/users.js");
 
 router.post("/insert-sneaker", async (req, res) => {
     const body = req.body;
@@ -63,6 +65,67 @@ router.put("/update-sneaker/:value", async (req, res) => {
     } else {
         console.log("Sneaker not found");
         res.status(404).json({ message: "Sneaker not found." });
+    }
+});
+
+router.post("/signup/user", async (req, res) => {
+    const { username, password, role } = req.body;
+
+    const existingUser = await User.find({ username: username });
+
+    if (existingUser) {
+        console.log("Username already existing");
+        res.status(500).send({ message: "Username already existing" });
+    } else {
+        const newUser = new User({
+            username: username,
+            password: password,
+            role: role,
+        });
+
+        const result = await newUser.save();
+
+        if (result) {
+            console.log("user uploaded!", result);
+            res.status(200).send(result);
+        } else {
+            console.log("uploading of user failed", newUser);
+            res.status(500).send({ message: "uploading of user failed" });
+        }
+    }
+});
+
+router.post("/login/user", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await User.findOne({ username });
+
+        if (user) {
+            const isPasswordValid = await bcrypt.compare(
+                password,
+                user.password
+            );
+
+            if (isPasswordValid) {
+                res.status(200).send({
+                    message: "Login Successful",
+                });
+            } else {
+                res.status(401).send({
+                    message: "Login Failed. Incorrect password",
+                });
+            }
+        } else {
+            res.status(404).send({
+                message: "Login Failed. Can't find user",
+                user: username,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Internal Server Error",
+        });
     }
 });
 
