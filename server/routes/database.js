@@ -113,12 +113,12 @@ router.post("/login/user", async (req, res) => {
                 });
             } else {
                 res.status(401).send({
-                    message: "Login Failed. Incorrect password",
+                    message: "Incorrect password",
                 });
             }
         } else {
             res.status(404).send({
-                message: "Login Failed. Can't find user",
+                message: "Invalid Account",
                 user: username,
             });
         }
