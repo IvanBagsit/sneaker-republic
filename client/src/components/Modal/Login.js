@@ -15,17 +15,33 @@ import styles from "./Login.module.css";
 import loginImage from "../../images/others/login.png";
 import client from "../Common/ApiClient";
 import UserInfoSchema from "../Common/yup/UserInfoSchema";
+import FullPageLoader from "../Common/FullPageLoader";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Login = ({ isOpen, onClose }) => {
+const Login = ({ isOpen, onClose, isLoginLoading }) => {
+    const [isLoading, setIsLoading] = useState({
+        enabled: false,
+        message: "Please wait while logging in...",
+    });
+
     const callLoginApi = async (details) => {
+        setIsLoading({
+            enabled: true,
+            message: "Please wait while logging in...",
+        });
         await client
             .post("/db/login/user", details)
             .then((data) => console.log(data))
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
+            .finally(() =>
+                setIsLoading({
+                    enabled: false,
+                    message: "Please wait while logging in...",
+                })
+            );
     };
 
     const initialValues = {
@@ -43,6 +59,23 @@ const Login = ({ isOpen, onClose }) => {
         },
     });
 
+    const callForgotPasswordApi = async () => {
+        setIsLoading({
+            enabled: true,
+            message: "Please wait while we send Admin Account via email...",
+        });
+        await client
+            .get("/db/login/forgot-password")
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error))
+            .finally(() =>
+                setIsLoading({
+                    enabled: false,
+                    message: "Please wait while logging in...",
+                })
+            );
+    };
+
     return (
         <Dialog
             open={isOpen}
@@ -51,6 +84,12 @@ const Login = ({ isOpen, onClose }) => {
             maxWidth={"sm"}
             fullWidth
         >
+            {isLoading.enabled && (
+                <FullPageLoader
+                    open={isLoading.enabled}
+                    message={isLoading.message}
+                />
+            )}
             <DialogContent className={styles.background}>
                 <div className={styles.imageContainer}>
                     <img
@@ -104,7 +143,10 @@ const Login = ({ isOpen, onClose }) => {
                                         : ""
                                 }
                             />
-                            <div className={styles.forgotPassword}>
+                            <div
+                                className={styles.forgotPassword}
+                                onClick={() => callForgotPasswordApi()}
+                            >
                                 Forgot Password?
                             </div>
                         </div>
