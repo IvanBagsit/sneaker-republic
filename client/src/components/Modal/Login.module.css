@@ -6,6 +6,9 @@
 }
 
 .imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     border-radius: 15%;
     margin-right: 3%;
@@ -38,13 +41,14 @@
     .background {
         flex-direction: column;
     }
-
+    
     .image {
         height: 60vw;
     }
 }
 
 @media (min-width: 768px) {
+    
     .image {
         height: 50vh;
     }
