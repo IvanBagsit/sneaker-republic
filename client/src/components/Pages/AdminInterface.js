@@ -29,6 +29,12 @@ const AdminInterface = () => {
                             <div>Women [5.5, 6.5, 7, 8]</div>
                         </div>
                         <div>
+                            <div>Main Image</div>
+                            <div>1st Image</div>
+                            <div>2nd Image</div>
+                            <div>3rd Image</div>
+                        </div>
+                        <div>
                             <Button variant="contained" color="secondary">
                                 Update
                             </Button>
