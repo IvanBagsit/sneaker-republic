@@ -1,0 +1,38 @@
+.background {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+    border-top-left-radius: 4% 10%;
+}
+
+@media (max-width: 767px) {
+    .background {
+        height: 120vh;
+    }
+
+    .content {
+        width: 100vw;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) {
+    .background {
+        height: 100vh;
+    }
+
+    .content {
+        width: 80vw;
+        flex-direction: column;
+        border: 1px solid #dbdbdb;
+        background-color: #ffffff;
+    }
+}
