@@ -32,10 +32,15 @@ export const acceptedFileTypes = [
     "application/pdf",
 ];
 
+export const acceptedImageTypes = ["image/png", "image/jpeg", "image/jpg"];
+
 export const UploadAttachmentContent = ({
     handleMOPOpen,
     isClosing,
     handleAttachmentUpload,
+    maxFileCount = 5,
+    uploadMessage,
+    isImageOnly = false,
 }) => {
     const [selectedFile, setSelectedFile] = useState([]);
 
@@ -56,10 +61,10 @@ export const UploadAttachmentContent = ({
     const verifyFiles = (files) => {
         const updatedFiles = files.map((file) => {
             const url = URL.createObjectURL(file);
-            if (selectedFile.length >= 5) {
+            if (selectedFile.length >= maxFileCount) {
                 const status = {
                     hasError: true,
-                    errorMessage: "Maximum of 5 files",
+                    errorMessage: `Maximum of ${maxFileCount} files`,
                 };
                 return { file, url, status };
             } else if (file.size >= MAX_SIZE) {
@@ -68,7 +73,12 @@ export const UploadAttachmentContent = ({
                     errorMessage: "Max 4MB per attachment",
                 };
                 return { file, url, status };
-            } else if (!acceptedFileTypes.includes(file.type.toLowerCase())) {
+            } else if (
+                (!isImageOnly &&
+                    !acceptedFileTypes.includes(file.type.toLowerCase())) ||
+                (isImageOnly &&
+                    !acceptedImageTypes.includes(file.type.toLowerCase()))
+            ) {
                 const status = {
                     hasError: true,
                     errorMessage: "File type not supported",
@@ -103,20 +113,28 @@ export const UploadAttachmentContent = ({
         noClick: true,
         disabled: false,
     });
+
     return (
         <div>
             <DialogContentText>
-                Please upload screenshot/s of payment: <b>.jpg .png .pdf</b>
+                {uploadMessage || (
+                    <span>
+                        Please upload screenshot/s of payment:{" "}
+                        <b>.jpg .png .pdf</b>
+                    </span>
+                )}
             </DialogContentText>
             <DialogContentText>
-                Max file count: <b>5</b>, Max file size: <b>4mb</b>
+                Max file count: <b>{maxFileCount}</b>, Max file size: <b>4mb</b>
             </DialogContentText>
-            <DialogContentText>
-                Mode of Payment:{" "}
-                <Button size="small" onClick={handleMOP} variant="outlined">
-                    View
-                </Button>
-            </DialogContentText>
+            {handleMOPOpen && (
+                <DialogContentText>
+                    Mode of Payment:{" "}
+                    <Button size="small" onClick={handleMOP} variant="outlined">
+                        View
+                    </Button>
+                </DialogContentText>
+            )}
             <div className={styles.uploadsection} {...getRootProps()}>
                 <input {...getInputProps()} hidden multiple type="file" />
                 <div>

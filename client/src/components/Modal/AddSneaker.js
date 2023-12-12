@@ -6,7 +6,6 @@ import {
     DialogContent,
     DialogTitle,
     DialogActions,
-    TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,13 +16,13 @@ import ErrorModal from "./ErrorModal";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
 import { UploadAttachmentContent } from "./UploadAttachment";
-import CartFormDetails from "./components/CartFormDetails";
+import AddSneakerForm from "./components/AddSneakerForm";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
+const AddSneaker = ({ isOpen, onClose }) => {
     const [isClosing, setIsClosing] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState({
@@ -58,10 +57,10 @@ const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
         setIsError(false);
         setIsLoading({
             enabled: true,
-            message: "Please wait while we process your order...",
+            message: "Please wait while we add sneaker...",
         });
         await client
-            .post("/order/send-order", formData, {
+            .post("/order/send-order123", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -82,13 +81,28 @@ const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
             );
     };
 
+    const sizeValidation = (sizes) => {
+        const sizeArray = [];
+        if (sizes) {
+            const tempArray = sizes.split(",");
+            tempArray.forEach((item) => {
+                if (!isNaN(item) && item) {
+                    const size = parseFloat(item).toFixed(1);
+                    sizeArray.push(size);
+                }
+            });
+        }
+        return sizeArray;
+    };
+
     const callSubmitApi = (values) => {
+        values.menSizes = sizeValidation(values.menSizes);
+        values.womenSizes = sizeValidation(values.womenSizes);
+        values.price = values.price.toFixed(2);
+
         const formData = new FormData();
         attachments.forEach((item) => {
             formData.append("attachments", item.file);
-        });
-        cartItems.forEach((item) => {
-            formData.append("shoes", JSON.stringify(item));
         });
         formData.append("formValues", JSON.stringify(values));
         callConfirmOrder(formData);
@@ -97,6 +111,14 @@ const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
     const submitForm = async () => {
         retryRef.current = submitForm;
         await handleSubmit((values) => callSubmitApi(values))();
+    };
+
+    const uploadMessage = () => {
+        return (
+            <span>
+                Please upload pictures: <b>.jpg .png</b>
+            </span>
+        );
     };
 
     return (
@@ -112,17 +134,19 @@ const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
                     message={isLoading.message}
                 />
             )}
-            <DialogTitle>Add new Sneaker</DialogTitle>
+            <DialogTitle>Add Sneaker</DialogTitle>
             <DialogContent>
                 <div className={styles.containerContent}>
                     <div className={styles.details}>
-                        <CartFormDetails control={control} trigger={trigger} />
+                        <AddSneakerForm control={control} trigger={trigger} />
                     </div>
                     <div className={styles.uploadAttachments}>
                         <UploadAttachmentContent
-                            handleMOPOpen={() => {}}
+                            maxFileCount={4}
+                            uploadMessage={uploadMessage()}
                             isClosing={isClosing}
                             handleAttachmentUpload={handleAttachmentUpload}
+                            isImageOnly={true}
                         />
                     </div>
                 </div>
@@ -149,12 +173,11 @@ const AddSneaker = ({ isOpen, onClose, cartItems, onCloseCart }) => {
             {isSuccess && (
                 <Success
                     isOpen={isSuccess}
-                    title={"Checkout Successful!"}
-                    message={"We will contact you very soon."}
+                    title={"Sneakers added successfully!"}
+                    message={"You may check it at View All page"}
                     onClose={() => {
                         setIsSuccess(false);
                         handleClose();
-                        onCloseCart();
                     }}
                 />
             )}

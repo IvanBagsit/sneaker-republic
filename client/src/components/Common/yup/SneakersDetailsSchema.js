@@ -5,15 +5,11 @@ const SneakersDetailsSchema = Yup.object().shape({
     brand: Yup.string().label("Brand").required("Brand required"),
     price: Yup.number()
         .label("Price")
-        .required("Price required")
-        .positive()
-        .integer(),
-    menSizes: Yup.array(String).label("Men Sizes"),
-    womenSizes: Yup.array(String).label("Women Sizes"),
-    images: Yup.array(File)
-        .label("Images")
-        .length(1, "Image required")
-        .ensure(),
+        .typeError("Price must be a valid amount")
+        .positive("Price must be greater than 0")
+        .required("Price required"),
+    menSizes: Yup.string().label("Men Sizes").nullable(),
+    womenSizes: Yup.string().label("Women Sizes").nullable(),
 });
 
 export default SneakersDetailsSchema;
