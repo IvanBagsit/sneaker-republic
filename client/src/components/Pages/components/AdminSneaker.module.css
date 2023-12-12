@@ -1,0 +1,48 @@
+.background {
+    width: 100%;
+    border: 1px solid rgb(189, 189, 189);
+    padding: 1%;
+    height: 90%;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    margin-bottom: 1%;
+    border: 1px solid rgba(255, 206, 251, 0.589);
+    border-top-left-radius: 3% 18%;
+    border-top-right-radius: 3% 18%;
+    border-bottom-left-radius: 3% 18%;
+    border-bottom-right-radius: 3% 18%;
+    background-color: #edffa7;
+}
+
+.images {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.images > div {
+    width: 15vh;
+    height: 15vh;
+    border: 1px solid #ffffff;
+    margin-right: 1%;
+}
+
+.details {
+}
+
+.buttonContainer {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons {
+    width: 45%
+}

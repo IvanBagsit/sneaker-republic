@@ -7,42 +7,20 @@ import {
     DialogActions,
 } from "@mui/material";
 import styles from "./AdminInterface.module.css";
+import AdminSneaker from "./components/AdminSneaker";
 
 const AdminInterface = () => {
     return (
         <div className={styles.background}>
-            <div className={styles.content}>
-                <div>
+            <div className={styles.contentContainer}>
+                <div className={styles.addButton}>
                     <Button variant="contained" color="primary">
                         Add New Sneaker
                     </Button>
                 </div>
-                <div>
+                <div className={styles.list}>
                     <div>List of Sneakers</div>
-                    <div>
-                        <div>
-                            <div>
-                                Name: AF1 - Brand: Nike - Code: CDT1BB - Price:
-                                P800
-                            </div>
-                            <div>Men [7, 8, 8.5, 9.5, 10, 11]</div>
-                            <div>Women [5.5, 6.5, 7, 8]</div>
-                        </div>
-                        <div>
-                            <div>Main Image</div>
-                            <div>1st Image</div>
-                            <div>2nd Image</div>
-                            <div>3rd Image</div>
-                        </div>
-                        <div>
-                            <Button variant="contained" color="secondary">
-                                Update
-                            </Button>
-                            <Button variant="outlined" color="error">
-                                Delete
-                            </Button>
-                        </div>
-                    </div>
+                    <AdminSneaker />
                 </div>
             </div>
         </div>

@@ -4,13 +4,25 @@
     justify-content: flex-end;
 }
 
-.content {
+.list {
+    height: 90%;
+    margin-top: 3%;
+}
+
+.addButton,
+.list {
+    width: 100%;
+}
+
+.contentContainer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100%;
     box-sizing: border-box;
     border-top-left-radius: 4% 10%;
+    padding: 5%;
 }
 
 @media (max-width: 767px) {
@@ -18,9 +30,8 @@
         height: 120vh;
     }
 
-    .content {
+    .contentContainer {
         width: 100vw;
-        flex-direction: column;
     }
 }
 
@@ -29,7 +40,7 @@
         height: 100vh;
     }
 
-    .content {
+    .contentContainer {
         width: 80vw;
         flex-direction: column;
         border: 1px solid #dbdbdb;
