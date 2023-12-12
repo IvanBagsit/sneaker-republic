@@ -9,6 +9,7 @@ import {
     Collapse,
 } from "@mui/material";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import loginImage from "../../images/others/login.png";
 import client from "../Common/ApiClient";
@@ -30,6 +31,8 @@ const Login = ({ isOpen, onClose }) => {
         message: "Please wait while logging in...",
     });
 
+    const navigate = useNavigate();
+
     const callLoginApi = async (details) => {
         setIsLoading({
             enabled: true,
@@ -37,12 +40,13 @@ const Login = ({ isOpen, onClose }) => {
         });
         await client
             .post("/db/login/user", details)
-            .then((data) => console.log(data))
+            .then(() => {
+                navigate("/admin");
+                onClose();
+            })
             .catch((error) => {
-                console.log("ERROR", error);
-                if (error.response.status === 401) {
-                    formik.errors.password = error.response.data.message;
-                } else if (
+                console.log(error);
+                if (
                     error.response.status === 404 ||
                     error.response.status === 401
                 ) {

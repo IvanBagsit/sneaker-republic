@@ -15,6 +15,7 @@ import Appbar from "../Appbar/Appbar";
 import DeviceChecker from "../Common/DeviceChecker";
 import FullPageLoader from "../Common/FullPageLoader";
 import Login from "../Modal/Login";
+import AdminInterface from "../Pages/AdminInterface";
 
 const Dashboard = () => {
     const [isGetStartedClosed, setIsGetStartedClosed] = useState(false);
@@ -116,6 +117,7 @@ const Dashboard = () => {
                             />
                             <Route path="/view-all" element={<ViewAll />} />
                             <Route path="/view" element={<View />} />
+                            <Route path="/admin" element={<AdminInterface />} />
                         </Routes>
                     </Grid>
                     <SpeedDial
