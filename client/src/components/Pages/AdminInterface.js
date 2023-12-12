@@ -23,7 +23,7 @@ const AdminInterface = () => {
                         color="primary"
                         onClick={() => setIsAddSneakerOpen(true)}
                     >
-                        Add New Sneaker
+                        Add Sneaker
                     </Button>
                 </div>
                 <div className={styles.list}>
