@@ -8,26 +8,26 @@ const { User } = require("../model/users.js");
 const sendEmail = require("../common/email.js");
 
 router.post("/insert-sneaker", async (req, res) => {
-    const body = req.body;
-    const newSneakers = new SneakersModel({
-        url: body.url,
-        mainImage: body.mainImage,
-        shoes: body.shoes,
-        title: body.title,
-        brand: body.brand,
-        price: body.price,
-        sizes: body.sizes,
-    });
-
-    console.log("uploading sneaker...", newSneakers);
-    const result = await newSneakers.save();
-    if (result) {
-        console.log("sneaker uploaded!", result);
-        res.status(200).send(result);
-    } else {
-        console.log("uploading of sneaker failed", newSneakers);
-        res.status(500).json({ message: "uploading of sneaker failed" });
-    }
+    res.status(200).send({ message: "OK" });
+    // const body = req.body;
+    // const newSneakers = new SneakersModel({
+    //     url: body.url,
+    //     mainImage: body.mainImage,
+    //     shoes: body.shoes,
+    //     title: body.title,
+    //     brand: body.brand,
+    //     price: body.price,
+    //     sizes: body.sizes,
+    // });
+    // console.log("uploading sneaker...", newSneakers);
+    // const result = await newSneakers.save();
+    // if (result) {
+    //     console.log("sneaker uploaded!", result);
+    //     res.status(200).send(result);
+    // } else {
+    //     console.log("uploading of sneaker failed", newSneakers);
+    //     res.status(500).json({ message: "uploading of sneaker failed" });
+    // }
 });
 
 router.delete("/delete-sneaker/:value", async (req, res) => {
