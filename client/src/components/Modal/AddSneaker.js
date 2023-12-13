@@ -60,7 +60,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
             message: "Please wait while we add sneaker...",
         });
         await client
-            .post("/order/send-order123", formData, {
+            .post("/db/insert-sneaker", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -99,6 +99,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
         values.menSizes = sizeValidation(values.menSizes);
         values.womenSizes = sizeValidation(values.womenSizes);
         values.price = values.price.toFixed(2);
+        values.url = values.name.toLowerCase().replace(/\s/g, "");
 
         const formData = new FormData();
         attachments.forEach((item) => {
