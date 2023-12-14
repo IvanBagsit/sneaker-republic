@@ -18,14 +18,31 @@ router.post(
     "/insert-sneaker",
     upload.array("attachments"),
     async (req, res) => {
-        const formValues = JSON.parse(req.body.formValues);
+        const createNewCode = async () => {
+            const code = createCode();
+            const result = await SneakersModel.find({
+                $or: [{ "mainImage.code": code }, { "shoes.code": code }],
+            });
+            if (result.length > 0) {
+                console.log(`${code} already existing. Creating new code...`);
+                createNewCode();
+            } else {
+                console.log(`created code: ${code}`);
+                return code;
+            }
+        };
+
+        const code = await createNewCode();
+
         const attachments = req.files.map((file) => ({
             fileName: file.originalname,
             content: file.buffer,
-            code: createCode(),
+            code: code,
         }));
 
         const subShoes = attachments.slice(1);
+
+        const formValues = JSON.parse(req.body.formValues);
 
         if (attachments && formValues) {
             const newSneakers = new SneakersModel({
@@ -49,10 +66,10 @@ router.post(
             console.log("uploading sneaker...");
             const result = await newSneakers.save();
             if (result) {
-                console.log("sneaker uploaded!", result);
-                res.status(200).send(result);
+                console.log("sneaker uploaded!");
+                res.status(200).send({ message: "sneaker uploaded!" });
             } else {
-                console.log("uploading of sneaker failed", newSneakers);
+                console.log("uploading of sneaker failed");
                 res.status(500).json({
                     message: "uploading of sneaker failed",
                 });
