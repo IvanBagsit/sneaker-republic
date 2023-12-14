@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState, useRef } from "react";
+import { forwardRef, useState, useRef } from "react";
 import {
     Button,
     Slide,

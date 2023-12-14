@@ -4,32 +4,7 @@ import Scrollbar from "../../Common/Scrollbar";
 import client from "../../Common/ApiClient";
 import { useEffect, useState } from "react";
 
-const AdminSneaker = () => {
-    const [sneakers, setSneakers] = useState(null);
-
-    const bufferToJson = (content) => {
-        const jsonFile = content.arrayBuffer();
-        const imageUrl = URL.createObjectURL(
-            new Blob([jsonFile], { type: "image/jpeg" })
-        );
-        return jsonFile;
-    };
-
-    const callGetAllSneakersApi = async () => {
-        await client
-            .get("/db/get-all-sneakers")
-            .then((data) => {
-                console.log(data.data);
-                const sneakers = data.data;
-                setSneakers(sneakers);
-            })
-            .catch((error) => console.error(error));
-    };
-
-    useEffect(() => {
-        callGetAllSneakersApi();
-    }, []);
-
+const AdminSneaker = ({ sneakers }) => {
     return (
         <div className={styles.background}>
             <Scrollbar maxHeight={"100%"}>
@@ -39,11 +14,15 @@ const AdminSneaker = () => {
                             <div className={styles.details}>
                                 <div>
                                     Name: {item.title} - Brand: {item.brand} -
-                                    Price: P{item.price}
+                                    Price: P{item.price.toFixed(2)}
                                 </div>
-                                <div>Men size (US): {item.sizes[0].sizes}</div>
                                 <div>
-                                    Women size (US): {item.sizes[1].sizes}
+                                    Men size (US):{" "}
+                                    {item.sizes[0].sizes.join(", ")}
+                                </div>
+                                <div>
+                                    Women size (US):{" "}
+                                    {item.sizes[1].sizes.join(", ")}
                                 </div>
                                 <div className={styles.images}>
                                     <div>
