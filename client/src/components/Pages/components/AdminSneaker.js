@@ -1,11 +1,4 @@
-import {
-    Button,
-    Slide,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    DialogActions,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import styles from "./AdminSneaker.module.css";
 import Scrollbar from "../../Common/Scrollbar";
 import client from "../../Common/ApiClient";
