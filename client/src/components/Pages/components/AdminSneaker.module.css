@@ -2,21 +2,14 @@
     width: 100%;
     border: 1px solid rgb(189, 189, 189);
     padding: 1%;
-    height: 90%;
 }
 
 .content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1%;
-    margin-bottom: 1%;
     border: 1px solid rgba(255, 206, 251, 0.589);
-    border-top-left-radius: 3% 18%;
-    border-top-right-radius: 3% 18%;
-    border-bottom-left-radius: 3% 18%;
-    border-bottom-right-radius: 3% 18%;
     background-color: #edffa7;
+    justify-content: space-between;
 }
 
 .images {
@@ -26,18 +19,7 @@
     margin-top: 2%;
 }
 
-.images > div {
-    width: 15vh;
-    height: 15vh;
-    border: 1px solid #ffffff;
-    margin-right: 1%;
-}
-
-.details {
-}
-
 .buttonContainer {
-    width: 25%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,4 +27,62 @@
 
 .buttons {
     width: 45%
+}
+
+@media (max-width: 767px) {
+    .background {
+        height: 80%;
+    }
+
+    .content {
+        border-top-left-radius: 10% 20%;
+        border-top-right-radius: 10% 20%;
+        border-bottom-left-radius: 10% 20%;
+        border-bottom-right-radius: 10% 20%;
+        flex-direction: column;
+        margin-bottom: 5%;
+        padding: 5%;
+    }
+
+    .images > div {
+        width: 9vh;
+        height: 9vh;
+        border: 1px solid #ffffff;
+        margin-right: 1%;
+    }    
+    
+    .buttonContainer {
+        width: 80%;
+    }
+
+    .buttons {
+        margin-top: 5%;
+    }
+}
+
+@media (min-width: 768px) {
+    .background {
+        height: 90%;
+    }
+
+    .content {
+        border-top-left-radius: 3% 18%;
+        border-top-right-radius: 3% 18%;
+        border-bottom-left-radius: 3% 18%;
+        border-bottom-right-radius: 3% 18%;
+        margin-bottom: 1%;
+        padding: 1%;
+    }
+
+    .images > div {
+        width: 15vh;
+        height: 15vh;
+        border: 1px solid #ffffff;
+        margin-right: 1%;
+    }
+
+    .buttonContainer {
+        width: 25%;
+    }
+
 }
