@@ -1,19 +1,20 @@
 const { mongoose } = require("../index.js");
 
-const mainImage = new mongoose.Schema({
-    image: String,
+const fileImage = new mongoose.Schema({
+    fileName: String,
+    content: Buffer,
     code: String,
 });
 
 const sizes = new mongoose.Schema({
     availability: String,
-    sizes: [String],
+    sizes: [Number],
 });
 
 const sneakers = new mongoose.Schema({
     url: String,
-    mainImage: mainImage,
-    shoes: [mainImage],
+    mainImage: fileImage,
+    shoes: [fileImage],
     title: String,
     brand: String,
     price: Number,
@@ -23,7 +24,7 @@ const sneakers = new mongoose.Schema({
 const SneakersModel = mongoose.model("Sneakers", sneakers, "sneakers-details");
 
 module.exports = {
-    mainImage,
+    fileImage,
     sizes,
     sneakers,
     SneakersModel,
