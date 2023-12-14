@@ -7,14 +7,6 @@ import { useEffect, useState } from "react";
 const AdminSneaker = () => {
     const [sneakers, setSneakers] = useState(null);
 
-    const bufferToJson = (content) => {
-        const jsonFile = content.arrayBuffer();
-        const imageUrl = URL.createObjectURL(
-            new Blob([jsonFile], { type: "image/jpeg" })
-        );
-        return jsonFile;
-    };
-
     const callGetAllSneakersApi = async () => {
         await client
             .get("/db/get-all-sneakers")
