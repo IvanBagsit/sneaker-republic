@@ -14,6 +14,15 @@ const createCode = require("../common/code.js");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+router.get("/get-all-sneakers", async (req, res) => {
+    try {
+        const result = await SneakersModel.find({});
+        res.status(200).send(result);
+    } catch (error) {
+        res.send(500).send({ error: error });
+    }
+});
+
 router.post(
     "/insert-sneaker",
     upload.array("attachments"),

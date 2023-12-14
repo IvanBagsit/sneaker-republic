@@ -1,11 +1,4 @@
-import {
-    Button,
-    Slide,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    DialogActions,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import styles from "./AdminInterface.module.css";
 import AdminSneaker from "./components/AdminSneaker";
 import { useState } from "react";
