@@ -7,28 +7,63 @@ const { SneakersModel } = require("../model/sneakers.js");
 const { User } = require("../model/users.js");
 const sendEmail = require("../common/email.js");
 
-router.post("/insert-sneaker", async (req, res) => {
-    res.status(200).send({ message: "OK" });
-    // const body = req.body;
-    // const newSneakers = new SneakersModel({
-    //     url: body.url,
-    //     mainImage: body.mainImage,
-    //     shoes: body.shoes,
-    //     title: body.title,
-    //     brand: body.brand,
-    //     price: body.price,
-    //     sizes: body.sizes,
-    // });
-    // console.log("uploading sneaker...", newSneakers);
-    // const result = await newSneakers.save();
-    // if (result) {
-    //     console.log("sneaker uploaded!", result);
-    //     res.status(200).send(result);
-    // } else {
-    //     console.log("uploading of sneaker failed", newSneakers);
-    //     res.status(500).json({ message: "uploading of sneaker failed" });
-    // }
-});
+// accepts "Content-Type":"multipart/form-data"
+const multer = require("multer");
+const createCode = require("../common/code.js");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.post(
+    "/insert-sneaker",
+    upload.array("attachments"),
+    async (req, res) => {
+        const formValues = JSON.parse(req.body.formValues);
+        const attachments = req.files.map((file) => ({
+            fileName: file.originalname,
+            content: file.buffer,
+            code: createCode(),
+        }));
+
+        const subShoes = attachments.slice(1);
+
+        if (attachments && formValues) {
+            const newSneakers = new SneakersModel({
+                url: formValues.url,
+                mainImage: attachments[0],
+                shoes: subShoes || null,
+                title: formValues.name,
+                brand: formValues.brand,
+                price: formValues.price,
+                sizes: [
+                    {
+                        availability: "Men",
+                        sizes: formValues.menSizes,
+                    },
+                    {
+                        availability: "Women",
+                        sizes: formValues.womenSizes,
+                    },
+                ],
+            });
+            console.log("uploading sneaker...");
+            const result = await newSneakers.save();
+            if (result) {
+                console.log("sneaker uploaded!", result);
+                res.status(200).send(result);
+            } else {
+                console.log("uploading of sneaker failed", newSneakers);
+                res.status(500).json({
+                    message: "uploading of sneaker failed",
+                });
+            }
+        } else {
+            res.status(404).send({
+                message: "No form values or file attached",
+            });
+        }
+    }
+);
 
 router.delete("/delete-sneaker/:value", async (req, res) => {
     const value = req.params.value;
