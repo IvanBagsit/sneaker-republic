@@ -1,8 +1,9 @@
+import { useState } from "react";
+import { Button } from "@mui/material";
+
 import styles from "./SneakerList.module.css";
 import client from "../../Common/ApiClient";
-import { useRef, useState } from "react";
 import FullPageLoader from "../../Common/FullPageLoader";
-import { Button } from "@mui/material";
 
 const SneakerList = ({
     id,
@@ -25,6 +26,7 @@ const SneakerList = ({
 
     const handleUpdateSneaker = async () => {
         if (isUpdate) {
+            console.log("call api");
             // submit sneaker api call
         } else {
             setIsUpdate((prev) => !prev);
@@ -89,7 +91,11 @@ const SneakerList = ({
                     Name:{" "}
                     {isUpdate ? (
                         <span>
-                            <input defaultValue={title} type="text"></input>
+                            <input
+                                name="name"
+                                defaultValue={title}
+                                type="text"
+                            ></input>
                         </span>
                     ) : (
                         title
@@ -97,7 +103,11 @@ const SneakerList = ({
                     - Brand:{" "}
                     {isUpdate ? (
                         <span>
-                            <input defaultValue={brand} type="text"></input>
+                            <input
+                                name="brand"
+                                defaultValue={brand}
+                                type="text"
+                            ></input>
                         </span>
                     ) : (
                         brand
@@ -106,6 +116,7 @@ const SneakerList = ({
                     {isUpdate ? (
                         <span>
                             <input
+                                name="price"
                                 defaultValue={price.toFixed(2)}
                                 type="text"
                             ></input>
@@ -119,6 +130,7 @@ const SneakerList = ({
                     {isUpdate ? (
                         <span>
                             <input
+                                name="menSizes"
                                 defaultValue={sizes[0].sizes.join(", ")}
                                 type="text"
                             ></input>
@@ -132,6 +144,7 @@ const SneakerList = ({
                     {isUpdate ? (
                         <span>
                             <input
+                                name="womenSizes"
                                 defaultValue={sizes[1].sizes.join(", ")}
                                 type="text"
                             ></input>
