@@ -110,27 +110,29 @@ router.delete("/delete-sneaker/:id", async (req, res) => {
     }
 });
 
-router.put("/update-sneaker/:value", async (req, res) => {
-    const value = req.params.value;
-    const updateFields = {};
-
-    for (const key in req.body) {
-        if (req.body[key] !== "" && req.body[key] !== undefined) {
-            updateFields[key] = req.body[key];
-        }
-    }
+router.put("/update-sneaker/:id", async (req, res) => {
+    const id = req.params.id;
+    const { name, brand, price, menSizes, womenSizes } = req.body;
 
     const result = await SneakersModel.updateOne(
-        { url: value },
-        { $set: updateFields }
+        { _id: id },
+        {
+            $set: {
+                title: name,
+                brand: brand,
+                price: price,
+                "sizes.0.sizes": menSizes,
+                "sizes.1.sizes": womenSizes,
+            },
+        }
     );
 
     if (result) {
-        console.log("Sneaker updated successfully.", value);
-        res.json({ message: "Sneaker updated successfully.", value });
+        console.log("Sneaker updated successfully.", id);
+        res.status(200).send({ message: "Sneaker updated successfully.", id });
     } else {
-        console.log("Sneaker not found");
-        res.status(404).json({ message: "Sneaker not found." });
+        console.log("Sneaker not found", id);
+        res.status(404).send({ message: "Sneaker not found.", id });
     }
 });
 
