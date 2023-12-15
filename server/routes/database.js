@@ -19,7 +19,7 @@ router.get("/get-all-sneakers", async (req, res) => {
         const result = await SneakersModel.find({});
         res.status(200).send(result);
     } catch (error) {
-        res.send(500).send({ error: error });
+        res.status(500).send({ error: error });
     }
 });
 
@@ -91,18 +91,18 @@ router.post(
     }
 );
 
-router.delete("/delete-sneaker/:value", async (req, res) => {
-    const value = req.params.value;
-    const result = await SneakersModel.deleteOne({ url: value });
+router.delete("/delete-sneaker/:id", async (req, res) => {
+    const id = req.params.id;
+    const result = await SneakersModel.deleteOne({ _id: id });
     if (result.deletedCount > 0) {
-        console.log(`${value} deleted successfully`);
+        console.log(`${id} deleted successfully`);
         res.status(200).json({
             message: "Sneaker deleted successfully.",
-            value: value,
+            id: id,
         });
     } else {
-        console.log(`${value} not found`);
-        res.status(404).json({ message: "Sneaker not found.", value: value });
+        console.log(`${id} not found`);
+        res.status(404).json({ message: "Sneaker not found.", id: id });
     }
 });
 

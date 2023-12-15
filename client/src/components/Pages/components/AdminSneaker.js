@@ -2,11 +2,78 @@ import { Button } from "@mui/material";
 import styles from "./AdminSneaker.module.css";
 import Scrollbar from "../../Common/Scrollbar";
 import client from "../../Common/ApiClient";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import FullPageLoader from "../../Common/FullPageLoader";
+import Success from "../../Modal/Success";
+import ErrorModal from "../../Modal/ErrorModal";
 
-const AdminSneaker = ({ sneakers }) => {
+const AdminSneaker = ({ sneakers, hasLoaded }) => {
+    const [isLoading, setIsLoading] = useState({
+        enabled: false,
+        message: "Please wait while we delete sneaker...",
+    });
+    const [isSuccess, setIsSuccess] = useState({
+        enabled: false,
+        title: "Success!",
+        message: "",
+    });
+    const [isError, setIsError] = useState({
+        enabled: false,
+        title: "Something went wrong!",
+        message: "Please contact administration.",
+    });
+
+    const retryRef = useRef(null);
+
+    const handleDeleteSneaker = async (id) => {
+        setIsLoading((prev) => {
+            return { ...prev, enabled: true };
+        });
+        hasLoaded(false);
+        await client
+            .delete(`db/delete-sneaker/${id}`)
+            .then(() => {
+                setIsSuccess((prev) => {
+                    return {
+                        ...prev,
+                        enabled: true,
+                        message: "Deletion of sneaker complete!",
+                    };
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                retryRef.current = handleDeleteSneaker;
+                setIsError((prev) => {
+                    return {
+                        ...prev,
+                        enabled: true,
+                    };
+                });
+            })
+            .finally(() => {
+                setIsLoading((prev) => {
+                    return { ...prev, enabled: false };
+                });
+                hasLoaded(true);
+            });
+    };
+
+    const bufferToURI = (values) => {
+        const buffer = new Uint8Array(values);
+        const blob = new Blob([buffer], { type: "image/jpeg" });
+        const dataURI = URL.createObjectURL(blob);
+        return dataURI;
+    };
+
     return (
         <div className={styles.background}>
+            {isLoading.enabled && (
+                <FullPageLoader
+                    open={isLoading.enabled}
+                    message={isLoading.message}
+                />
+            )}
             <Scrollbar maxHeight={"100%"}>
                 {sneakers?.map((item) => {
                     return (
@@ -27,8 +94,11 @@ const AdminSneaker = ({ sneakers }) => {
                                 <div className={styles.images}>
                                     <div>
                                         <img
-                                            src={item.mainImage.content}
-                                            alt="mainImage"
+                                            src={bufferToURI(
+                                                item.mainImage.content.data
+                                            )}
+                                            alt="entry main"
+                                            className={styles.image}
                                         />
                                     </div>
                                     <div>1st Image</div>
@@ -49,6 +119,9 @@ const AdminSneaker = ({ sneakers }) => {
                                     color="error"
                                     className={styles.buttons}
                                     style={{ backgroundColor: "white" }}
+                                    onClick={() =>
+                                        handleDeleteSneaker(item._id)
+                                    }
                                 >
                                     Delete
                                 </Button>
@@ -56,6 +129,37 @@ const AdminSneaker = ({ sneakers }) => {
                         </div>
                     );
                 })}
+                {isSuccess.enabled && (
+                    <Success
+                        isOpen={isSuccess.enabled}
+                        title={isSuccess.title}
+                        message={isSuccess.message}
+                        onClose={() => {
+                            setIsSuccess((prev) => {
+                                return {
+                                    ...prev,
+                                    enabled: false,
+                                };
+                            });
+                        }}
+                    />
+                )}
+                {isError.enabled && (
+                    <ErrorModal
+                        isOpen={isError.enabled}
+                        title={isError.title}
+                        message={isError.message}
+                        onClose={() => {
+                            setIsError((prev) => {
+                                return {
+                                    ...prev,
+                                    enabled: false,
+                                };
+                            });
+                        }}
+                        onRetry={() => retryRef.current()}
+                    />
+                )}
             </Scrollbar>
         </div>
     );
