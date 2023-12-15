@@ -120,6 +120,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
         const formData = new FormData();
         attachments.forEach((item) => {
             formData.append("attachments", item.file);
+            formData.append("type", item.type);
         });
         formData.append("formValues", JSON.stringify(values));
         callConfirmOrder(formData);

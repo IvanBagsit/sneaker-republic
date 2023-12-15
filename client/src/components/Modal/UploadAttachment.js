@@ -60,19 +60,20 @@ export const UploadAttachmentContent = ({
 
     const verifyFiles = (files) => {
         const updatedFiles = files.map((file) => {
+            console.log("file", file);
             const url = URL.createObjectURL(file);
             if (selectedFile.length >= maxFileCount) {
                 const status = {
                     hasError: true,
                     errorMessage: `Maximum of ${maxFileCount} files`,
                 };
-                return { file, url, status };
+                return { file, url, status, type: file.type };
             } else if (file.size >= MAX_SIZE) {
                 const status = {
                     hasError: true,
                     errorMessage: "Max 4MB per attachment",
                 };
-                return { file, url, status };
+                return { file, url, status, type: file.type };
             } else if (
                 (!isImageOnly &&
                     !acceptedFileTypes.includes(file.type.toLowerCase())) ||
@@ -83,13 +84,13 @@ export const UploadAttachmentContent = ({
                     hasError: true,
                     errorMessage: "File type not supported",
                 };
-                return { file, url, status };
+                return { file, url, status, type: file.type };
             } else {
                 const status = {
                     hasError: false,
                     errorMessage: "",
                 };
-                return { file, url, status };
+                return { file, url, status, type: file.type };
             }
         });
         return updatedFiles;
