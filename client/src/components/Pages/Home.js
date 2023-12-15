@@ -178,7 +178,7 @@ const Home = ({ isGetStartedClosed }) => {
                                                     textDecoration: "none",
                                                 }}
                                             >
-                                                P{items.price}
+                                                ₱{items.price}
                                             </Typography>
                                         </CardContent>
                                     </Box>

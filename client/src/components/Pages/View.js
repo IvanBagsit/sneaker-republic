@@ -170,7 +170,7 @@ const View = () => {
                             Code: {viewedShoes.mainImage.code}
                         </div>
                         <div className={styles.details}>
-                            Price: P{viewedShoes.price}
+                            Price: ₱{viewedShoes.price}
                         </div>
                         <div className={styles.details}>
                             <div>
