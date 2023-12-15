@@ -91,13 +91,6 @@ const SneakerList = ({
 
     const handleUpdateSneaker = async () => {
         if (isUpdate) {
-            setForm((prev) => {
-                return {
-                    ...prev,
-                    menSizes: sizeValidation(form.menSizes),
-                    womenSizes: sizeValidation(form.womenSizes),
-                };
-            });
             setIsSubmitting(true);
         } else {
             setIsUpdate((prev) => !prev);
@@ -106,30 +99,25 @@ const SneakerList = ({
 
     const callUpdateSneaker = async () => {
         if (isSubmitting) {
-            setIsLoading((prev) => {
-                return {
-                    ...prev,
-                    enabled: true,
-                    message: "Please wait while we update sneaker...",
-                };
+            setIsLoading({
+                enabled: true,
+                message: "Please wait while we update sneaker...",
             });
             hasLoaded(false);
+            const body = {
+                ...form,
+                menSizes: sizeValidation(form.menSizes),
+                womenSizes: sizeValidation(form.womenSizes),
+            };
             await client
-                .put(`db/update-sneaker/${id}`, form)
+                .put(`db/update-sneaker/${id}`, body)
                 .then(() => {
                     isSuccess((prev) => {
                         return {
                             ...prev,
-                            enabled: false,
+                            enabled: true,
                             message: "Update of sneaker complete!",
                         };
-                    });
-                    setForm({
-                        name: title,
-                        brand: brand,
-                        price: price,
-                        menSizes: sizes[0].sizes.join(", "),
-                        womenSizes: sizes[1].sizes.join(", "),
                     });
                     setIsUpdate((prev) => !prev);
                 })
