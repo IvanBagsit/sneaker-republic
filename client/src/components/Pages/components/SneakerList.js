@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 
 import styles from "./SneakerList.module.css";
@@ -23,18 +23,153 @@ const SneakerList = ({
         message: "Please wait while we delete sneaker...",
     });
     const [isUpdate, setIsUpdate] = useState(false);
+    const [form, setForm] = useState({
+        name: title,
+        brand: brand,
+        price: price,
+        menSizes: sizes[0].sizes.join(", "),
+        womenSizes: sizes[1].sizes.join(", "),
+    });
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleFieldChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (form.name.trim() === "") {
+            newErrors.name = "Name Required";
+        }
+
+        if (form.brand.trim() === "") {
+            newErrors.brand = "Brand is required";
+        }
+
+        if (form.price === null || form.price === undefined) {
+            newErrors.price = "Price is required";
+        } else if (form.price < 0) {
+            newErrors.price = "Price should be positive number";
+        } else if (isNaN(form.price)) {
+            newErrors.price = "Price should be a valid number";
+        }
+
+        if (!form.menSizes) {
+            newErrors.menSizes = "Men sizes is required";
+        }
+
+        if (!form.womenSizes) {
+            newErrors.womenSizes = "Women sizes is required";
+        }
+
+        setErrors(newErrors);
+    };
+
+    const sizeValidation = (sizes) => {
+        const sizeArray = [];
+        if (sizes) {
+            const tempArray = sizes.split(",");
+            tempArray.forEach((item) => {
+                const trimmedItem = item.trim();
+                if (!isNaN(trimmedItem) && trimmedItem) {
+                    const size = parseFloat(item).toFixed(1);
+                    sizeArray.push(size);
+                }
+            });
+            sizeArray.sort((a, b) => a - b);
+        }
+        return sizeArray;
+    };
 
     const handleUpdateSneaker = async () => {
         if (isUpdate) {
-            console.log("call api");
-            // submit sneaker api call
+            setForm((prev) => {
+                return {
+                    ...prev,
+                    menSizes: sizeValidation(form.menSizes),
+                    womenSizes: sizeValidation(form.womenSizes),
+                };
+            });
+            setIsSubmitting(true);
         } else {
             setIsUpdate((prev) => !prev);
         }
     };
 
+    const callUpdateSneaker = async () => {
+        if (isSubmitting) {
+            setIsLoading((prev) => {
+                return {
+                    ...prev,
+                    enabled: true,
+                    message: "Please wait while we update sneaker...",
+                };
+            });
+            hasLoaded(false);
+            await client
+                .put(`db/update-sneaker/${id}`, form)
+                .then(() => {
+                    isSuccess((prev) => {
+                        return {
+                            ...prev,
+                            enabled: false,
+                            message: "Update of sneaker complete!",
+                        };
+                    });
+                    setForm({
+                        name: title,
+                        brand: brand,
+                        price: price,
+                        menSizes: sizes[0].sizes.join(", "),
+                        womenSizes: sizes[1].sizes.join(", "),
+                    });
+                    setIsUpdate((prev) => !prev);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    retryRef.current = callUpdateSneaker;
+                    isError((prev) => {
+                        return {
+                            ...prev,
+                            enabled: true,
+                        };
+                    });
+                })
+                .finally(() => {
+                    setIsLoading((prev) => {
+                        return { ...prev, enabled: false };
+                    });
+                    hasLoaded(true);
+                    setIsSubmitting(false);
+                });
+        }
+    };
+
+    useEffect(() => {
+        callUpdateSneaker();
+    }, [isSubmitting]);
+
+    useEffect(() => {
+        validateForm();
+    }, [form]);
+
     const handleDeleteSneaker = async () => {
         if (isUpdate) {
+            setForm({
+                name: title,
+                brand: brand,
+                price: price,
+                menSizes: sizes[0].sizes.join(", "),
+                womenSizes: sizes[1].sizes.join(", "),
+            });
             setIsUpdate((prev) => !prev);
         } else {
             setIsLoading((prev) => {
@@ -93,7 +228,8 @@ const SneakerList = ({
                         <span>
                             <input
                                 name="name"
-                                defaultValue={title}
+                                value={form.name}
+                                onChange={(e) => handleFieldChange(e)}
                                 type="text"
                             ></input>
                         </span>
@@ -105,7 +241,8 @@ const SneakerList = ({
                         <span>
                             <input
                                 name="brand"
-                                defaultValue={brand}
+                                value={form.brand}
+                                onChange={handleFieldChange}
                                 type="text"
                             ></input>
                         </span>
@@ -117,7 +254,8 @@ const SneakerList = ({
                         <span>
                             <input
                                 name="price"
-                                defaultValue={price.toFixed(2)}
+                                value={form.price}
+                                onChange={handleFieldChange}
                                 type="text"
                             ></input>
                         </span>
@@ -131,7 +269,8 @@ const SneakerList = ({
                         <span>
                             <input
                                 name="menSizes"
-                                defaultValue={sizes[0].sizes.join(", ")}
+                                value={form.menSizes}
+                                onChange={handleFieldChange}
                                 type="text"
                             ></input>
                         </span>
@@ -145,7 +284,8 @@ const SneakerList = ({
                         <span>
                             <input
                                 name="womenSizes"
-                                defaultValue={sizes[1].sizes.join(", ")}
+                                value={form.womenSizes}
+                                onChange={handleFieldChange}
                                 type="text"
                             ></input>
                         </span>
@@ -186,6 +326,7 @@ const SneakerList = ({
                     color="secondary"
                     className={styles.buttons}
                     onClick={handleUpdateSneaker}
+                    disabled={Object.keys(errors).length > 0}
                 >
                     {isUpdate ? "Done" : "Update"}
                 </Button>

@@ -65,8 +65,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
                     "Content-Type": "multipart/form-data",
                 },
             })
-            .then((data) => {
-                console.log(data);
+            .then(() => {
                 setIsSuccess(true);
             })
             .catch((error) => {
