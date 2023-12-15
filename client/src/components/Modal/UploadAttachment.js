@@ -60,7 +60,6 @@ export const UploadAttachmentContent = ({
 
     const verifyFiles = (files) => {
         const updatedFiles = files.map((file) => {
-            console.log("file", file);
             const url = URL.createObjectURL(file);
             if (selectedFile.length >= maxFileCount) {
                 const status = {
@@ -232,6 +231,7 @@ const UploadAttachment = ({
         const formData = new FormData();
         attachments.forEach((item) => {
             formData.append("attachments", item.file);
+            formData.append("type", item.type);
         });
         shoes.shoes.forEach((item) => {
             formData.append("shoes", JSON.stringify(item));
