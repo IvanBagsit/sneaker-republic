@@ -23,7 +23,6 @@ const AdminInterface = () => {
         await client
             .get("/db/get-all-sneakers")
             .then((data) => {
-                console.log(data.data);
                 const sneakers = data.data;
                 setSneakers(sneakers);
             })
