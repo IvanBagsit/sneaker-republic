@@ -19,6 +19,12 @@
     margin-top: 2%;
 }
 
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .buttonContainer {
     display: flex;
     justify-content: space-between;
@@ -49,10 +55,11 @@
         height: 9vh;
         border: 1px solid #ffffff;
         margin-right: 1%;
-    }    
+    }
     
     .buttonContainer {
         width: 80%;
+        margin-top: 2%;
     }
 
     .buttons {
