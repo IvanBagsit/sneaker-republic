@@ -86,7 +86,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
             const tempArray = sizes.split(",");
             tempArray.forEach((item) => {
                 const trimmedItem = item.trim();
-                if (!isNaN(trimmedItem) && trimmedItem) {
+                if (!isNaN(trimmedItem) && trimmedItem >= 0 && trimmedItem) {
                     const size = parseFloat(item).toFixed(1);
                     sizeArray.push(size);
                 }
