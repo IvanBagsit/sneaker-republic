@@ -59,9 +59,9 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
             });
     };
 
-    const bufferToURI = (values) => {
+    const bufferToURI = (values, fileType) => {
         const buffer = new Uint8Array(values);
-        const blob = new Blob([buffer], { type: "image/jpeg" });
+        const blob = new Blob([buffer], { type: fileType });
         const dataURI = URL.createObjectURL(blob);
         return dataURI;
     };
@@ -95,15 +95,27 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
                                     <div>
                                         <img
                                             src={bufferToURI(
-                                                item.mainImage.content.data
+                                                item.mainImage.content.data,
+                                                item.mainImage.type
                                             )}
-                                            alt="entry main"
+                                            alt={item.mainImage.code}
                                             className={styles.image}
                                         />
                                     </div>
-                                    <div>1st Image</div>
-                                    <div>2nd Image</div>
-                                    <div>3rd Image</div>
+                                    {item.shoes.map((item) => {
+                                        return (
+                                            <div key={item.code}>
+                                                <img
+                                                    src={bufferToURI(
+                                                        item.content.data,
+                                                        item.type
+                                                    )}
+                                                    alt={item.code}
+                                                    className={styles.image}
+                                                />
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                             <div className={styles.buttonContainer}>
