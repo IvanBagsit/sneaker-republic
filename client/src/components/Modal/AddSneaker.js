@@ -86,16 +86,32 @@ const AddSneaker = ({ isOpen, onClose }) => {
         if (sizes) {
             const tempArray = sizes.split(",");
             tempArray.forEach((item) => {
-                if (!isNaN(item) && item) {
+                const trimmedItem = item.trim();
+                if (!isNaN(trimmedItem) && trimmedItem) {
                     const size = parseFloat(item).toFixed(1);
                     sizeArray.push(size);
                 }
             });
+            sizeArray.sort((a, b) => a - b);
         }
         return sizeArray;
     };
 
+    const setPascalCase = (values) => {
+        const valuesArray = values.split(" ");
+        const pascalCaseArray = valuesArray.map((word) => {
+            const valuesLowerCase = word.toLowerCase();
+            return (
+                valuesLowerCase.charAt(0).toUpperCase() +
+                valuesLowerCase.slice(1)
+            );
+        });
+        return pascalCaseArray.join(" ");
+    };
+
     const callSubmitApi = (values) => {
+        values.name = setPascalCase(values.name);
+        values.brand = setPascalCase(values.brand);
         values.menSizes = sizeValidation(values.menSizes);
         values.womenSizes = sizeValidation(values.womenSizes);
         values.price = values.price.toFixed(2);
