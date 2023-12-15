@@ -22,41 +22,54 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
         title: "Something went wrong!",
         message: "Please contact administration.",
     });
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const retryRef = useRef(null);
 
+    const handleUpdateSneaker = async (id) => {
+        if (isUpdate) {
+            // api call
+        } else {
+            setIsUpdate((prev) => !prev);
+        }
+    };
+
     const handleDeleteSneaker = async (id) => {
-        setIsLoading((prev) => {
-            return { ...prev, enabled: true };
-        });
-        hasLoaded(false);
-        await client
-            .delete(`db/delete-sneaker/${id}`)
-            .then(() => {
-                setIsSuccess((prev) => {
-                    return {
-                        ...prev,
-                        enabled: true,
-                        message: "Deletion of sneaker complete!",
-                    };
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                retryRef.current = handleDeleteSneaker;
-                setIsError((prev) => {
-                    return {
-                        ...prev,
-                        enabled: true,
-                    };
-                });
-            })
-            .finally(() => {
-                setIsLoading((prev) => {
-                    return { ...prev, enabled: false };
-                });
-                hasLoaded(true);
+        if (isUpdate) {
+            setIsUpdate((prev) => !prev);
+        } else {
+            setIsLoading((prev) => {
+                return { ...prev, enabled: true };
             });
+            hasLoaded(false);
+            await client
+                .delete(`db/delete-sneaker/${id}`)
+                .then(() => {
+                    setIsSuccess((prev) => {
+                        return {
+                            ...prev,
+                            enabled: true,
+                            message: "Deletion of sneaker complete!",
+                        };
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    retryRef.current = handleDeleteSneaker;
+                    setIsError((prev) => {
+                        return {
+                            ...prev,
+                            enabled: true,
+                        };
+                    });
+                })
+                .finally(() => {
+                    setIsLoading((prev) => {
+                        return { ...prev, enabled: false };
+                    });
+                    hasLoaded(true);
+                });
+        }
     };
 
     const bufferToURI = (values, fileType) => {
@@ -80,16 +93,71 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
                         <div className={styles.content} key={item._id}>
                             <div className={styles.details}>
                                 <div>
-                                    Name: {item.title} - Brand: {item.brand} -
-                                    Price: P{item.price.toFixed(2)}
+                                    Name:{" "}
+                                    {isUpdate ? (
+                                        <span>
+                                            <input
+                                                defaultValue={item.title}
+                                                type="text"
+                                            ></input>
+                                        </span>
+                                    ) : (
+                                        item.title
+                                    )}{" "}
+                                    - Brand:{" "}
+                                    {isUpdate ? (
+                                        <span>
+                                            <input
+                                                defaultValue={item.brand}
+                                                type="text"
+                                            ></input>
+                                        </span>
+                                    ) : (
+                                        item.brand
+                                    )}{" "}
+                                    - Price: P
+                                    {isUpdate ? (
+                                        <span>
+                                            <input
+                                                defaultValue={item.price.toFixed(
+                                                    2
+                                                )}
+                                                type="number"
+                                            ></input>
+                                        </span>
+                                    ) : (
+                                        item.price.toFixed(2)
+                                    )}
                                 </div>
                                 <div>
                                     Men size (US):{" "}
-                                    {item.sizes[0].sizes.join(", ")}
+                                    {isUpdate ? (
+                                        <span>
+                                            <input
+                                                defaultValue={item.sizes[0].sizes.join(
+                                                    ", "
+                                                )}
+                                                type="text"
+                                            ></input>
+                                        </span>
+                                    ) : (
+                                        item.sizes[0].sizes.join(", ")
+                                    )}
                                 </div>
                                 <div>
                                     Women size (US):{" "}
-                                    {item.sizes[1].sizes.join(", ")}
+                                    {isUpdate ? (
+                                        <span>
+                                            <input
+                                                defaultValue={item.sizes[1].sizes.join(
+                                                    ", "
+                                                )}
+                                                type="text"
+                                            ></input>
+                                        </span>
+                                    ) : (
+                                        item.sizes[1].sizes.join(", ")
+                                    )}
                                 </div>
                                 <div className={styles.images}>
                                     <div>
@@ -123,8 +191,11 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
                                     variant="contained"
                                     color="secondary"
                                     className={styles.buttons}
+                                    onClick={() =>
+                                        handleUpdateSneaker(item._id)
+                                    }
                                 >
-                                    Update
+                                    {isUpdate ? "Done" : "Update"}
                                 </Button>
                                 <Button
                                     variant="outlined"
@@ -135,7 +206,7 @@ const AdminSneaker = ({ sneakers, hasLoaded }) => {
                                         handleDeleteSneaker(item._id)
                                     }
                                 >
-                                    Delete
+                                    {isUpdate ? "Cancel" : "Delete"}
                                 </Button>
                             </div>
                         </div>
