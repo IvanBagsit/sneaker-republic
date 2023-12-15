@@ -42,15 +42,19 @@ router.post(
         };
 
         const code = await createNewCode();
+        const fileTypes = req.body.type;
+        const attachments = [];
 
-        const attachments = req.files.map((file) => ({
-            fileName: file.originalname,
-            content: file.buffer,
-            code: code,
-        }));
+        for (let i = 0; i < req.files.length; i++) {
+            attachments.push({
+                fileName: req.files[i].originalname,
+                content: req.files[i].buffer,
+                code: code,
+                type: fileTypes[i],
+            });
+        }
 
         const subShoes = attachments.slice(1);
-
         const formValues = JSON.parse(req.body.formValues);
 
         if (attachments && formValues) {

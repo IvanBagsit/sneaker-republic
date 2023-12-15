@@ -2,6 +2,7 @@ const { mongoose } = require("../index.js");
 
 const fileImage = new mongoose.Schema({
     fileName: String,
+    type: String,
     content: Buffer,
     code: String,
 });

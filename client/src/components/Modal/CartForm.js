@@ -93,6 +93,7 @@ const CartForm = ({ isOpen, onClose, cartItems, onCloseCart }) => {
         const formData = new FormData();
         attachments.forEach((item) => {
             formData.append("attachments", item.file);
+            formData.append("type", item.type);
         });
         cartItems.forEach((item) => {
             formData.append("shoes", JSON.stringify(item));
