@@ -160,6 +160,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
                     <div className={styles.uploadAttachments}>
                         <UploadAttachmentContent
                             maxFileCount={4}
+                            maxFileSize={3}
                             uploadMessage={uploadMessage()}
                             isClosing={isClosing}
                             handleAttachmentUpload={handleAttachmentUpload}
