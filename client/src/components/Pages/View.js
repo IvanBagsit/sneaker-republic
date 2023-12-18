@@ -46,23 +46,36 @@ const View = () => {
             .finally(() => setIsLoading(false));
     };
 
+    const callSubShoesDetailsApi = async (code) => {
+        setIsLoading(true);
+        await client
+            .get(`/view/view-subshoes/${viewableShoes}/${code}`)
+            .then((item) => {
+                const { data } = item;
+                const tempViewedShoes = data;
+
+                setViewedShoes((prev) => {
+                    return {
+                        ...prev,
+                        mainImage: {
+                            code: tempViewedShoes.code,
+                            content: tempViewedShoes.content,
+                        },
+                    };
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => setIsLoading(false));
+    };
+
     useEffect(() => {
         callViewedShoesAPI();
     }, []);
 
     const viewSubShoes = (code) => {
-        const tempViewedShoes = viewedShoes.shoes.find(
-            (item) => item.code === code
-        );
-        setViewedShoes((prev) => {
-            return {
-                ...prev,
-                mainImage: {
-                    code: tempViewedShoes.code,
-                    image: tempViewedShoes.image,
-                },
-            };
-        });
+        callSubShoesDetailsApi(code);
     };
 
     const handleSizeSelection = (availability, sizes) => {
@@ -126,10 +139,6 @@ const View = () => {
         const dataURI = URL.createObjectURL(blob);
         return dataURI;
     };
-
-    useEffect(() => {
-        console.log("viewedShoes", viewedShoes);
-    }, [viewedShoes]);
 
     return (
         <div className={styles.background}>
@@ -263,19 +272,6 @@ const View = () => {
                             <div>Mode of Delivery: LBC</div>
                         </div>
                         <div>
-                            <span
-                                // onClick={() => viewSubShoes(shoes.code)}
-                                className={styles.subShoes}
-                            >
-                                <img
-                                    src={bufferToURI(
-                                        viewedShoes.mainImage.content.data,
-                                        viewedShoes.mainImage.type
-                                    )}
-                                    alt={viewedShoes.mainImage.code}
-                                    className={styles.subShoesImage}
-                                />
-                            </span>
                             {viewedShoes?.shoes.map((shoes) => {
                                 return (
                                     <span
