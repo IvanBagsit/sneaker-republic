@@ -41,7 +41,6 @@ router.post(
             }
         };
 
-        const code = await createNewCode();
         const fileTypes = req.body.type;
         const attachments = [];
 
@@ -49,12 +48,12 @@ router.post(
             attachments.push({
                 fileName: req.files[i].originalname,
                 content: req.files[i].buffer,
-                code: code,
+                code: await createNewCode(),
                 type: Array.isArray(fileTypes) ? fileTypes[i] : fileTypes,
             });
         }
 
-        const subShoes = attachments.slice(1);
+        const subShoes = attachments;
         const formValues = JSON.parse(req.body.formValues);
 
         if (attachments && formValues) {
