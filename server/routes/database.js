@@ -50,7 +50,7 @@ router.post(
                 fileName: req.files[i].originalname,
                 content: req.files[i].buffer,
                 code: code,
-                type: fileTypes[i],
+                type: Array.isArray(fileTypes) ? fileTypes[i] : fileTypes,
             });
         }
 
