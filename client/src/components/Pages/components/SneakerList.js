@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import styles from "./SneakerList.module.css";
 import client from "../../Common/ApiClient";
 import FullPageLoader from "../../Common/FullPageLoader";
+import BufferToURI from "../../Common/BufferToURI";
 
 const SneakerList = ({
     id,
@@ -194,13 +195,6 @@ const SneakerList = ({
         }
     };
 
-    const bufferToURI = (values, fileType) => {
-        const buffer = new Uint8Array(values);
-        const blob = new Blob([buffer], { type: fileType });
-        const dataURI = URL.createObjectURL(blob);
-        return dataURI;
-    };
-
     return (
         <div className={styles.content}>
             {isLoading.enabled && (
@@ -282,21 +276,11 @@ const SneakerList = ({
                     )}
                 </div>
                 <div className={styles.images}>
-                    <div>
-                        <img
-                            src={bufferToURI(
-                                mainImage.content.data,
-                                mainImage.type
-                            )}
-                            alt={mainImage.code}
-                            className={styles.image}
-                        />
-                    </div>
-                    {shoes.map((item) => {
+                    {shoes?.map((item) => {
                         return (
                             <div key={item.code}>
                                 <img
-                                    src={bufferToURI(
+                                    src={BufferToURI(
                                         item.content.data,
                                         item.type
                                     )}
