@@ -52,14 +52,12 @@ const View = () => {
             .get(`/view/view-subshoes/${viewableShoes}/${code}`)
             .then((item) => {
                 const { data } = item;
-                const tempViewedShoes = data;
-
                 setViewedShoes((prev) => {
                     return {
                         ...prev,
                         mainImage: {
-                            code: tempViewedShoes.code,
-                            content: tempViewedShoes.content,
+                            code: data.code,
+                            content: data.content,
                         },
                     };
                 });
