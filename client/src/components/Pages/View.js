@@ -11,6 +11,7 @@ import { addCartShoes } from "../Common/redux/redux";
 import DeviceChecker from "../Common/DeviceChecker";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
+import BufferToURI from "../Common/BufferToURI";
 
 const View = () => {
     const location = useLocation();
@@ -131,13 +132,6 @@ const View = () => {
         }
     };
 
-    const bufferToURI = (values, fileType) => {
-        const buffer = new Uint8Array(values);
-        const blob = new Blob([buffer], { type: fileType });
-        const dataURI = URL.createObjectURL(blob);
-        return dataURI;
-    };
-
     return (
         <div className={styles.background}>
             {isLoading && (
@@ -150,7 +144,7 @@ const View = () => {
                 {viewedShoes?.url && (
                     <div className={styles.contentDetails}>
                         <img
-                            src={bufferToURI(
+                            src={BufferToURI(
                                 viewedShoes.mainImage.content.data,
                                 viewedShoes.mainImage.type
                             )}
@@ -278,7 +272,7 @@ const View = () => {
                                         key={shoes.code}
                                     >
                                         <img
-                                            src={bufferToURI(
+                                            src={BufferToURI(
                                                 shoes.content.data,
                                                 shoes.type
                                             )}
