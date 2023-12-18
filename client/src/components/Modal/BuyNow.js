@@ -17,6 +17,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import UploadAttachment from "./UploadAttachment";
 import styles from "./BuyNow.module.css";
 import CustomerDetailsSchema from "../Common/yup/CustomerDetailsSchema";
+import BufferToURI from "../Common/BufferToURI";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -86,7 +87,10 @@ const BuyNow = ({ isOpen, onClose, shoes, size }) => {
                     <div className={styles.contentContainer}>
                         <div>
                             <img
-                                src={shoes.mainImage.image}
+                                src={BufferToURI(
+                                    shoes.mainImage.content.data,
+                                    shoes.mainImage.type
+                                )}
                                 alt="mainImage"
                                 className={styles.image}
                             />
