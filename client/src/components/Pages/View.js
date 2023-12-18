@@ -20,27 +20,7 @@ const View = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
     const [isMOPOpen, setIsMOPOpen] = useState(false);
-    const [viewedShoes, setViewedShoes] = useState({
-        url: "",
-        mainImage: {
-            image: null,
-            code: "",
-        },
-        shoes: [],
-        title: "",
-        brand: "",
-        price: 0,
-        sizes: [
-            {
-                availability: "",
-                sizes: [],
-            },
-            {
-                availability: "",
-                sizes: [],
-            },
-        ],
-    });
+    const [viewedShoes, setViewedShoes] = useState({});
     const [size, setSize] = useState({
         availability: "",
         sizes: null,
@@ -140,6 +120,17 @@ const View = () => {
         }
     };
 
+    const bufferToURI = (values, fileType) => {
+        const buffer = new Uint8Array(values);
+        const blob = new Blob([buffer], { type: fileType });
+        const dataURI = URL.createObjectURL(blob);
+        return dataURI;
+    };
+
+    useEffect(() => {
+        console.log("viewedShoes", viewedShoes);
+    }, [viewedShoes]);
+
     return (
         <div className={styles.background}>
             {isLoading && (
@@ -149,16 +140,19 @@ const View = () => {
                 />
             )}
             <div className={styles.content}>
-                {viewedShoes.url && (
+                {viewedShoes?.url && (
                     <div className={styles.contentDetails}>
                         <img
-                            src={viewedShoes.mainImage.image}
+                            src={bufferToURI(
+                                viewedShoes.mainImage.content.data,
+                                viewedShoes.mainImage.type
+                            )}
                             alt="viewedshoes"
                             className={styles.mainImage}
                         />
                     </div>
                 )}
-                {viewedShoes.url && (
+                {viewedShoes?.url && (
                     <div className={styles.contentDetails}>
                         <div className={styles.details}>
                             <h1>{viewedShoes.title}</h1>
@@ -269,7 +263,20 @@ const View = () => {
                             <div>Mode of Delivery: LBC</div>
                         </div>
                         <div>
-                            {viewedShoes.shoes.map((shoes) => {
+                            <span
+                                // onClick={() => viewSubShoes(shoes.code)}
+                                className={styles.subShoes}
+                            >
+                                <img
+                                    src={bufferToURI(
+                                        viewedShoes.mainImage.content.data,
+                                        viewedShoes.mainImage.type
+                                    )}
+                                    alt={viewedShoes.mainImage.code}
+                                    className={styles.subShoesImage}
+                                />
+                            </span>
+                            {viewedShoes?.shoes.map((shoes) => {
                                 return (
                                     <span
                                         onClick={() => viewSubShoes(shoes.code)}
@@ -277,7 +284,10 @@ const View = () => {
                                         key={shoes.code}
                                     >
                                         <img
-                                            src={shoes.image}
+                                            src={bufferToURI(
+                                                shoes.content.data,
+                                                shoes.type
+                                            )}
                                             alt={shoes.code}
                                             className={styles.subShoesImage}
                                         />
