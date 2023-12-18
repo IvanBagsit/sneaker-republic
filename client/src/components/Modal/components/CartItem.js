@@ -11,6 +11,7 @@ import {
 } from "../../Common/redux/redux";
 
 import styles from "./CartItem.module.css";
+import BufferToURI from "../../Common/BufferToURI";
 
 const CartItem = ({ item, index }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -51,7 +52,10 @@ const CartItem = ({ item, index }) => {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <img
-                    src={item.mainImage.image}
+                    src={BufferToURI(
+                        item.mainImage.content.data,
+                        item.mainImage.type
+                    )}
                     alt="mainImage"
                     className={styles.image}
                     style={{
