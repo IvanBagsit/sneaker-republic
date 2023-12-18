@@ -39,6 +39,7 @@ export const UploadAttachmentContent = ({
     isClosing,
     handleAttachmentUpload,
     maxFileCount = 5,
+    maxFileSize = 4,
     uploadMessage,
     isImageOnly = false,
 }) => {
@@ -67,10 +68,10 @@ export const UploadAttachmentContent = ({
                     errorMessage: `Maximum of ${maxFileCount} files`,
                 };
                 return { file, url, status, type: file.type };
-            } else if (file.size >= MAX_SIZE) {
+            } else if (file.size >= 1000000 * maxFileSize) {
                 const status = {
                     hasError: true,
-                    errorMessage: "Max 4MB per attachment",
+                    errorMessage: `Max ${maxFileSize}MB per attachment`,
                 };
                 return { file, url, status, type: file.type };
             } else if (
@@ -125,7 +126,8 @@ export const UploadAttachmentContent = ({
                 )}
             </DialogContentText>
             <DialogContentText>
-                Max file count: <b>{maxFileCount}</b>, Max file size: <b>4mb</b>
+                Max file count: <b>{maxFileCount}</b>, Max file size:{" "}
+                <b>{maxFileSize}mb</b>
             </DialogContentText>
             {handleMOPOpen && (
                 <DialogContentText>
