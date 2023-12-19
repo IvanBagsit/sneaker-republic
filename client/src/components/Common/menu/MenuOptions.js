@@ -7,15 +7,34 @@ import {
     Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import client from "../ApiClient";
+import { getUsername } from "../SessionStorage";
+import { useNavigate } from "react-router-dom";
 
 const MenuOptions = ({ items, isLoginModalOpen }) => {
-    const isLoggingIn = (value) => {
+    const navigate = useNavigate();
+
+    const callLogoutApi = async () => {
+        const details = {
+            username: getUsername(),
+        };
+        console.log(details);
+        await client
+            .post("/db/logout/user", details)
+            .then(() => navigate("/home"))
+            .catch((error) => console.error(error));
+    };
+
+    const handleOnClick = (value) => {
         if (value.toLowerCase() === "login") {
             isLoginModalOpen(true);
+        } else if (value.toLowerCase() === "logout") {
+            callLogoutApi();
         } else {
             isLoginModalOpen(false);
         }
     };
+
     return (
         <Accordion
             key={items.name}
@@ -38,7 +57,7 @@ const MenuOptions = ({ items, isLoginModalOpen }) => {
             {!items.haslink && (
                 <AccordionSummary
                     expandIcon={items.isDropDown ? <ExpandMoreIcon /> : null}
-                    onClick={() => isLoggingIn(items.name)}
+                    onClick={() => handleOnClick(items.name)}
                 >
                     <Typography style={{ fontFamily: "unset" }}>
                         {items.name}
