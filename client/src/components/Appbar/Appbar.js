@@ -26,10 +26,14 @@ const Appbar = ({ isContentLoaded, isLoginModalOpen }) => {
 
     useEffect(() => {
         callMenuOptionsApi();
-    }, []);
+    }, [isLoginModalOpen]);
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
+    };
+
+    const handleLogout = () => {
+        callMenuOptionsApi();
     };
 
     useEffect(() => {
@@ -68,6 +72,7 @@ const Appbar = ({ isContentLoaded, isLoginModalOpen }) => {
                                 items={items}
                                 key={items.name}
                                 isLoginModalOpen={handleLoginModal}
+                                logout={handleLogout}
                             />
                         );
                     })}
