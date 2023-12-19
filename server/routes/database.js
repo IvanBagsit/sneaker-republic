@@ -176,6 +176,8 @@ router.post("/login/user", async (req, res) => {
             );
 
             if (isPasswordValid) {
+                user.isLoggedIn = !user.isLoggedIn;
+                user.save();
                 res.status(200).send({
                     message: "Login Successful",
                 });
@@ -192,6 +194,26 @@ router.post("/login/user", async (req, res) => {
         }
     } catch (error) {
         console.error(error);
+        res.status(500).send({
+            message: "Internal Server Error",
+        });
+    }
+});
+
+router.post("/logout/user", async (req, res) => {
+    const { username } = req.body;
+    try {
+        const user = await User.findOne({ username });
+        if (user) {
+            user.isLoggedIn = !user.isLoggedIn;
+            user.save();
+            res.status(200).send({ message: "logout successful" });
+        } else {
+            res.status(404).send({
+                message: `Username can't be found: ${username}`,
+            });
+        }
+    } catch (error) {
         res.status(500).send({
             message: "Internal Server Error",
         });
