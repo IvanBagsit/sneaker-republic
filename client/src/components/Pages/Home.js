@@ -18,6 +18,7 @@ import ownerImage from "../../images/owner/owner.jpg";
 import DeviceChecker from "../Common/DeviceChecker.js";
 import client from "../Common/ApiClient.js";
 import FullPageLoader from "../Common/FullPageLoader.js";
+import BufferToURI from "../Common/BufferToURI.js";
 
 const Home = ({ isGetStartedClosed }) => {
     const [featuredShoes, setFeaturedShoes] = useState([]);
@@ -147,7 +148,7 @@ const Home = ({ isGetStartedClosed }) => {
                     >
                         {featuredShoes?.map((items) => {
                             return (
-                                <Card key={items.name} sx={cardDimension()}>
+                                <Card key={items.title} sx={cardDimension()}>
                                     <Box
                                         sx={{
                                             display: "flex",
@@ -161,7 +162,7 @@ const Home = ({ isGetStartedClosed }) => {
                                                 variant="h6"
                                                 component="div"
                                             >
-                                                {items.name}
+                                                {items.title}
                                             </Typography>
                                             <Typography
                                                 variant="subtitle1"
@@ -182,11 +183,14 @@ const Home = ({ isGetStartedClosed }) => {
                                             </Typography>
                                         </CardContent>
                                     </Box>
-                                    <Link to={items.link}>
+                                    <Link to={`/view?shoes=${items.url}`}>
                                         <CardMedia
                                             component="img"
                                             sx={featuredImageDimension()}
-                                            image={items.image}
+                                            image={BufferToURI(
+                                                items.mainImage.content.data,
+                                                items.mainImage.type
+                                            )}
                                             alt="AF1"
                                         />
                                     </Link>
