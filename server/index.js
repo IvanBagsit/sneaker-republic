@@ -11,7 +11,7 @@ const app = express();
 // to accept cors
 app.use(cors());
 
-// to get the images in 'public' folder
+// to get the images/files in 'public' folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // middleware for requests with body of x-www-form-urlencoded
