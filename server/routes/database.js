@@ -64,6 +64,7 @@ router.post(
                 title: formValues.name,
                 brand: formValues.brand,
                 price: formValues.price,
+                isFeatured: formValues.isFeatured,
                 sizes: [
                     {
                         availability: "Men",
@@ -75,6 +76,7 @@ router.post(
                     },
                 ],
             });
+
             console.log("uploading sneaker...");
             const result = await newSneakers.save();
             if (result) {
