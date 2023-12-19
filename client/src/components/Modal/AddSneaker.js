@@ -115,6 +115,7 @@ const AddSneaker = ({ isOpen, onClose }) => {
         values.womenSizes = sizeValidation(values.womenSizes);
         values.price = values.price.toFixed(2);
         values.url = values.name.toLowerCase().replace(/\s/g, "");
+        values.isFeatured = false;
 
         const formData = new FormData();
         attachments.forEach((item) => {

@@ -19,6 +19,7 @@ const sneakers = new mongoose.Schema({
     title: String,
     brand: String,
     price: Number,
+    isFeatured: Boolean,
     sizes: [sizes],
 });
 
