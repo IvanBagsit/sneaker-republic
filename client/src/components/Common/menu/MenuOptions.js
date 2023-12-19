@@ -8,20 +8,23 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import client from "../ApiClient";
-import { getUsername } from "../SessionStorage";
+import { getUsername, removeUsername } from "../SessionStorage";
 import { useNavigate } from "react-router-dom";
 
-const MenuOptions = ({ items, isLoginModalOpen }) => {
+const MenuOptions = ({ items, isLoginModalOpen, logout }) => {
     const navigate = useNavigate();
 
     const callLogoutApi = async () => {
         const details = {
             username: getUsername(),
         };
-        console.log(details);
         await client
             .post("/db/logout/user", details)
-            .then(() => navigate("/home"))
+            .then(() => {
+                removeUsername();
+                logout();
+                navigate("/home");
+            })
             .catch((error) => console.error(error));
     };
 
@@ -30,6 +33,8 @@ const MenuOptions = ({ items, isLoginModalOpen }) => {
             isLoginModalOpen(true);
         } else if (value.toLowerCase() === "logout") {
             callLogoutApi();
+        } else if (value.toLowerCase() === "admin dashboard") {
+            navigate("/admin");
         } else {
             isLoginModalOpen(false);
         }
