@@ -16,7 +16,14 @@ const upload = multer({ storage: storage });
 router.get("/get-all-sneakers", async (req, res) => {
     try {
         const result = await SneakersModel.find({});
-        res.status(200).send(result);
+        const updatedSneakers = result.map((item) => {
+            const { _doc } = item;
+            return {
+                ..._doc,
+                mainImage: null,
+            };
+        });
+        res.status(200).send(updatedSneakers);
     } catch (error) {
         res.status(500).send({ error: error });
     }
@@ -176,7 +183,7 @@ router.post("/login/user", async (req, res) => {
             );
 
             if (isPasswordValid) {
-                user.isLoggedIn = !user.isLoggedIn;
+                user.isLoggedIn = true;
                 user.save();
                 res.status(200).send({
                     message: "Login Successful",
@@ -205,7 +212,7 @@ router.post("/logout/user", async (req, res) => {
     try {
         const user = await User.findOne({ username });
         if (user) {
-            user.isLoggedIn = !user.isLoggedIn;
+            user.isLoggedIn = false;
             user.save();
             res.status(200).send({ message: "logout successful" });
         } else {
