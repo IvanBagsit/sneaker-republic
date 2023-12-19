@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SpeedDial, Grid, Badge } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
-import { handleGetIsStarted } from "../Common/SessionStorage";
+import { getUsername, handleGetIsStarted } from "../Common/SessionStorage";
 import { useSelector } from "react-redux";
 import styles from "./Dashboard.module.css";
 import Home from "../Pages/Home";
@@ -58,6 +58,8 @@ const Dashboard = () => {
     }, []);
 
     const device = DeviceChecker();
+
+    const hasUsername = getUsername();
 
     return (
         <div className={styles.background}>
@@ -117,7 +119,12 @@ const Dashboard = () => {
                             />
                             <Route path="/view-all" element={<ViewAll />} />
                             <Route path="/view" element={<View />} />
-                            <Route path="/admin" element={<AdminInterface />} />
+                            {hasUsername && (
+                                <Route
+                                    path="/admin"
+                                    element={<AdminInterface />}
+                                />
+                            )}
                         </Routes>
                     </Grid>
                     <SpeedDial

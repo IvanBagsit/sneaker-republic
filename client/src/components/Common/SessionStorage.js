@@ -15,3 +15,7 @@ export const getUsername = () => {
     const savedUsername = sessionStorage.getItem("srUsername");
     return savedUsername;
 };
+
+export const removeUsername = () => {
+    sessionStorage.removeItem("srUsername");
+};
