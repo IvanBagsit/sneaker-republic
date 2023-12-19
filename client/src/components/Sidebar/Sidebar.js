@@ -26,7 +26,7 @@ const Sidebar = ({ isContentLoaded, isLoginModalOpen }) => {
 
     useEffect(() => {
         callMenuOptionsApi();
-    }, []);
+    }, [isLoginModalOpen]);
 
     return (
         <Stack direction="column" className={styles.background}>
