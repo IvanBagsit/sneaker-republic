@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const MenuOptions = ({ items, isLoginModalOpen }) => {
     const isLoggingIn = (value) => {
-        if (value.toLowerCase() === "admin login") {
+        if (value.toLowerCase() === "login") {
             isLoginModalOpen(true);
         } else {
             isLoginModalOpen(false);
