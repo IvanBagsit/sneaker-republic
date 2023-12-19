@@ -13,6 +13,7 @@ import DeviceChecker from "../Common/DeviceChecker";
 import { useState, useEffect } from "react";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
+import BufferToURI from "../Common/BufferToURI";
 
 const ViewAll = () => {
     const [itemData, setItemdata] = useState([]);
@@ -94,23 +95,26 @@ const ViewAll = () => {
                         )}
                     </ImageListItem>
                     {itemData?.map((item) => (
-                        <ImageListItem key={item.img}>
+                        <ImageListItem key={item._id}>
                             <img
-                                src={item.img}
+                                src={BufferToURI(
+                                    item.mainImage.content.data,
+                                    item.mainImage.type
+                                )}
                                 alt={item.title}
                                 style={imageDimension()}
                                 loading="lazy"
                             />
                             <ImageListItemBar
-                                title={item.name}
-                                subtitle={item.inventory}
+                                title={item.title}
+                                subtitle={`Price: ₱${item.price}`}
                                 actionIcon={
-                                    <Link to={`/view?shoes=${item.link}`}>
+                                    <Link to={`/view?shoes=${item.url}`}>
                                         <IconButton
                                             sx={{
                                                 color: "rgba(255, 255, 255, 0.54)",
                                             }}
-                                            aria-label={`info about ${item.name}`}
+                                            aria-label={`info about ${item.title}`}
                                         >
                                             <InfoIcon />
                                         </IconButton>
