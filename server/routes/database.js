@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 
-const imageUrls = require("../common/shoes.js");
 const { SneakersModel } = require("../model/sneakers.js");
 const { User } = require("../model/users.js");
 const sendEmail = require("../common/email.js");

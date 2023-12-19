@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const imageUrls = require("../common/shoes.js");
 const { SneakersModel } = require("../model/sneakers.js");
 
 router.get("/shoes", async (req, res) => {
