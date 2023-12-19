@@ -15,6 +15,7 @@ import loginImage from "../../images/others/login.png";
 import client from "../Common/ApiClient";
 import UserInfoSchema from "../Common/yup/UserInfoSchema";
 import FullPageLoader from "../Common/FullPageLoader";
+import { saveUsername } from "../Common/SessionStorage";
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -41,6 +42,7 @@ const Login = ({ isOpen, onClose }) => {
         await client
             .post("/db/login/user", details)
             .then(() => {
+                saveUsername(details.username);
                 navigate("/admin");
                 onClose();
             })
