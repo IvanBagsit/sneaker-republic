@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import AddSneaker from "../Modal/AddSneaker";
 import client from "../Common/ApiClient";
 import FullPageLoader from "../Common/FullPageLoader";
+import DeviceChecker from "../Common/DeviceChecker";
 
 const AdminInterface = () => {
     const [isAddSneakerOpen, setIsAddSneakerOpen] = useState(false);
@@ -14,17 +15,20 @@ const AdminInterface = () => {
         enabled: false,
         message: "Please wait while we load the contents...",
     });
+    const [totalPage, setTotalPage] = useState(1);
+    const [page, setPage] = useState(1);
 
-    const callGetAllSneakersApi = async () => {
+    const callGetAllSneakersApi = async (page, limit) => {
         setIsLoading({
             enabled: true,
             message: "Please wait while we load the contents...",
         });
         await client
-            .get("/db/get-all-sneakers")
-            .then((data) => {
-                const sneakers = data.data;
-                setSneakers(sneakers);
+            .get(`/db/get-all-sneakers?page=${page}&limit=${limit}`)
+            .then(({ data }) => {
+                setPage(data.currentPage);
+                setTotalPage(data.totalPage);
+                setSneakers(data.data);
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -36,7 +40,7 @@ const AdminInterface = () => {
     };
 
     useEffect(() => {
-        callGetAllSneakersApi();
+        callGetAllSneakersApi(page, 5);
     }, [isAddSneakerOpen, isAdminModalDone]);
 
     const handleAdminModalOperation = (value) => {
@@ -68,10 +72,17 @@ const AdminInterface = () => {
                         </div>
                         <div>
                             <Pagination
-                                count={10}
+                                count={totalPage}
+                                siblingCount={
+                                    DeviceChecker() === "desktop" ? 1 : 0
+                                }
                                 shape="rounded"
                                 size="small"
                                 color="primary"
+                                page={page}
+                                onChange={(event, page) =>
+                                    callGetAllSneakersApi(page, 5)
+                                }
                             />
                         </div>
                     </div>
