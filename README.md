@@ -1,9 +1,7 @@
 # Welcome to my personal sneaker shop website!! 👋
 
-(Ongoing README file)
-
-Thanks for checking out my ongoing side project regarding selling sneakers.
-This project was created to handle and scale my business in sneaker industry
+Thanks for checking out my side project regarding selling sneakers.
+This project was created to handle and scale our business in sneaker industry
 
 [Visit the actual project here](https://sneakers-republic.vercel.app/)
 
@@ -18,11 +16,8 @@ This project was created to handle and scale my business in sneaker industry
 
 ### `USER`
 
--   login
--   register
 -   add to cart
 -   checkout
--   optional: email to recieve news and updates
 
 ### `ADMIN`
 
