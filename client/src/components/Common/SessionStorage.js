@@ -8,14 +8,14 @@ export const handleGetIsStarted = () => {
 };
 
 export const saveUsername = (value) => {
-    sessionStorage.setItem("srUsername", value);
+    localStorage.setItem("srUsername", value);
 };
 
 export const getUsername = () => {
-    const savedUsername = sessionStorage.getItem("srUsername");
+    const savedUsername = localStorage.getItem("srUsername");
     return savedUsername;
 };
 
 export const removeUsername = () => {
-    sessionStorage.removeItem("srUsername");
+    localStorage.removeItem("srUsername");
 };
