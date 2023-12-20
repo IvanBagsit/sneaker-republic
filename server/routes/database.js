@@ -15,15 +15,33 @@ const upload = multer({ storage: storage });
 
 router.get("/get-all-sneakers", async (req, res) => {
     try {
-        const result = await SneakersModel.find({});
-        const updatedSneakers = result.map((item) => {
-            const { _doc } = item;
-            return {
-                ..._doc,
-                mainImage: null,
-            };
-        });
-        res.status(200).send(updatedSneakers);
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+        const skip = (page - 1) * limit;
+        console.log("page", page);
+        console.log("limit", limit);
+
+        if (page && limit) {
+            const totalItems = await SneakersModel.count({});
+            const totalPage = Math.ceil(totalItems / limit);
+            const result = await SneakersModel.find({}).skip(skip).limit(limit);
+            const updatedSneakers = result.map((item) => {
+                const { _doc } = item;
+                return {
+                    ..._doc,
+                    mainImage: null,
+                };
+            });
+            res.status(200).send({
+                currentPage: page,
+                totalPage: totalPage,
+                data: updatedSneakers,
+            });
+        } else {
+            res.status(404).send({
+                message: `can't find page, limit or details`,
+            });
+        }
     } catch (error) {
         res.status(500).send({ error: error });
     }
