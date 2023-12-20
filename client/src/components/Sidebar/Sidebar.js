@@ -6,12 +6,16 @@ import logo from "../../images/logo/logo.png";
 import Scrollbar from "../Common/Scrollbar";
 import MenuOptions from "../Common/menu/MenuOptions";
 import client from "../Common/ApiClient";
+import { getUsername } from "../Common/SessionStorage";
 
 const Sidebar = ({ isContentLoaded, isLoginModalOpen }) => {
     const [menuOptions, setMenuOptions] = useState([]);
 
     const callMenuOptionsApi = async () => {
-        await client("/home/menu")
+        const data = getUsername();
+        const username = data ? data : "none";
+        await client
+            .get(`/home/menu/${username}`)
             .then((menu) => {
                 const { data } = menu;
                 setMenuOptions(data);
