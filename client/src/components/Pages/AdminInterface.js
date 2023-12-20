@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Pagination } from "@mui/material";
 import styles from "./AdminInterface.module.css";
 import AdminSneaker from "./components/AdminSneaker";
 import { useEffect, useState } from "react";
@@ -62,8 +62,18 @@ const AdminInterface = () => {
                     </Button>
                 </div>
                 <div className={styles.list}>
-                    <div>
-                        <h3>List of Sneakers</h3>
+                    <div className={styles.contentTitle}>
+                        <div>
+                            <h3>List of Sneakers</h3>
+                        </div>
+                        <div>
+                            <Pagination
+                                count={10}
+                                shape="rounded"
+                                size="small"
+                                color="primary"
+                            />
+                        </div>
                     </div>
                     <AdminSneaker
                         sneakers={sneakers}

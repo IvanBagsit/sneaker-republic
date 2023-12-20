@@ -9,6 +9,12 @@
     height: 90%;
 }
 
+.contentTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .addButton,
 .list {
     width: 100%;
