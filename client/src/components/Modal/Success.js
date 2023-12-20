@@ -22,7 +22,9 @@ const Success = ({ isOpen = false, title, message, onClose }) => {
                 <DialogContentText>
                     <b>{title}</b>
                 </DialogContentText>
-                <DialogContentText style={{ marginBottom: "10%" }}>
+                <DialogContentText
+                    style={{ marginBottom: "10%", textAlign: "center" }}
+                >
                     {message}
                 </DialogContentText>
                 <Button variant="contained" color="primary" onClick={onClose}>

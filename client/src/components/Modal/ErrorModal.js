@@ -22,7 +22,9 @@ const ErrorModal = ({ isOpen = false, title, message, onClose, onRetry }) => {
                 <DialogContentText>
                     <b>{title}</b>
                 </DialogContentText>
-                <DialogContentText style={{ marginBottom: "10%" }}>
+                <DialogContentText
+                    style={{ marginBottom: "10%", textAlign: "center" }}
+                >
                     {message}
                 </DialogContentText>
                 <Button variant="outlined" color="error" onClick={onRetry}>

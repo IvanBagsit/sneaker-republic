@@ -5,6 +5,7 @@ import styles from "./SneakerList.module.css";
 import client from "../../Common/ApiClient";
 import FullPageLoader from "../../Common/FullPageLoader";
 import BufferToURI from "../../Common/BufferToURI";
+import Confirmation from "../../Modal/Confirmation";
 
 const SneakerList = ({
     id,
@@ -33,6 +34,11 @@ const SneakerList = ({
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [confirmation, setConfirmation] = useState({
+        enabled: false,
+        title: "",
+    });
 
     const handleFieldChange = (e) => {
         const { name, value } = e.target;
@@ -161,38 +167,52 @@ const SneakerList = ({
             });
             setIsUpdate((prev) => !prev);
         } else {
-            setIsLoading((prev) => {
-                return { ...prev, enabled: true };
+            console.log("ELSE");
+            setConfirmation({
+                enabled: true,
+                title: `Are you sure you want to delete ${title}?`,
             });
-            hasLoaded(false);
-            await client
-                .delete(`db/delete-sneaker/${id}`)
-                .then(() => {
-                    isSuccess((prev) => {
-                        return {
-                            ...prev,
-                            enabled: true,
-                            message: "Deletion of sneaker complete!",
-                        };
-                    });
-                })
-                .catch((error) => {
-                    console.error(error);
-                    retryRef.current = handleDeleteSneaker;
-                    isError((prev) => {
-                        return {
-                            ...prev,
-                            enabled: true,
-                        };
-                    });
-                })
-                .finally(() => {
-                    setIsLoading((prev) => {
-                        return { ...prev, enabled: false };
-                    });
-                    hasLoaded(true);
-                });
         }
+    };
+
+    const callDeleteSneakerApi = async () => {
+        setIsLoading((prev) => {
+            return { ...prev, enabled: true };
+        });
+        hasLoaded(false);
+        await client
+            .delete(`db/delete-sneaker/${id}`)
+            .then(() => {
+                isSuccess((prev) => {
+                    return {
+                        ...prev,
+                        enabled: true,
+                        message: "Deletion of sneaker complete!",
+                    };
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                retryRef.current = callDeleteSneakerApi;
+                isError((prev) => {
+                    return {
+                        ...prev,
+                        enabled: true,
+                    };
+                });
+            })
+            .finally(() => {
+                setConfirmation((prev) => {
+                    return {
+                        ...prev,
+                        enabled: false,
+                    };
+                });
+                setIsLoading((prev) => {
+                    return { ...prev, enabled: false };
+                });
+                hasLoaded(true);
+            });
     };
 
     return (
@@ -294,15 +314,6 @@ const SneakerList = ({
             </div>
             <div className={styles.buttonContainer}>
                 <Button
-                    variant="contained"
-                    color="secondary"
-                    className={styles.buttons}
-                    onClick={handleUpdateSneaker}
-                    disabled={Object.keys(errors).length > 0}
-                >
-                    {isUpdate ? "Done" : "Update"}
-                </Button>
-                <Button
                     variant="outlined"
                     color="error"
                     className={styles.buttons}
@@ -311,7 +322,31 @@ const SneakerList = ({
                 >
                     {isUpdate ? "Cancel" : "Delete"}
                 </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className={styles.buttons}
+                    onClick={handleUpdateSneaker}
+                    disabled={Object.keys(errors).length > 0}
+                >
+                    {isUpdate ? "Done" : "Update"}
+                </Button>
             </div>
+            {confirmation.enabled && (
+                <Confirmation
+                    isOpen={confirmation.enabled}
+                    title={confirmation.title}
+                    onConfirm={() => callDeleteSneakerApi()}
+                    onClose={() =>
+                        setConfirmation((prev) => {
+                            return {
+                                ...prev,
+                                enabled: false,
+                            };
+                        })
+                    }
+                />
+            )}
         </div>
     );
 };
