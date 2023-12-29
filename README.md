@@ -28,6 +28,8 @@ This project was created to handle and scale our business in sneaker industry
 
 ## Information <a name="information">
 
+Node Version: v14.21.3
+
 Framework/Tools/Library used:
 
 -   React
