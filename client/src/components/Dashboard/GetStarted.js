@@ -81,7 +81,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                             <div className={styles.subtitle}>
                                 <Grid item>
                                     <Typography
-                                        variant="h5"
+                                        variant={`${device === "tablet" ? "h4" : "h5"}`}
                                         style={{ fontFamily: "unset" }}
                                     >
                                         <b>MAKE A STATEMENT WITH</b>
@@ -89,7 +89,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                                 </Grid>
                                 <Grid item>
                                     <Typography
-                                        variant="h5"
+                                        variant={`${device === "tablet" ? "h4" : "h5"}`}
                                         style={{ fontFamily: "unset" }}
                                     >
                                         <b>EVERY STRIDE</b>
