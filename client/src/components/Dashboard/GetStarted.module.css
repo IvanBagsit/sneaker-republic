@@ -48,7 +48,24 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 991px) {
+    .line {
+        height: 1vw;
+        width: 80vw;
+    }
+
+    .subtitle {
+        height: 15vh;
+        width: 80vw;
+    }
+
+    .logo {
+        height: auto;
+        width: 30vw;
+    }
+}
+
+@media (min-width: 992px) {
     .line {
         height: 1vh;
         width: 45vw;
