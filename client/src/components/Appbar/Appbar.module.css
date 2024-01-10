@@ -5,10 +5,6 @@
     top: 2%;
     left: 50%;
     transform: translateX(-50%);
-    border-top-right-radius: 5% 50%;
-    border-bottom-right-radius: 5% 50%;
-    border-top-left-radius: 5% 50%;
-    border-bottom-left-radius: 5% 50%;
     z-index: 100;
     border: 1px solid white;
     box-shadow: -1vw 2vw 5px -1px rgba(168,168,168,0.75);
@@ -28,4 +24,31 @@
 
 .menu {
     text-align: end;
+}
+
+@media (max-width: 767px) {
+    .background {
+        border-top-right-radius: 7% 50%;
+        border-bottom-right-radius: 7% 50%;
+        border-top-left-radius: 7% 50%;
+        border-bottom-left-radius: 7% 50%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .background {
+        border-top-right-radius: 4% 50%;
+        border-bottom-right-radius: 4% 50%;
+        border-top-left-radius: 4% 50%;
+        border-bottom-left-radius: 4% 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    .background {
+        border-top-right-radius: 5% 50%;
+        border-bottom-right-radius: 5% 50%;
+        border-top-left-radius: 5% 50%;
+        border-bottom-left-radius: 5% 50%;
+    }
 }
