@@ -46,7 +46,7 @@ const GetStarted = ({ isGetStartedClosed }) => {
                 >
                     <Grid item className={styles.title}>
                         <Typography
-                            variant={`${device === "desktop" ? "h3" : "h4"}`}
+                            variant={`${device === "phone" ? "h4" : "h3"}`}
                             style={{ fontFamily: "unset" }}
                         >
                             <b>SNEAKERS REPUBLIC</b>
