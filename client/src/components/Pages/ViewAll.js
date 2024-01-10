@@ -59,6 +59,11 @@ const ViewAll = () => {
                 width: "248px",
                 height: "248px",
             };
+        } else if (device === 'tablet') {
+            return {
+                width: "45vw",
+                height: "45vw",
+            };
         } else {
             return {
                 width: "44vw",
