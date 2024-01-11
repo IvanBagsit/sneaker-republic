@@ -93,6 +93,7 @@ const ViewAll = () => {
                                 style={{
                                     backgroundColor: "#E8E8E8",
                                     color: "#000000",
+                                    fontSize: `${device === "tablet" ? "x-large" : ""}`,
                                 }}
                             >
                                 List of available sneakers
@@ -111,8 +112,17 @@ const ViewAll = () => {
                                 loading="lazy"
                             />
                             <ImageListItemBar
-                                title={item.title}
-                                subtitle={`Price: ₱${item.price}`}
+                                title={
+                                    <span style={{fontSize: `${device === "tablet" ? "x-large" : ""}`}}>
+                                        {item.title}
+                                    </span>
+                                }
+                                subtitle={
+                                    <span style={{fontSize: `${device === "tablet" ? "large" : ""}`}}>
+                                        Price: ₱{item.price}
+                                    </span>
+                                    
+                                }
                                 actionIcon={
                                     <Link to={`/view?shoes=${item.url}`}>
                                         <IconButton
@@ -121,7 +131,7 @@ const ViewAll = () => {
                                             }}
                                             aria-label={`info about ${item.title}`}
                                         >
-                                            <InfoIcon />
+                                            <InfoIcon fontSize={`${device === "tablet" ? "large" : ""}`}/>
                                         </IconButton>
                                     </Link>
                                 }
