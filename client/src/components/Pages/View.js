@@ -113,15 +113,13 @@ const View = () => {
             };
         } else if (device === "tablet") {
             return {
-                fontSize: "large",
+                fontSize: "x-large",
                 height: "5vh",
-                fontWeight: "bold",
                 width: "45%",
                 marginRight: "2%",
             };
         } else {
             return {
-                fontWeight: "bold",
                 width: "45%",
                 marginRight: "2%",
             };
@@ -136,7 +134,7 @@ const View = () => {
             };
         } else if (device === "tablet") {
             return {
-                fontSize: "large",
+                fontSize: "x-large",
                 height: "5vh",
                 width: "45%",
             };
@@ -187,7 +185,7 @@ const View = () => {
                                 Men size (US):{" "}
                                 <ButtonGroup
                                     variant="outlined"
-                                    size={device === "tablet" ? "large" : "small"}
+                                    size={device === "tablet" ? "medium" : "small"}
                                     color="primary"
                                 >
                                     {viewedShoes.sizes[0].sizes.map((items) => {
@@ -208,6 +206,7 @@ const View = () => {
                                                         ? "contained"
                                                         : "outlined"
                                                 }
+                                                style={{fontSize: `${device === "tablet" ? "x-large" : ""}`}}
                                             >
                                                 {items}
                                             </Button>
@@ -219,7 +218,7 @@ const View = () => {
                                 Women size (US):{" "}
                                 <ButtonGroup
                                     variant="outlined"
-                                    size={device === "tablet" ? "large" : "small"}
+                                    size={device === "tablet" ? "medium" : "small"}
                                     color="primary"
                                 >
                                     {viewedShoes.sizes[1].sizes.map((items) => {
@@ -240,6 +239,7 @@ const View = () => {
                                                         ? "contained"
                                                         : "outlined"
                                                 }
+                                                style={{fontSize: `${device === "tablet" ? "x-large" : ""}`}}
                                             >
                                                 {items}
                                             </Button>
