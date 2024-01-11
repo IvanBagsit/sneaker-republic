@@ -96,6 +96,7 @@ const MenuOptions = ({ items, isLoginModalOpen, logout }) => {
                                     to={`/view?shoes=${link}`}
                                     key={items}
                                     className={styles.link}
+                                    reloadDocument
                                 >
                                     <AccordionDetails
                                         className={styles.shoesOption}
