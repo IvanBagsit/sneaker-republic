@@ -111,8 +111,17 @@ const View = () => {
                 width: "40%",
                 marginRight: "1%",
             };
+        } else if (device === "tablet") {
+            return {
+                fontSize: "large",
+                height: "5vh",
+                fontWeight: "bold",
+                width: "45%",
+                marginRight: "2%",
+            };
         } else {
             return {
+                fontWeight: "bold",
                 width: "45%",
                 marginRight: "2%",
             };
@@ -124,6 +133,12 @@ const View = () => {
             return {
                 width: "40%",
                 marginRight: "1%",
+            };
+        } else if (device === "tablet") {
+            return {
+                fontSize: "large",
+                height: "5vh",
+                width: "45%",
             };
         } else {
             return {
