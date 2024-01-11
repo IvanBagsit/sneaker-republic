@@ -187,7 +187,7 @@ const View = () => {
                                 Men size (US):{" "}
                                 <ButtonGroup
                                     variant="outlined"
-                                    size="small"
+                                    size={device === "tablet" ? "large" : "small"}
                                     color="primary"
                                 >
                                     {viewedShoes.sizes[0].sizes.map((items) => {
@@ -219,7 +219,7 @@ const View = () => {
                                 Women size (US):{" "}
                                 <ButtonGroup
                                     variant="outlined"
-                                    size="small"
+                                    size={device === "tablet" ? "large" : "small"}
                                     color="primary"
                                 >
                                     {viewedShoes.sizes[1].sizes.map((items) => {
