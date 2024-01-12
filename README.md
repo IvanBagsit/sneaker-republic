@@ -24,7 +24,6 @@ This project was created to handle and scale our business in sneaker industry
 -   login
 -   inventory system
 -   order notification
--   data and statistics
 
 ## Information <a name="information">
 
