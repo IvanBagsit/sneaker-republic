@@ -136,7 +136,7 @@ const View = () => {
 			return {
 				fontSize: "large",
 				height: "5vh",
-				width: "45",
+				width: "45%",
 			};
 		} else {
 			return {
