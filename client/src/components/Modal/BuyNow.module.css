@@ -47,11 +47,7 @@
 	}
 
 	.contentDetails > .details {
-		font-size: x-large;
-	}
-
-	.textField {
-		font-size: x-large;
+		font-size: larger;
 	}
 }
 
