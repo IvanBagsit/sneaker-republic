@@ -14,326 +14,303 @@ import FullPageLoader from "../Common/FullPageLoader";
 import BufferToURI from "../Common/BufferToURI";
 
 const View = () => {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const viewableShoes = queryParams.get("shoes");
+	const location = useLocation();
+	const queryParams = new URLSearchParams(location.search);
+	const viewableShoes = queryParams.get("shoes");
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
-    const [isMOPOpen, setIsMOPOpen] = useState(false);
-    const [viewedShoes, setViewedShoes] = useState({});
-    const [size, setSize] = useState({
-        availability: "",
-        sizes: null,
-    });
+	const [isLoading, setIsLoading] = useState(false);
+	const [isBuyNowOpen, setIsBuyNowOpen] = useState(false);
+	const [isMOPOpen, setIsMOPOpen] = useState(false);
+	const [viewedShoes, setViewedShoes] = useState({});
+	const [size, setSize] = useState({
+		availability: "",
+		sizes: null,
+	});
 
-    const callViewedShoesAPI = async () => {
-        setIsLoading(true);
-        await client
-            .get(`/view?shoes=${viewableShoes}`)
-            .then((item) => {
-                const { data } = item;
-                if (data) {
-                    setViewedShoes(data);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                setViewedShoes({
-                    code: error.response.status,
-                    message: error.response.data.message,
-                });
-            })
-            .finally(() => setIsLoading(false));
-    };
+	const callViewedShoesAPI = async () => {
+		setIsLoading(true);
+		await client
+			.get(`/view?shoes=${viewableShoes}`)
+			.then((item) => {
+				const { data } = item;
+				if (data) {
+					setViewedShoes(data);
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+				setViewedShoes({
+					code: error.response.status,
+					message: error.response.data.message,
+				});
+			})
+			.finally(() => setIsLoading(false));
+	};
 
-    const callSubShoesDetailsApi = async (code) => {
-        setIsLoading(true);
-        await client
-            .get(`/view/view-subshoes/${viewableShoes}/${code}`)
-            .then((item) => {
-                const { data } = item;
-                setViewedShoes((prev) => {
-                    return {
-                        ...prev,
-                        mainImage: {
-                            code: data.code,
-                            content: data.content,
-                        },
-                    };
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-            .finally(() => setIsLoading(false));
-    };
+	const callSubShoesDetailsApi = async (code) => {
+		setIsLoading(true);
+		await client
+			.get(`/view/view-subshoes/${viewableShoes}/${code}`)
+			.then((item) => {
+				const { data } = item;
+				setViewedShoes((prev) => {
+					return {
+						...prev,
+						mainImage: {
+							code: data.code,
+							content: data.content,
+						},
+					};
+				});
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+			.finally(() => setIsLoading(false));
+	};
 
-    useEffect(() => {
-        callViewedShoesAPI();
-    }, []);
+	useEffect(() => {
+		callViewedShoesAPI();
+	}, []);
 
-    const viewSubShoes = (code) => {
-        callSubShoesDetailsApi(code);
-    };
+	const viewSubShoes = (code) => {
+		callSubShoesDetailsApi(code);
+	};
 
-    const handleSizeSelection = (availability, sizes) => {
-        const sizeObject = {
-            availability,
-            sizes,
-        };
-        setSize(sizeObject);
-    };
+	const handleSizeSelection = (availability, sizes) => {
+		const sizeObject = {
+			availability,
+			sizes,
+		};
+		setSize(sizeObject);
+	};
 
-    const handleSizeButton = (availability, sizes) => {
-        return size.availability === availability && size.sizes === sizes;
-    };
+	const handleSizeButton = (availability, sizes) => {
+		return size.availability === availability && size.sizes === sizes;
+	};
 
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-    const handleAddToCart = () => {
-        dispatch(
-            addCartShoes({
-                ...viewedShoes,
-                sizes: size,
-                quantity: 1,
-                totalPrice: viewedShoes.price,
-                shoes: null,
-            })
-        );
-    };
+	const handleAddToCart = () => {
+		dispatch(
+			addCartShoes({
+				...viewedShoes,
+				sizes: size,
+				quantity: 1,
+				totalPrice: viewedShoes.price,
+				shoes: null,
+			})
+		);
+	};
 
-    const device = DeviceChecker();
+	const device = DeviceChecker();
 
-    const buyNowButtonStyle = () => {
-        if (device === "desktop") {
-            return {
-                width: "40%",
-                marginRight: "1%",
-            };
-        } else if (device === "tablet") {
-            return {
-                fontSize: "x-large",
-                height: "5vh",
-                width: "45%",
-                marginRight: "2%",
-            };
-        } else {
-            return {
-                width: "45%",
-                marginRight: "2%",
-            };
-        }
-    };
+	const buyNowButtonStyle = () => {
+		if (device === "desktop") {
+			return {
+				width: "40%",
+				marginRight: "1%",
+			};
+		} else if (device === "tablet") {
+			return {
+				fontSize: "large",
+				height: "5vh",
+				width: "45%",
+				marginRight: "2%",
+			};
+		} else {
+			return {
+				width: "45%",
+				marginRight: "2%",
+			};
+		}
+	};
 
-    const addToCartButtonStyle = () => {
-        if (device === "desktop") {
-            return {
-                width: "40%",
-                marginRight: "1%",
-            };
-        } else if (device === "tablet") {
-            return {
-                fontSize: "x-large",
-                height: "5vh",
-                width: "45%",
-            };
-        } else {
-            return {
-                width: "45%",
-            };
-        }
-    };
+	const addToCartButtonStyle = () => {
+		if (device === "desktop") {
+			return {
+				width: "40%",
+				marginRight: "1%",
+			};
+		} else if (device === "tablet") {
+			return {
+				fontSize: "large",
+				height: "5vh",
+				width: "45%",
+			};
+		} else {
+			return {
+				width: "45%",
+			};
+		}
+	};
 
-    return (
-        <div className={styles.background}>
-            {isLoading && (
-                <FullPageLoader
-                    open={isLoading}
-                    message={"Please wait while we load the contents..."}
-                />
-            )}
-            <div className={styles.content}>
-                {viewedShoes?.url && (
-                    <div className={styles.contentDetails}>
-                        <img
-                            src={BufferToURI(
-                                viewedShoes.mainImage.content.data,
-                                viewedShoes.mainImage.type
-                            )}
-                            alt="viewedshoes"
-                            className={styles.mainImage}
-                        />
-                    </div>
-                )}
-                {viewedShoes?.url && (
-                    <div className={styles.contentDetails}>
-                        <div className={styles.details}>
-                            <h1>{viewedShoes.title}</h1>
-                        </div>
-                        <div className={styles.details}>
-                            Brand: {viewedShoes.brand}
-                        </div>
-                        <div className={styles.details}>
-                            Code: {viewedShoes.mainImage.code}
-                        </div>
-                        <div className={styles.details}>
-                            Price: ₱{viewedShoes.price}
-                        </div>
-                        <div className={styles.details}>
-                            <div>
-                                Men size (US):{" "}
-                                <ButtonGroup
-                                    variant="outlined"
-                                    size={device === "tablet" ? "medium" : "small"}
-                                    color="primary"
-                                >
-                                    {viewedShoes.sizes[0].sizes.map((items) => {
-                                        return (
-                                            <Button
-                                                key={items}
-                                                onClick={() =>
-                                                    handleSizeSelection(
-                                                        "Men",
-                                                        items
-                                                    )
-                                                }
-                                                variant={
-                                                    handleSizeButton(
-                                                        "Men",
-                                                        items
-                                                    )
-                                                        ? "contained"
-                                                        : "outlined"
-                                                }
-                                                style={{fontSize: `${device === "tablet" ? "x-large" : ""}`}}
-                                            >
-                                                {items}
-                                            </Button>
-                                        );
-                                    })}
-                                </ButtonGroup>
-                            </div>
-                            <div>
-                                Women size (US):{" "}
-                                <ButtonGroup
-                                    variant="outlined"
-                                    size={device === "tablet" ? "medium" : "small"}
-                                    color="primary"
-                                >
-                                    {viewedShoes.sizes[1].sizes.map((items) => {
-                                        return (
-                                            <Button
-                                                key={items}
-                                                onClick={() =>
-                                                    handleSizeSelection(
-                                                        "Women",
-                                                        items
-                                                    )
-                                                }
-                                                variant={
-                                                    handleSizeButton(
-                                                        "Women",
-                                                        items
-                                                    )
-                                                        ? "contained"
-                                                        : "outlined"
-                                                }
-                                                style={{fontSize: `${device === "tablet" ? "x-large" : ""}`}}
-                                            >
-                                                {items}
-                                            </Button>
-                                        );
-                                    })}
-                                </ButtonGroup>
-                            </div>
-                        </div>
-                        <div className={styles.details}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={buyNowButtonStyle()}
-                                onClick={() => {
-                                    setIsBuyNowOpen(true);
-                                }}
-                                disabled={size.sizes === null}
-                            >
-                                Buy Now
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<ShoppingCartIcon />}
-                                sx={addToCartButtonStyle()}
-                                onClick={handleAddToCart}
-                                disabled={size.sizes === null}
-                            >
-                                Add to Cart
-                            </Button>
-                        </div>
-                        <div className={styles.details}>
-                            <div>
-                                Shipping Fee:{" "}
-                                <b style={{ color: "#1976d1" }}>FREE</b>
-                            </div>
-                            <div>Mode of Delivery: LBC</div>
-                        </div>
-                        <div>
-                            {viewedShoes?.shoes.map((shoes) => {
-                                return (
-                                    <span
-                                        onClick={() => viewSubShoes(shoes.code)}
-                                        className={styles.subShoes}
-                                        key={shoes.code}
-                                    >
-                                        <img
-                                            src={BufferToURI(
-                                                shoes.content.data,
-                                                shoes.type
-                                            )}
-                                            alt={shoes.code}
-                                            className={styles.subShoesImage}
-                                        />
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-                {viewedShoes.code && (
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            flexDirection: "column",
-                        }}
-                    >
-                        <div style={{ fontSize: "8vh" }}>
-                            <b>{viewedShoes.code}</b>
-                        </div>
-                        <div>{viewedShoes.message}</div>
-                    </div>
-                )}
-            </div>
-            {isBuyNowOpen && (
-                <BuyNow
-                    isOpen={isBuyNowOpen}
-                    onClose={() => {
-                        setIsBuyNowOpen(false);
-                    }}
-                    shoes={viewedShoes}
-                    size={size}
-                />
-            )}
-            {isMOPOpen && (
-                <ModeOfPayment
-                    isOpen={isMOPOpen}
-                    onClose={() => setIsMOPOpen(false)}
-                />
-            )}
-        </div>
-    );
+	return (
+		<div className={styles.background}>
+			{isLoading && (
+				<FullPageLoader
+					open={isLoading}
+					message={"Please wait while we load the contents..."}
+				/>
+			)}
+			<div className={styles.content}>
+				{viewedShoes?.url && (
+					<div className={styles.contentDetails}>
+						<img
+							src={BufferToURI(
+								viewedShoes.mainImage.content.data,
+								viewedShoes.mainImage.type
+							)}
+							alt="viewedshoes"
+							className={styles.mainImage}
+						/>
+					</div>
+				)}
+				{viewedShoes?.url && (
+					<div className={styles.contentDetails}>
+						<div className={styles.details}>
+							<h1>{viewedShoes.title}</h1>
+						</div>
+						<div className={styles.details}>Brand: {viewedShoes.brand}</div>
+						<div className={styles.details}>
+							Code: {viewedShoes.mainImage.code}
+						</div>
+						<div className={styles.details}>Price: ₱{viewedShoes.price}</div>
+						<div className={styles.details}>
+							<div>
+								Men size (US):{" "}
+								<ButtonGroup
+									variant="outlined"
+									size={device === "tablet" ? "medium" : "small"}
+									color="primary"
+								>
+									{viewedShoes.sizes[0].sizes.map((items) => {
+										return (
+											<Button
+												key={items}
+												onClick={() => handleSizeSelection("Men", items)}
+												variant={
+													handleSizeButton("Men", items)
+														? "contained"
+														: "outlined"
+												}
+												style={{
+													fontSize: `${device === "tablet" ? "x-large" : ""}`,
+												}}
+											>
+												{items}
+											</Button>
+										);
+									})}
+								</ButtonGroup>
+							</div>
+							<div>
+								Women size (US):{" "}
+								<ButtonGroup
+									variant="outlined"
+									size={device === "tablet" ? "medium" : "small"}
+									color="primary"
+								>
+									{viewedShoes.sizes[1].sizes.map((items) => {
+										return (
+											<Button
+												key={items}
+												onClick={() => handleSizeSelection("Women", items)}
+												variant={
+													handleSizeButton("Women", items)
+														? "contained"
+														: "outlined"
+												}
+												style={{
+													fontSize: `${device === "tablet" ? "x-large" : ""}`,
+												}}
+											>
+												{items}
+											</Button>
+										);
+									})}
+								</ButtonGroup>
+							</div>
+						</div>
+						<div className={styles.details}>
+							<Button
+								variant="contained"
+								color="primary"
+								sx={buyNowButtonStyle()}
+								onClick={() => {
+									setIsBuyNowOpen(true);
+								}}
+								disabled={size.sizes === null}
+							>
+								Buy Now
+							</Button>
+							<Button
+								variant="outlined"
+								color="primary"
+								startIcon={<ShoppingCartIcon />}
+								sx={addToCartButtonStyle()}
+								onClick={handleAddToCart}
+								disabled={size.sizes === null}
+							>
+								Add to Cart
+							</Button>
+						</div>
+						<div className={styles.details}>
+							<div>
+								Shipping Fee: <b style={{ color: "#1976d1" }}>FREE</b>
+							</div>
+							<div>Mode of Delivery: LBC</div>
+						</div>
+						<div>
+							{viewedShoes?.shoes.map((shoes) => {
+								return (
+									<span
+										onClick={() => viewSubShoes(shoes.code)}
+										className={styles.subShoes}
+										key={shoes.code}
+									>
+										<img
+											src={BufferToURI(shoes.content.data, shoes.type)}
+											alt={shoes.code}
+											className={styles.subShoesImage}
+										/>
+									</span>
+								);
+							})}
+						</div>
+					</div>
+				)}
+				{viewedShoes.code && (
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							flexDirection: "column",
+						}}
+					>
+						<div style={{ fontSize: "8vh" }}>
+							<b>{viewedShoes.code}</b>
+						</div>
+						<div>{viewedShoes.message}</div>
+					</div>
+				)}
+			</div>
+			{isBuyNowOpen && (
+				<BuyNow
+					isOpen={isBuyNowOpen}
+					onClose={() => {
+						setIsBuyNowOpen(false);
+					}}
+					shoes={viewedShoes}
+					size={size}
+				/>
+			)}
+			{isMOPOpen && (
+				<ModeOfPayment isOpen={isMOPOpen} onClose={() => setIsMOPOpen(false)} />
+			)}
+		</div>
+	);
 };
 
 export default View;
