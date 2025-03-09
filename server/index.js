@@ -24,20 +24,21 @@ app.set("view engine", "ejs");
 
 // mongodb connection
 mongoose.connect(process.env.MONGO_ATLAS_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: "sneakers-republic",
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	dbName: "sneakers-republic",
 });
 
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
-    console.log("Connected to MongoDB Atlas");
+	console.log("Connected to MongoDB Atlas");
 });
 
 module.exports = {
-    mongoose,
+	mongoose,
+	app,
 };
 
 // if you want to use logger in all api
@@ -45,14 +46,14 @@ app.use(logger);
 
 // another middleware
 function logger(req, res, next) {
-    // console.log is like log4j in java
-    console.log("Request endpoint", req.originalUrl);
-    next();
+	// console.log is like log4j in java
+	console.log("Request endpoint", req.originalUrl);
+	next();
 }
 
 // do this if you want to specify an api to apply specific middleware
 app.get("/app", logger, (req, res) => {
-    res.send("this is app.get");
+	res.send("this is app.get");
 });
 
 const testRouter = require("./routes/test.js");
@@ -74,8 +75,8 @@ const PORT = process.env.PORT || 3500;
 app.listen(PORT, () => console.log(`server is running in port ${PORT}`));
 
 process.on("SIGINT", () => {
-    mongoose.connection.close(() => {
-        console.log("Mongoose connection closed");
-        process.exit(0);
-    });
+	mongoose.connection.close(() => {
+		console.log("Mongoose connection closed");
+		process.exit(0);
+	});
 });
